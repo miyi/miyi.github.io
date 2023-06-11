@@ -195,11 +195,11 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     }
     isRootScope ? data[meta].add(new Topology(null, '', data)) : (target[property] = data);
     return data;
-})(), ModuleProfile = ((elementProfileCacheMap = new Map(), embeddedType = { json: 'dagger/json', namespace: 'dagger/modules', script: 'dagger/script', style: 'dagger/style', string: 'dagger/string' }, integrityProfileCache = emptier(), mimeType = { html: 'text/html', json: 'application/json', script: ['application/javascript', 'javascript/esm', 'text/javascript'], style: 'text/css' }, relativePathRegExp = /(?:^|;|\s+)(?:export|import)\s*?(?:(?:(?:[$\w*\s{},]*)\s*from\s*?)|)(?:(?:"([^"]+)?")|(?:'([^']+)?'))[\s]*?(?:$|)/gm, remoteUrlRegExp = /^(http:\/\/|https:\/\/|\/|\.\/|\.\.\/)/i, childModuleResolver = (parentModule, { config, content, module, name, type }, styleModuleNames) => {
+})(), ModuleProfile = ((elementProfileCacheMap = new Map(), embeddedType = { json: 'dagger/json', namespace: 'dagger/modules', script: 'dagger/script', style: 'dagger/style', string: 'dagger/string' }, integrityProfileCache = emptier(), mimeType = { html: 'text/html', json: 'application/json', script: ['application/javascript', 'javascript/esm', 'text/javascript'], style: 'text/css' }, relativePathRegExp = /(?:^|;|\s+)(?:export|import)\s*?(?:(?:(?:[$\w*\s{},]*)\s*from\s*?)|)(?:(?:"([^"]+)?")|(?:'([^']+)?'))[\s]*?(?:$|)/gm, remoteUrlRegExp = /^(http:\/\/|https:\/\/|\/|\.\/|\.\.\/)/i, childModuleResolver = (parentModule, { config, module, name, type }, styleModuleNames) => {
     if (Object.is(type, moduleType.view)) {
-        selectorInjector(templateResolver(content), styleModuleNames);
+        selectorInjector(module.node, styleModuleNames);
     } else if (Object.is(type, moduleType.script)) {
-        (!Reflect.has(config, 'anonymous') || config.anonymous) ? Object.assign(parentModule, module) : (parentModule[name] = module);
+        Object.is(config.anonymous, false) ? (parentModule[name] = module) : Object.assign(parentModule, module);
     } else if ((Object.is(type, moduleType.namespace) && config.explicit) || Object.is(type, moduleType.json)) {
         config.anonymous ? Object.assign(parentModule, module) : (parentModule[name] = module);
     } else if (Object.is(type, moduleType.string)) {
@@ -277,11 +277,6 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             if (childNameSet) { // rootNamespace
                 this.promise = new Promise(resolver => (this.resolver = resolver));
             } else {
-                if (this.valid && Object.is(this.state, 'resolved')) {
-                    if (Object.is(type, moduleType.style)) { // TODO
-                        this.resolveModule(this.resolvedContent);
-                    }
-                }
                 return this.promise;
             }
         }
@@ -367,7 +362,8 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         const type = this.type, isNamespace = Object.is(type, moduleType.namespace);
         if (this.parent && (isNamespace || Object.is(type, moduleType.view))) {
             try {
-                asserter(`${ this.space }It's illegal to use "${ this.name }" as a namespace or view module name as it's the tag name of a builtin html element`, !Object.is(this.name, this.name.toLowerCase()) || (document.createElement(this.name) instanceof HTMLUnknownElement));
+                const element = document.createElement(this.name);
+                asserter([`${ this.space }It's illegal to use "${ this.name }" as a namespace or view module name as it's the tag name of builtin html element "%o"`, element.constructor], !Object.is(this.name, this.name.toLowerCase()) || (element instanceof HTMLUnknownElement));
             } catch (error) {
                 asserter(`${ this.space }It's illegal to use "${ this.name }" as a namespace or view module name`);
             }
@@ -375,15 +371,16 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         if (isNamespace) {
             module = emptier();
             this.children || (this.children = resolvedContent);
-            const styleModuleNames = this.children.filter(moduleProfile => Object.is(moduleProfile.type, moduleType.style)).map(moduleProfile => moduleProfile.module.getAttribute('name')).filter(name => name);
+            const styleModuleNames = this.children.filter(child => Object.is(child.type, moduleType.style) && Object.is(child.state, 'resolved') && !Object.is(child.config.scoped, false)).map(child => child.module.getAttribute('name'));
             forEach(resolvedContent, moduleProfile => childModuleResolver(module, moduleProfile, styleModuleNames));
             this.parent && this.parent.resolve().then(moduleProfile => Object.setPrototypeOf(module, moduleProfile.module));
         } else if (Object.is(type, moduleType.script)) {
             module = scriptModuleResolver(module, emptier());
         } else if (Object.is(type, moduleType.style)) {
-            if (!Reflect.has(this.config, 'scoped') || this.config.scoped) {
-                const name = `dg_style_module-${ this.path.replace(/\./g, '_') }`, style = styleResolver('', name, true), sheet = style.sheet, iterator = { index: 0 };
+            if (!Object.is(this.config.scoped, false)) {
+                const resolvedPath = this.path.replace(/\./g, '_'), name = `dg_style_module-${ resolvedPath }`, style = styleResolver('', name, true), sheet = style.sheet, iterator = { index: 0 };
                 forEach(module.sheet.cssRules, rule => scopedRuleResolver(sheet, rule, name, iterator));
+                style.setAttribute('from', `dg_style_module_content-${ resolvedPath }`);
                 module = style;
             }
             originalSetAdd.call(styleModuleSet, module);

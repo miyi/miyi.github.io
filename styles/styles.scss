@@ -1,0 +1,414 @@
+$bg-color: #251e3f;
+$bg-color-dark: #19182f;
+$bg-color-darker: #150b23;
+$bg-color-lite: #433760;
+$border-color: #5a4e76;
+$primary-color-lite: #ec98bf;
+$primary-color: #e18de8;
+$primary-color-dark: #ff618c;
+$text-color: #9965de;
+$text-color-lite: #d7e4f3;
+$contrast-color: #ddb826;
+$contrast-color-dark: #fc9c00;
+body {
+  background-color: $bg-color-dark;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+.brand-text {
+  background-color: $primary-color;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    90deg,
+    rgba(168, 129, 219, 1) 0%,
+    rgba(225, 141, 232, 1) 29%,
+    rgba(221, 184, 38, 1) 100%
+  );
+}
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+}
+
+.home-container {
+  max-width: 1200px;
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner {
+  max-height: 700px;
+  height: calc(100vh - 56px);
+  min-height: 500px;
+  .banner-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    .left-banner {
+      width: 50%;
+      min-width: 500px;
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      justify-content: center;
+      justify-items: center;
+      gap: 0.25rem;
+      line-height: 1.6;
+      padding-right: 100px;
+      .brand-text {
+        font-size: 4.5rem;
+        font-weight: 900;
+      }
+      .motto {
+        font-size: 2.5rem;
+        font-weight: 500;
+      }
+      .details {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        color: $text-color-lite;
+        font-size: 1rem;
+        font-weight: 200;
+      }
+      .banner-btns {
+        margin: 2rem 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        .btn {
+          background-color: $bg-color-darker;
+          border: solid 1px $border-color;
+          &:hover {
+            background-color: $bg-color-lite;
+          }
+        }
+        .get-group {
+          color: $contrast-color;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          height: 3rem;
+          .version {
+            border-radius: 8px 0 0 8px;
+            float: left;
+            width: 6rem;
+          }
+          .address {
+            padding-left: 1rem;
+            border-radius: 0 0 0 0;
+            border-left: none;
+            border-right: none;
+            flex-grow: 1;
+            overflow: hidden;
+            span {
+              display: inline;
+              vertical-align: middle;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+          }
+          .download {
+            width: 6rem;
+            border-radius: 0 8px 8px 0;
+            img {
+              width: 22px;
+              height: 22px;
+            }
+          }
+        }
+        .start-group {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          .link {
+            height: 3rem;
+            color: $contrast-color;
+            font-weight: 500;
+            width: 9rem;
+          }
+        }
+      }
+    }
+    .right-banner {
+      width: 50%;
+      height: 100%;
+      background-color: rgba(0, 255, 145, 0.099);
+    }
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: $bg-color-lite;
+  }
+}
+
+.navbar {
+  background-color: rgba(12, 12, 25, 0.591);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 -1px 1px 0 $border-color;
+
+  .nav-container {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3rem;
+    .nav-logo {
+      width: 3rem;
+      height: 3rem;
+      img {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+    .nav-left-menu {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row;
+      gap: 1.25rem;
+      align-items: center;
+      div {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $primary-color;
+        padding: 0.75rem;
+      }
+    }
+    .nav-right-menu {
+      width: auto;
+      display: flex;
+      gap: 1rem;
+      flex-direction: row;
+      align-items: center;
+      .searchbar {
+        cursor: pointer;
+        width: 8rem;
+        background-color: $bg-color-lite;
+        border-radius: 8px;
+        border: solid 1px $border-color;
+        height: 2rem;
+        display: inline-flex;
+        align-items: center;
+        color: $primary-color;
+        padding: 0.25rem;
+        gap: 0.25rem;
+        img {
+          width: 22px;
+          height: 22px;
+        }
+      }
+      .nav-link {
+        border: solid 1px $border-color;
+        width: 2rem;
+        height: 2rem;
+        img {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+  }
+}
+
+.partners {
+  padding-top: 100px;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .logos {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    .container {
+      .huggingface {
+        height: 3.5rem;
+      }
+      .netflix {
+        height: 2.5rem;
+      }
+      .notion {
+        height: 3.5rem;
+      }
+      .shopify {
+        height: 3rem;
+      }
+      .vercel {
+        height: 2.5rem;
+      }
+      .zustand {
+        height: 5rem;
+      }
+    }
+  }
+  .description {
+    margin-top: 4rem;
+    color: $text-color-lite;
+  }
+}
+
+.concepts {
+  width: 100%;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  background-color: $bg-color-darker;
+  .home-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    .header {
+      width: 45%;
+      max-width: 450px;
+      min-width: 250px;
+      .sub {
+        font-size: 1.25rem;
+        color: $primary-color;
+        font-weight: 400;
+        margin-bottom: 1.5rem;
+      }
+      .main {
+        font-size: 2.5rem;
+        font-weight: 500;
+        color: $text-color;
+        .highlight {
+          color: $primary-color;
+          font-weight: 600;
+        }
+      }
+    }
+    .card-container {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: stretch;
+      color: white;
+    }
+  }
+}
+
+.concept-card {
+  background-color: $bg-color;
+  border: solid 1px $border-color;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  min-width: 150px;
+  padding: 1rem;
+  gap: 2rem;
+  .title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: $contrast-color;
+  }
+  .text {
+    color: $text-color-lite;
+    font-size: 1rem;
+    font-weight: 100;
+    flex-grow: 1;
+  }
+  .more {
+    align-self: flex-end;
+    justify-content: end;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: $primary-color;
+  }
+}
+
+.concept-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  .content-container {
+    transition: all 0.6s;
+    background-color: $bg-color;
+    border-radius: 0 0.75rem 0.75rem 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    color: $text-color-lite;
+    font-size: 0.9rem;
+  }
+  .tabs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    .tab {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      background-color: $bg-color-dark;
+      padding: 1rem;
+      color: $text-color-lite;
+      border-radius: 0.75rem 0rem 0rem 0.75rem;
+      margin-left: 2rem;
+      transition: all 0.6s;
+      .title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: $contrast-color;
+      }
+      .text {
+        margin-left: 1rem;
+        font-size: 0.9rem;
+      }
+      &:hover {
+        background-color: $border-color;
+      }
+    }
+    .active {
+      background-color: $bg-color;
+      margin-left: 0;
+      .title {
+        font-size: 1.5rem;
+        font-weight: 800;
+      }
+      .text {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
