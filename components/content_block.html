@@ -1,0 +1,35 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: '#main',
+      textbox: '#textbox',
+    }
+  </script>
+  <template id="main">
+    <div class="content-card">
+      <div class="content-title">† ${content_title?content_title:null}</div>
+      <div class="content-main">
+        <div class="left-col">
+          <textbox
+            $each="leftColArray"
+          ></textbox>
+        </div>
+        <div class="code-col">
+          <div class="code">
+            <pre>
+              <code class="html" $html="codeFunction"></code>
+            </pre>
+          </div>
+        </div>
+        <div class="right-col">
+          <textbox $each="rightColArray"></textbox>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template id="textbox">
+    <div +loaded="textNodes[item.id]=$node">
+      <div class="box-text">${item.text}</div>
+    </div>
+  </template>
+</html>

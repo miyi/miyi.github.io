@@ -1,0 +1,36 @@
+<div
+  class="content-card"
+  +loading="{
+      loadingText: null,
+      loading: null,
+      click: null,
+      clickText: null,
+    }"
+>
+  <div class="content-title">† module management</div>
+  <div class="content-main">
+    <div class="left-col">
+      <div class="box-container start">
+        <div id="loading-text" +loaded="loadingText=$node" class="box-text">
+          The +loading directive creates a state variable named open and sets it
+          to false.
+        </div>
+      </div>
+    </div>
+    <div class="code-col">
+      <div class="code">
+        <pre>
+          <code class="html" $html="highlightDataBindingContent(labeledDataBindingContent)"></code>
+        </pre>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="box-container end">
+        <div id="click-text" +loaded="clickText=$node" class="box-text">
+          The +click directive toggles the open variable from true to false with
+          a click event of the host element.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

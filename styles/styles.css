@@ -67,7 +67,7 @@ body {
 .banner .banner-container .left-banner .details {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
-  color: #d7e4f3;
+  color: #c1d1e4;
   font-size: 1rem;
   font-weight: 200;
 }
@@ -152,6 +152,7 @@ body {
 .navbar {
   background-color: rgba(12, 12, 25, 0.591);
   position: sticky;
+  z-index: 99;
   top: 0;
   width: 100%;
   -webkit-backdrop-filter: blur(8px);
@@ -255,7 +256,7 @@ body {
 }
 .partners .description {
   margin-top: 4rem;
-  color: #d7e4f3;
+  color: #c1d1e4;
 }
 
 .concepts {
@@ -315,7 +316,7 @@ body {
   color: #ddb826;
 }
 .concept-card .text {
-  color: #d7e4f3;
+  color: #c1d1e4;
   font-size: 1rem;
   font-weight: 100;
   flex-grow: 1;
@@ -344,7 +345,7 @@ body {
   min-height: 500px;
   padding-top: 3rem;
   padding-bottom: 3rem;
-  color: #d7e4f3;
+  color: #c1d1e4;
   font-size: 0.9rem;
 }
 .concept-grid .tabs-container {
@@ -359,7 +360,7 @@ body {
   gap: 0.5rem;
   background-color: #19182f;
   padding: 1rem;
-  color: #d7e4f3;
+  color: #c1d1e4;
   border-radius: 0.75rem 0rem 0rem 0.75rem;
   margin-left: 2rem;
   transition: all 0.6s;
@@ -386,6 +387,81 @@ body {
 }
 .concept-grid .tabs-container .active .text {
   font-size: 1.1rem;
+}
+
+.content-title {
+  font-size: 2rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #c1d1e4;
+  justify-self: start;
+}
+
+.content-card {
+  margin: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #19182f;
+  padding: 1.5rem;
+  border: solid 1px #5a4e76;
+  border-radius: 0.75rem;
+}
+.content-card .content-main {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+.content-card .content-main .left-col {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.content-card .content-main .code-col {
+  width: 50%;
+}
+.content-card .content-main .right-col {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.content-card .box-container {
+  width: 100%;
+  display: flex;
+}
+.content-card .box-container .box-text {
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  border: solid 1px #9965de;
+  border-radius: 0.5rem;
+  color: #c1d1e4;
+  font-size: 0.9rem;
+  font-weight: 100;
+  width: 20rem;
+  padding: 1rem;
+}
+.content-card .box-container .box-text:hover {
+  background-color: #433760;
+}
+.content-card .code {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #150b23;
+  font-size: 1rem;
+  color: #c1d1e4;
+  border-radius: 0.75rem;
+}
+
+.directiveCode {
+  cursor: pointer;
+  background-color: #5a4e76;
+  border-radius: 0.25rem;
+}
+.directiveCode:hover {
+  background-color: #71609a;
 }
 
 html {

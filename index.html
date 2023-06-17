@@ -17,14 +17,21 @@
       defer
     ></script>
     <script src="highlightjs/highlight.min.js"></script>
+    <script src="leaderline/leader-line.min.js"></script>
     <!-- dagger.js script -->
     <script type="dagger/modules">
       {
         concept_card: './components/concept_card.html',
-        concept_tab: '/components/concept_tab.html',
-        js: './js/index.js'
+        directive_content: './components/directive_content.html',
+        data_binding_content: './components/data_binding_content.html',
+        modules_content: './components/modules_content.html',
+        routing_content: './components/routing_content.html',
+        content_block: './components/content_block.html',
+        indexjs: './js/index.js',
+        contentjs: './js/content.js'
       }
     </script>
+    <script type="dagger/routers" src="./router.js"></script>
     <!-- dagger configs -->
     <title>dagger demo page</title>
   </head>
@@ -59,9 +66,7 @@
           <div class="brand-text">dagger.js</div>
           <div class="motto brand-text">frontend made simple</div>
           <div class="details">
-            directives, data-binding, module management, native routing, zero
-            dependencies, and zero apis. dagger.js offers the complete framework
-            solution for the web.
+            The complete web framework solution without dependencies. Dagger.js offers developing experience most native to the javascript language.
           </div>
           <div class="banner-btns">
             <div class="get-group">
@@ -117,7 +122,7 @@
         <div class="header">
           <div class="sub">What should you expect?</div>
           <div class="main">
-            <span class="highlight brand-text">Four Core Concepts</span
+            <span class="highlight brand-text">Core Features</span
             ><span> of developing with dagger.js</span>
           </div>
         </div>
@@ -126,16 +131,55 @@
         </div>
       </div>
     </div>
-    <div class="home concepts">
-      <div class="home-container">
-        <div class="header">
-          <div class="sub">What should you expect?</div>
-          <div class="main">
-            <span class="highlight brand-text">Four Core Concepts</span
-            ><span> of developing with dagger.js</span>
-          </div>
+    <div class="home">
+      <div id="directive-content" class="home-container">
+        <directive_content></directive_content>
+      </div>
+    </div>
+    <div class="home">
+      <div id="directive-content" class="home-container">
+        <content_block 
+          +loading="{
+            content_title: 'directives',
+            leftColArray: directiveContentLeft,
+            rightColArray: directiveContentRight,
+            codeFunction: highlightDirectiveContent(labeledDirectiveContent),
+            textNodes: {
+              loadingText: null,
+              mouseoverText: null,
+              keydownText: null,
+              existText: null,
+              eachText: null,
+              clickText: null,
+            },
+              loading: null,
+              click: null,
+              mouseover: null,
+              keydown: null,
+              exist: null,
+              each: null,
+          }"
+          $watch#1="createLine(loadingText, 'right', loading, 'top')"
+          $watch#2="createLine(clickText, 'left', click, 'right')"
+          $watch#3="createLine(mouseoverText, 'right', mouseover, 'left')"
+          $watch#4="createLine(existText, 'right', exist, 'left')"
+          $watch#5="createLine(keydownText, 'left', keydown, 'right')"
+          $watch#6="createLine(eachText, 'left', each, 'bottom')"></content_block>
         </div>
-        <concept_tab +loading="loadConcepts()"></concept_tab>
+    </div> -->
+    <!-- <div class="home">
+      <div id="databinding-content" class="home-container">
+        <data_binding_content></data_binding_content>
+      </div>
+    </div>
+    <div class="home">
+      <div id="modules-content"  class="home-container">
+        <modules_content></modules_content>
+      </div>
+    </div>
+    <div class="home">
+      <div id="routing-content" class="home-container">
+        <routing_content></routing_content>
       </div>
     </div>
   </body>

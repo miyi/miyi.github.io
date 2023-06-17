@@ -1,0 +1,75 @@
+<div
+  class="content-card"
+  +loading="{
+      loadingText: null,
+      clickText: null,
+      mouseoverText: null,
+      keydownText: null,
+      existText: null,
+      eachText: null,
+      loading: null,
+      click: null,
+      mouseover: null,
+      keydown: null,
+      exist: null,
+      each: null,
+    }"
+  $watch#1="createLine(loadingText, 'right', loading, 'top')"
+  $watch#2="createLine(clickText, 'left', click, 'right')"
+  $watch#3="createLine(mouseoverText, 'right', mouseover, 'left')"
+  $watch#4="createLine(existText, 'right', exist, 'left')"
+  $watch#5="createLine(keydownText, 'left', keydown, 'right')"
+  $watch#6="createLine(eachText, 'left', each, 'bottom')"
+>
+  <div class="content-title">† directives</div>
+  <div class="content-main">
+    <div class="left-col">
+      <div class="box-container">
+        <div +loaded="loadingText=$node" class="box-text">
+          The +loading directive creates the state variables open, a boolean,
+          and drawer, which is an array.
+        </div>
+      </div>
+      <div class="box-container">
+        <div +loaded="mouseoverText=$node" class="box-text">
+          The mouseover directive triggers when you mousever the element, much
+          like native javascript.
+        </div>
+      </div>
+      <div class="box-container">
+        <div +loaded="existText=$node" class="box-text">
+          $exist will unmount the host element when evaluated as false.
+          Directives can watch for state changes then update the DOM in real
+          time.
+        </div>
+      </div>
+    </div>
+    <div class="code-col">
+      <div class="code">
+        <pre>
+          <code class="html" $html="highlightDirectiveContent(labeledDirectiveContent)"></code>
+        </pre>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="box-container">
+        <div +loaded="clickText=$node" class="box-text">
+          The +click directive toggles the open variable from true to false with
+          a click event of the host element.
+        </div>
+      </div>
+      <div class="box-container">
+        <div +loaded="keydownText=$node" class="box-text">
+          The +keydown directive toggles the open variable from true to false
+          with a click event of the host element.
+        </div>
+      </div>
+      <div class="box-container">
+        <div +loaded="eachText=$node" class="box-text">
+          $each ilterates over the drawer array and clones the item in the item
+          object.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

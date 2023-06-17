@@ -1,27 +1,23 @@
 export const loadConcepts = () => {
   const directives = {
-    id: 0,
+    id: "#directive-content",
     title: "directives",
     text: "Manipulate the DOM directly from html with dagger defined attributes.",
-    content: directiveTabContent,
   };
   const dataBinding = {
-    id: 1,
+    id: "#databinding-content",
     title: "data binding",
     text: "Manipulate state data directly as plain javascript objects.",
-    content: "I am databinding content",
   };
   const modules = {
-    id: 2,
-    title: "native modules",
+    id: "#modules-content",
+    title: "module management",
     text: "No more webpack! Achieve performant module abstractions you can understand.",
-    content: "I am native module content",
   };
   const routing = {
-    id: 3,
-    title: "native routing",
+    id: "#routing-content",
+    title: "routing management",
     text: "Dagger ships with its own routing! Flexible and concise.",
-    content: "I am native routing content",
   };
 
   return {
@@ -29,41 +25,34 @@ export const loadConcepts = () => {
   };
 };
 
-const directiveTabContent = `
-<div +loading="{open: true}">
-  <div +click="open=!open">...</div>
-</div>
+export const labeledDataBindingContent = `
+<div id="cart" loading >
 
+  <div each></div>
 
+  <input value/>
 
-<div +loading="{x: 0, y: 0}}">
-  <div +mouseover="x = $event.x, y = $event.y">...</div>
-</div>
+  <div watch></div>
 
-
-
-<ul +loading="{fruits: ['apple', 'pear', 'orange']}">
-  <li $each="fruits">...</li>
-</ul>
-
-
-
-<div +loading="{visible: true}">
-  <div $class="{visibility: visible}">...</div>
-</div>
-
-
-
-<div +loading="{
-  loginForm: {username: '', password: ''}
-}">
-  ...
-  <button type="submit" +submit="verify(loginForm)">
-    Submit
-  </button>
 </div>
 `;
-export const highlightHTML = (raw) => {
+
+export const replaceDataBindingLabels = (str) => {
+  const loading = `<span class="hljs-attr">loading</span>`;
+};
+
+export const highlightDataBindingContent = (raw) => {
   const hlCode = hljs.highlight(raw, { language: "xml" }).value;
   return hlCode;
+};
+
+export const createLine = (start, start_pos, end, end_pos) => {
+  if (start && end) {
+    new LeaderLine(start, end, {
+      startPlug: "square",
+      startSocket: start_pos,
+      endSocket: end_pos,
+      color: "#ff618c85",
+    });
+  }
 };

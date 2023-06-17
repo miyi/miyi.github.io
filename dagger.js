@@ -43,7 +43,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
 }, hashTableResolver = (...array) => {
     const hashTable = emptier();
     return forEach(array, key => (hashTable[key] = true)) || hashTable;
-}, emptyObject = emptier(), meta = Symbol('meta'), moduleType = { json: 'json', namespace: 'namespace', script: 'script', style: 'style', string: 'string', view: 'view' }, promisor = Promise.resolve(), routerTopology = null, sentrySet = new Set(), textNode = document.createTextNode(''), configResolver = ((defaultConfigContent = { options: { debugDirective: true, integrity: true, log: true, warning: true, logPlainStyle: 'color: #337ab7', logHighlightStyle: 'color: #9442d0', warningPlainStyle: 'color: #ff0000', warningHighlightStyle: 'color: #b22222', errorPlainStyle: 'color: #ff0000', errorHighlightStyle: 'color: #b22222', rootSelectors: ['title', 'body'] }, modules: { view: { uri: ['template#view'], type: moduleType.view }, script: { uri: ['script[type="dagger/script"]'], type: moduleType.script, anonymous: true }, style: { uri: ['style[type="dagger/style"]'], type: moduleType.style, scoped: true } }, routers: { mode: 'hash', prefix: '#', aliases: {}, default: '', routing: null } }, resolver = (base, content, type, extendsDefaultConfig) => ({ base, content: extendsDefaultConfig ? Object.assign({}, defaultConfigContent[type], content) : content })) => (baseElement, base, type = 'modules') => {
+}, emptyObject = emptier(), meta = Symbol('meta'), moduleType = { json: 'json', namespace: 'namespace', script: 'script', style: 'style', string: 'string', view: 'view' }, promisor = Promise.resolve(), routerTopology = null, sentrySet = new Set(), textNode = document.createTextNode(''), configResolver = ((defaultConfigContent = { options: { debugDirective: true, integrity: true, log: true, warning: true, logPlainStyle: 'color: #337ab7', logHighlightStyle: 'color: #9442d0', warningPlainStyle: 'color: #ff0000', warningHighlightStyle: 'color: #b22222', errorPlainStyle: 'color: #ff0000', errorHighlightStyle: 'color: #b22222', rootSelectors: ['title', 'body'] }, modules: { view: { uri: ['template#view'], type: moduleType.view }, script: { uri: ['script[type="dagger/script"]'], type: moduleType.script, anonymous: true }, style: { uri: ['style[type="dagger/style"]'], type: moduleType.style, scoped: true } }, routers: { mode: 'hash', prefix: '', aliases: {}, default: '', routing: null } }, resolver = (base, content, type, extendsDefaultConfig) => ({ base, content: extendsDefaultConfig ? Object.assign({}, defaultConfigContent[type], content) : content })) => (baseElement, base, type = 'modules') => {
     const configContainer = querySelector(baseElement, `script[type="dagger/${ type }"]`, false, true);
     if (configContainer) {
         const src = configContainer.getAttribute('src'), extendsDefaultConfig = !Object.is(type, 'modules') || configContainer.hasAttribute('extends');
@@ -1342,17 +1342,26 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     }}));
     return ([options, modules, routers]) => {
         daggerOptions = options.content;
-        const edge = '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%';
+        const edge = new Array(131).fill('%').join('');
         logger(edge);
         logger(`\ua9c1 Powered by "\ud83d\udde1\ufe0f dagger V${ $dagger.version } (https://daggerjs.org)". \ua9c2`);
         logger(edge);
         window.addEventListener('click', event => {
             const node = event.target;
             if (!['A', 'AREA'].includes(node.tagName) || !node.hasAttribute('href')) { return; }
-            const href = node.getAttribute('href').trim();
+            const href = node.getAttribute('href').trim(), isHistoryMode = Object.is(routerConfigs.mode, 'history');
+            if (href.startsWith('#')) {
+                const anchor = document.getElementById(href.substring(1));
+                if(anchor) {
+                    warner([`The href "${ href }" matched anchor element "%o", the router change is prevented`, anchor], isHistoryMode);
+                    event.preventDefault();
+                    // history.pushState({}, '', href);
+                    return anchor.scrollIntoView();
+                }
+            }
             const prefix = routerConfigs.prefix;
             href && ![prefix, '.', '/'].some(prefix => href.startsWith(prefix)) && !Object.is(href, new URL(href, document.baseURI).href) && (node.href = `${ prefix }/${ href }`);
-            if (Object.is(routerConfigs.mode, 'history')) {
+            if (isHistoryMode) {
                 event.preventDefault();
                 history.pushState({}, '', node.href);
                 routingChangeResolver();
@@ -1368,6 +1377,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         forEach(['concat', 'copyWithin', 'fill', 'find', 'findIndex', 'lastIndexOf', 'pop', 'push', 'reverse', 'shift', 'unshift', 'slice', 'sort', 'splice', 'includes', 'indexOf', 'join', 'keys', 'entries', 'values', 'forEach', 'filter', 'flat', 'flatMap', 'map', 'every', 'some', 'reduce', 'reduceRight', 'toLocaleString', 'toString', 'at'], key => (Array.prototype[key] = processorWrapper(Array.prototype[key])));
         base = modules.base;
         routerConfigs = routers.content;
+        Object.is(routerConfigs.mode, 'history') || (routerConfigs.prefix = `#${ routerConfigs.prefix }`);
         rootScope = Object.seal(proxyResolver({ $router: null }));
         moduleConfigNormalizer(modules.content);
         const html = document.documentElement, routing = routerConfigs.routing || { modules: Object.keys(modules.content) };
