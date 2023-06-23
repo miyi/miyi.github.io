@@ -9,10 +9,8 @@
     <div class="content-card">
       <div class="content-title">† ${content_title?content_title:null}</div>
       <div class="content-main">
-        <div class="left-col">
-          <textbox
-            $each="leftColArray"
-          ></textbox>
+        <div class="text-col">
+          <textbox $each="contentLeft"></textbox>
         </div>
         <div class="code-col">
           <div class="code">
@@ -21,8 +19,8 @@
             </pre>
           </div>
         </div>
-        <div class="right-col">
-          <textbox $each="rightColArray"></textbox>
+        <div class="text-col">
+          <textbox $each="contentRight"></textbox>
         </div>
       </div>
     </div>

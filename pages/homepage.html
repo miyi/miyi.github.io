@@ -1,0 +1,203 @@
+<html>
+  <script type="dagger/modules">
+    {
+      concept_card: '../components/concept_card.html',
+      directive_content: '../components/directive_content.html',
+      data_binding_content: '../components/data_binding_content.html',
+      modules_content: '../components/modules_content.html',
+      routing_content: '../components/routing_content.html',
+      content_block: '../components/content_block.html',
+      indexjs: '../js/index.js',
+      contentjs: '../js/content.js',
+      styles: '../styles/styles.css',
+      hlstyles: '../highlightjs/github-dark.min.css',
+      hljs: '../highlightjs/highlight.min.js',
+      leaderline: '../leaderline/leader-line.min.js'
+    }
+  </script>
+  <body dg-cloak>
+    <div class="home navbar">
+      <div class="home-container nav-container">
+        <div class="nav-logo"><img src="./svg/logo.svg" alt="dagger" /></div>
+        <div class="nav-left-menu">
+          <div class="btn">Learn</div>
+          <div class="btn">Docs</div>
+          <div class="btn">About us</div>
+          <div class="btn">Blog</div>
+        </div>
+        <div class="nav-right-menu">
+          <div class="searchbar">
+            <img src="./svg/search.svg" />
+            search...
+          </div>
+          <div class="nav-link btn">
+            <img src="./svg/github.svg" />
+          </div>
+          <div class="nav-link btn">
+            <img src="./svg/gear.svg" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="home banner">
+      <div class="home-container banner-container">
+        <div class="left-banner">
+          <div class="brand-text">dagger.js</div>
+          <div class="motto brand-text">frontend made simple</div>
+          <div class="details">
+            No depencies. No API. All javascript. Dagger.js offers the complete
+            framework solution for.
+          </div>
+          <div class="banner-btns">
+            <div class="get-group">
+              <div class="version btn">v0.9</div>
+              <div class="address btn">
+                <span
+                  >https://cdn.jsdelivr.net/npm/@peakman/dagger.js@0.9.17/dagger.release.js</span
+                >
+              </div>
+              <div class="download btn">
+                <img src="./svg/download.svg" />
+              </div>
+            </div>
+            <div class="start-group">
+              <div class="link btn">tutorial</div>
+              <div class="link btn">docs</div>
+            </div>
+          </div>
+        </div>
+        <div class="right-banner"></div>
+      </div>
+    </div>
+    <div class="home">
+      <div class="home-container partners">
+        <div class="logos">
+          <div class="container">
+            <img class="huggingface" src="./svg/huggingface.svg" />
+          </div>
+          <div class="container">
+            <img class="netflix" src="./svg/netflix.svg" />
+          </div>
+          <div class="container">
+            <img class="notion" src="./svg/notion.svg" />
+          </div>
+          <div class="container">
+            <img class="shopify" src="./svg/shopify.svg" />
+          </div>
+          <div class="container">
+            <img class="vercel" src="./svg/vercel.svg" />
+          </div>
+          <div class="container">
+            <img class="zustand" src="./img/zustand.png" />
+          </div>
+        </div>
+        <div class="description">
+          The best and brightest are using dagger to achieve great things, be a
+          part of the movement.
+        </div>
+      </div>
+    </div>
+    <div class="home concepts">
+      <div class="home-container">
+        <div class="header">
+          <div class="sub">What should you expect?</div>
+          <div class="main">
+            <span class="highlight brand-text">Core Features</span
+            ><span> of developing with dagger.js</span>
+          </div>
+        </div>
+        <div class="card-container" +loading="loadConcepts()">
+          <concept_card $each="concepts"></concept_card>
+        </div>
+      </div>
+    </div>
+    <div class="home">
+      <div id="directive-content" class="home-container">
+        <content_block
+          +loading="{
+            content_title: 'directives',
+            contentLeft: directiveContentLeft,
+            contentRight: directiveContentRight,
+            codeFunction: highlightContent(labeledDirectiveContent, replaceDirectiveContentLabels),
+            textNodes: {},
+            loading: null,
+            click: null,
+            mouseover: null,
+            keydown: null,
+            exist: null,
+            each: null,
+          }"
+          $watch#1="createLine(textNodes.loadingText, 'right', loading, 'top')"
+          $watch#2="createLine(textNodes.clickText, 'left', click, 'right')"
+          $watch#3="createLine(textNodes.mouseoverText, 'right', mouseover, 'left')"
+          $watch#4="createLine(textNodes.existText, 'right', exist, 'left')"
+          $watch#5="createLine(textNodes.keydownText, 'left', keydown, 'right')"
+          $watch#6="createLine(textNodes.eachText, 'left', each, 'bottom')"
+        ></content_block>
+      </div>
+    </div>
+    <div id="databinding-content" class="home">
+      <div id="#databinding-content" class="home-container">
+        <content_block
+          +loading="{
+            content_title: 'data binding',
+            contentLeft: dataBindingContentLeft, 
+            contentRight: dataBindingContentRight,
+            codeFunction: highlightContent(labeledDataBindingContent, replaceDataBindingContentLabels),
+            textNodes: {},
+            codeNodes: {}
+          }"
+          $watch#1="createLine(textNodes.dbloading, 'right', codeNodes.dbloading, 'top')"
+          $watch#2="createLine(textNodes.voteclick, 'right', codeNodes.upclick, 'left')"
+          $watch#3="createLine(textNodes.voteclick, 'right', codeNodes.downclick, 'left')"
+          $watch#4="createLine(textNodes.totalwatch, 'right', codeNodes.totalwatch, 'left')"
+          $watch#5="createLine(textNodes.dollarvalues, 'left', codeNodes.upvotes, 'right')"
+          $watch#6="createLine(textNodes.dollarvalues, 'left', codeNodes.downvotes, 'right')"
+          $watch#7="createLine(textNodes.dollarvalues, 'left', codeNodes.total, 'right')"
+        ></content_block>
+      </div>
+    </div>
+    <div id="modules-content" class="home">
+      <div class="home-container">
+        <content_block
+          +loading="{
+              content_title: 'module management',
+              contentLeft: modulesContentLeft,
+              contentRight: modulesContentRight,
+              textNodes: {},
+              codeNodes: {},
+              codeFunction: highlightContent(labeledModulesContent, replaceModuleContentLabels)
+          }"
+          $watch#1="createLine(textNodes.type, 'right', codeNodes.type, 'top')"
+          $watch#2="createLine(textNodes.loading, 'right', codeNodes.loading, 'left')"
+          $watch#3="createLine(textNodes.contactlist, 'right', codeNodes.contactlist, 'left')"
+          $watch#4="createLine(textNodes.contactpath, 'left', codeNodes.contactpath, 'right')"
+          $watch#5="createLine(textNodes.contactpath2, 'left', codeNodes.contactpath, 'right')"
+          $watch#6="createLine(textNodes.submodules, 'left', codeNodes.contactcard, 'right')"
+          $watch#7="createLine(textNodes.submodules, 'left', codeNodes.photos, 'right')"
+        ></content_block>
+      </div>
+    </div>
+    <div id="modules-content" class="home">
+      <div class="home-container">
+        <content_block
+          +loading="{
+              content_title: 'routing management',
+              contentLeft: modulesContentLeft,
+              contentRight: modulesContentRight,
+              textNodes: {},
+              codeNodes: {},
+              codeFunction: highlightContent(labeledModulesContent, replaceModuleContentLabels)
+          }"
+          $watch#1="createLine(textNodes.type, 'right', codeNodes.type, 'top')"
+          $watch#2="createLine(textNodes.loading, 'right', codeNodes.loading, 'left')"
+          $watch#3="createLine(textNodes.contactlist, 'right', codeNodes.contactlist, 'left')"
+          $watch#4="createLine(textNodes.contactpath, 'left', codeNodes.contactpath, 'right')"
+          $watch#5="createLine(textNodes.contactpath2, 'left', codeNodes.contactpath, 'right')"
+          $watch#6="createLine(textNodes.submodules, 'left', codeNodes.contactcard, 'right')"
+          $watch#7="createLine(textNodes.submodules, 'left', codeNodes.photos, 'right')"
+        ></content_block>
+      </div>
+    </div>
+  </body>
+</html>

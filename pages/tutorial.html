@@ -1,0 +1,23 @@
+<html>
+  <script type="dagger/modules">
+    {
+      "menu-item": "#menu-item",
+      js: "./tutorial/tutorial.js",
+      style: "./tutorial/tutorial.css"
+    }
+  </script>
+  <template id="menu-item">
+    <a href="/tutorial/${item.link}"
+      ><div class="menu-item">${item.name}</div></a
+    >
+  </template>
+  <div class="layout-container">
+    <div class="menu" +loading="{menuitem: menuItem()}">
+      <menu-item $each="menuItem"></menu-item>
+    </div>
+    <div
+      class="content-container"
+      $html#router="$router.schemes.layer2 && `<${ $router.schemes.layer2 }></${ $router.schemes.layer1 }>`"
+    ></div>
+  </div>
+</html>

@@ -411,22 +411,16 @@ body {
 .content-card .content-main {
   display: flex;
   flex-direction: row;
-  gap: 1.5rem;
+  gap: 2vw;
 }
-.content-card .content-main .left-col {
+.content-card .content-main .text-col {
   width: 25%;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  justify-content: space-between;
 }
 .content-card .content-main .code-col {
   width: 50%;
-}
-.content-card .content-main .right-col {
-  width: 25%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 .content-card .box-container {
   width: 100%;

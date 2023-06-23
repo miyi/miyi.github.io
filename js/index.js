@@ -25,27 +25,6 @@ export const loadConcepts = () => {
   };
 };
 
-export const labeledDataBindingContent = `
-<div id="cart" loading >
-
-  <div each></div>
-
-  <input value/>
-
-  <div watch></div>
-
-</div>
-`;
-
-export const replaceDataBindingLabels = (str) => {
-  const loading = `<span class="hljs-attr">loading</span>`;
-};
-
-export const highlightDataBindingContent = (raw) => {
-  const hlCode = hljs.highlight(raw, { language: "xml" }).value;
-  return hlCode;
-};
-
 export const createLine = (start, start_pos, end, end_pos) => {
   if (start && end) {
     new LeaderLine(start, end, {
@@ -56,3 +35,7 @@ export const createLine = (start, start_pos, end, end_pos) => {
     });
   }
 };
+
+const advantages = [
+  {title: "simplicity", }
+]
