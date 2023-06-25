@@ -1,18 +1,104 @@
-export const highlightContent = (raw, replacementFn) => {
-  const hlCode = hljs.highlight(raw, { language: "xml" }).value;
+export const load_directive_content = ($module) => ({
+  content_title: "directives",
+  codeFunction: highlightContent(
+    $module,
+    labeledDirectiveContent,
+    replaceDirectiveContentLabels
+  ),
+  elArray: [
+    {
+      start: null,
+      text: "+loading creates the state variables that developers can save and manipulate depending on business logic.",
+      startSocket: "right",
+      end: null,
+      endSocket: "top",
+    },
+    {
+      start: null,
+      text: "+mouseover directive triggers when you mousever the element. All directives with the + prefix are considered event directives.",
+      startSocket: "right",
+      end: null,
+      endSocket: "left",
+    },
+    {
+      start: null,
+      text: "$exist will unmount the host element when evaluated as false. This is an example of control directives, which watches for state changes to update the render.",
+      startSocket: "right",
+      end: null,
+      endSocket: "left",
+    },
+    {
+      start: null,
+      text: "+click directive toggles the open variable from true to false with a click event of the host element.",
+      startSocket: "left",
+      end: null,
+      endSocket: "right",
+    },
+    {
+      start: null,
+      text: "+keydown directive toggles the open variable from true to false with a click event of the host element. There is a dagger directive for every html event type.",
+      startSocket: "left",
+      end: null,
+      endSocket: "right",
+    },
+    {
+      start: null,
+      text: "$each reduces repetive HTML entries by iterating over an array. Dagger has plenty of abstraction tool to make web development hassel free.",
+      startSocket: "left",
+      end: null,
+      endSocket: "bottom",
+    },
+  ],
+});
+
+export const load_databinding_content = ($module) => ({
+  content_title: "data binding",
+  codeFunction: highlightContent(
+    $module,
+    labeledDataBindingContent,
+    replaceDataBindingContentLabels
+  ),
+  elArray: [
+    {
+      start: null,
+      text: "3 number variables are declared in this example.",
+      startSocket: "right",
+      end: null,
+      endSocket: "top",
+    },
+    {
+      start: null,
+      text: "clicking the vote buttons will execute their respective +click expressions, which will in turn rerender the upvotes and downvotes values.",
+      startSocket: "right",
+      end: null,
+      endSocket: "left",
+    },
+    {
+      start: null,
+      text: "the $watch directive re-executes the expression whenever a scope variable in the expression updates, so total updates whenever upvotes or downvotes updates.",
+      startSocket: "right",
+      end: null,
+      endSocket: "left",
+    },
+    {
+      start: null,
+      text: "in dagger, we call state variables scope variables because the declared values are accessible as regular JS objects anywhere inside the closing html tags, just like a scope.",
+      startSocket: "left",
+      end: null,
+      endSocket: "right",
+    },
+
+  ],
+});
+
+const highlightContent = (module, raw, replacementFn) => {
+  const hlCode = module.hljs.highlight(raw, { language: "xml" }).value;
   return replacementFn(hlCode);
 };
 
-const produceCodeNode = (id, replacement) =>
-  `<span +loaded="codeNodes['` +
-  id +
-  `']=$node" class="directiveCode"><span class="hljs-attr">` +
-  replacement +
-  `</span></span>`;
+const produceRawSpan = (str) => "<span @raw>${" + str + "}</span>";
 
-export const produceRawSpan = (str) => "<span @raw>${" + str + "}</span>";
-
-export const produceDollarIdSpan = (id) =>
+const produceDollarIdSpan = (id) =>
   `<span +loaded="codeNodes['` +
   id +
   `']=$node" class='directiveCode'>` +
@@ -20,7 +106,7 @@ export const produceDollarIdSpan = (id) =>
   id +
   "}</span></span>";
 
-export const labeledDirectiveContent = `
+const labeledDirectiveContent = `
 <div loading>
 
   <div click>click me!</div>
@@ -38,22 +124,19 @@ export const labeledDirectiveContent = `
 </div>
 `;
 
-export const replaceDirectiveContentLabels = (str) => {
+const replaceDirectiveContentLabels = (str) => {
   const loadingRegex = `<span class="hljs-attr">loading</span>`;
-  const loadingEl = `<span id="loading" +loaded="loading=$node" class="directiveCode"><span class="hljs-attr">+loading</span>=<span class="hljs-string">"{open: true, drawer: ['socks', 'hat', 'shirt']}"</span></span>`;
-  // const loadingEl = produceCodeNode('loading',
-  //   `+loading="{open: true, drawer: ['socks', 'hat', 'shirt']}"`
-  // );
+  const loadingEl = `<span id="loading" +loaded="elArray[0].end=$node" class="directiveCode"><span class="hljs-attr">+loading</span>=<span class="hljs-string">"{open: true, drawer: ['socks', 'hat', 'shirt']}"</span></span>`;
   const clickRegex = `<span class="hljs-attr">click</span>`;
-  const clickEl = `<span id="click" +loaded="click=$node" class=directiveCode><span class="hljs-attr">+click</span>=<span class="hljs-string">"open=!open"</span></span>`;
+  const clickEl = `<span id="click" +loaded="elArray[3].end=$node" class=directiveCode><span class="hljs-attr">+click</span>=<span class="hljs-string">"open=!open"</span></span>`;
   const mouseoverRegex = `<span class="hljs-attr">mouseover</span>`;
-  const mouseoverEl = `<span id="mouseover" +loaded="mouseover=$node" class=directiveCode><span class="hljs-attr">+mouseover</span>=<span class="hljs-string">"open=!open"</span></span>`;
+  const mouseoverEl = `<span id="mouseover" +loaded="elArray[1].end=$node" class=directiveCode><span class="hljs-attr">+mouseover</span>=<span class="hljs-string">"open=!open"</span></span>`;
   const keydownRegex = `<span class="hljs-attr">keydown</span>`;
-  const keydownEl = `<span id="keydown" +loaded="keydown=$node" class=directiveCode><span class="hljs-attr">+keydown</span>=<span class="hljs-string">"$event.key==79?open=!open"</span></span>`;
+  const keydownEl = `<span id="keydown" +loaded="elArray[4].end=$node" class=directiveCode><span class="hljs-attr">+keydown</span>=<span class="hljs-string">"$event.key==79?open=!open"</span></span>`;
   const existRegex = `<span class="hljs-attr">exist</span>`;
-  const existEl = `<span id="exist" +loaded="exist=$node" class=directiveCode><span class="hljs-attr">$exist</span>=<span class="hljs-string">"open"</span></span>`;
+  const existEl = `<span id="exist" +loaded="elArray[2].end=$node" class=directiveCode><span class="hljs-attr">$exist</span>=<span class="hljs-string">"open"</span></span>`;
   const eachRegex = `<span class="hljs-attr">each</span>`;
-  const eachEl = `<span id="each" +loaded="each=$node" class="directiveCode"><span class="hljs-attr">$each</span>=<span class="hljs-string">"drawer"</span></span>`;
+  const eachEl = `<span id="each" +loaded="elArray[5].end=$node" class="directiveCode"><span class="hljs-attr">$each</span>=<span class="hljs-string">"drawer"</span></span>`;
   return str
     .replace(loadingRegex, loadingEl)
     .replace(clickRegex, clickEl)
@@ -64,37 +147,7 @@ export const replaceDirectiveContentLabels = (str) => {
     .replace("dollarItem", produceRawSpan("item"));
 };
 
-export const directiveContentLeft = [
-  {
-    id: "loadingText",
-    text: `The +loading creates the scope variables that developers can save and manipulate depending on business logic.`,
-  },
-  {
-    id: "mouseoverText",
-    text: `The +mouseover directive triggers when you mousever the element. All directives with the + prefix are considered event directives.`,
-  },
-  {
-    id: "existText",
-    text: `$exist will unmount the host element when evaluated as false. This is an example of control directives, which watches for state changes to update the render.`,
-  },
-];
-
-export const directiveContentRight = [
-  {
-    id: "clickText",
-    text: `The +click directive toggles the open variable from true to false with a click event of the host element. `,
-  },
-  {
-    id: "keydownText",
-    text: `+keydown directive toggles the open variable from true to false with a click event of the host element. There is a dagger directive for every html event type.`,
-  },
-  {
-    id: "eachText",
-    text: `$each reduces repetive HTML entries by iterating over an array. Dagger has plenty of abstraction tool to make web development hassel free.`,
-  },
-];
-
-export const labeledDataBindingContent = `
+const labeledDataBindingContent = `
 <div loading>
 
   <div>upvotes : dollarupvotes</div>
@@ -114,7 +167,7 @@ export const labeledDataBindingContent = `
 </div>
 `;
 
-export const replaceDataBindingContentLabels = (str) => {
+const replaceDataBindingContentLabels = (str) => {
   const loadingRegex = `<span class="hljs-attr">loading</span>`;
   const loadingEl = produceCodeNode(
     "dbloading",
@@ -139,7 +192,7 @@ export const replaceDataBindingContentLabels = (str) => {
     .replace("dollartotal", produceDollarIdSpan("total"));
 };
 
-export const dataBindingContentLeft = [
+const dataBindingContentLeft = [
   {
     id: "dbloading",
     text: "3 number variables are declared in this example.",
@@ -186,9 +239,12 @@ export const replaceModuleContentLabels = (str) => {
   const typeRegex = `<span class="hljs-attr">type</span>`;
   const typeEl = produceCodeNode("type", 'type="dagger/modules"');
   const contactlistRegex = `contactlist`;
-  const contactlistEl = produceCodeNode("contactlist",'contactlist');
-  const contactpathRegex = 'contactpath'
-  const contactpathEl = produceCodeNode('contactpath', './custom_namespace.html')
+  const contactlistEl = produceCodeNode("contactlist", "contactlist");
+  const contactpathRegex = "contactpath";
+  const contactpathEl = produceCodeNode(
+    "contactpath",
+    "./custom_namespace.html"
+  );
   const loadingRegex = `<span class="hljs-attr">loading</span>`;
   const loadingEl = produceCodeNode(
     "loading",
@@ -218,7 +274,10 @@ export const modulesContentLeft = [
     id: "type",
     text: "Do away with webpack! Dagger comes with a native module management system that allows you to maximize code reusability.",
   },
-  {id: "contactlist", text: "Think of modules like components. scripts and styles within the module are accessible only inside the module."},
+  {
+    id: "contactlist",
+    text: "Think of modules like components. scripts and styles within the module are accessible only inside the module.",
+  },
   {
     id: "loading",
     text: "Pass data into the module via scope variables like any other html element.",
@@ -230,7 +289,10 @@ export const modulesContentRight = [
     id: "contactpath",
     text: "Call your module via the relative path from the parent html file.",
   },
-  {id: "contactpath2", text: "There are many types of modules to import, but dagger auto-detects the module type to make abstractions quick and easy."},
+  {
+    id: "contactpath2",
+    text: "There are many types of modules to import, but dagger auto-detects the module type to make abstractions quick and easy.",
+  },
   {
     id: "submodules",
     text: "Sub-modules of the contactList module can be manipulated directly from the top level.",
@@ -272,5 +334,4 @@ const labeledRoutingContent = `
 
 
 }
-`
-
+`;

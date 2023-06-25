@@ -12,7 +12,7 @@ $text-color-lite: #c1d1e4;
 $contrast-color: #ddb826;
 $contrast-color-dark: #fc9c00;
 
-body {
+.outer-container {
   background-color: $bg-color-dark;
   font-family: Arial, Helvetica, sans-serif;
   padding: 0;

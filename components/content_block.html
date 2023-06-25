@@ -3,6 +3,7 @@
     {
       view: '#main',
       textbox: '#textbox',
+      ll: '../leaderline/ldline.js'
     }
   </script>
   <template id="main">
@@ -10,7 +11,10 @@
       <div class="content-title">† ${content_title?content_title:null}</div>
       <div class="content-main">
         <div class="text-col">
-          <textbox $each="contentLeft"></textbox>
+          <textbox
+            $each="elArray.slice(0,3)"
+            $watch="createLine(item,LeaderLine)"
+          ></textbox>
         </div>
         <div class="code-col">
           <div class="code">
@@ -20,13 +24,16 @@
           </div>
         </div>
         <div class="text-col">
-          <textbox $each="contentRight"></textbox>
+          <textbox
+            $each="elArray.slice(3)"
+            $watch="createLine(item,LeaderLine)"
+          ></textbox>
         </div>
       </div>
     </div>
   </template>
   <template id="textbox">
-    <div class="box-container" +loaded="textNodes[item.id]=$node">
+    <div class="box-container" +loaded="item.start=$node">
       <div class="box-text">${item.text}</div>
     </div>
   </template>

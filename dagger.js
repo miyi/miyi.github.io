@@ -36,14 +36,36 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     warner: (messages, condition) => daggerOptions.warning && vendor(messages, condition, console.warn, daggerOptions.warningPlainStyle, daggerOptions.warningHighlightStyle),
     groupStarter: label => daggerOptions.log && console.group(label),
     groupEnder: label => daggerOptions.log && console.groupEnd(label)
-}))(), context = Symbol('context'), currentController = null, daggerOptions = { integrity: true }, directiveQueue = [], dispatchSource = { bubble: 'bubble', self: 'self', mutation: 'mutation' }, isRouterWritable = false, moduleNameRegExp = /^[a-z]{1}[\w]*$/, rootNamespace = null, rootScope = null, rootScopeCallback = null, rootNodeProfiles = [], arrayWrapper = target => Array.isArray(target) ? target : [target], emptier = () => Object.create(null), processorCaches = emptier(), styleModuleSet = new Set, forEach = (iterators, processor) => {
+}))(), context = Symbol('context'), currentController = null, daggerOptions = { integrity: true }, directiveQueue = [], dispatchSource = { bubble: 'bubble', self: 'self', mutation: 'mutation' }, isRouterWritable = false, moduleNameRegExp = /^[a-z]{1}[\w]*$/, rootNamespace = null, rootScope = null, rootScopeCallback = null, rootNodeProfiles = [], arrayWrapper = target => Array.isArray(target) ? target : [target], emptier = () => Object.create(null), processorCaches = emptier(), styleModuleSet = new Set, eventDelegator = ((bubbleSet = new Set, captureSet = new Set, handler = (event, capture, targets, index = 0) => {
+    const currentTarget = targets[index++];
+    if (!currentTarget) { return; }
+    const eventListenerSet = currentTarget.$eventListenerMap && currentTarget.$eventListenerMap[event.type], eventListeners = eventListenerSet ? [...eventListenerSet].filter(listener => Object.is(listener.decorators.capture, capture)) : [];
+    if (!eventListeners.length) { return handler(event, capture, targets, index); }
+    Object.defineProperty(event, 'currentTarget', { configurable: true, value: currentTarget });
+    for (const { decorators, handler } of eventListeners) {
+        handler(event);
+        if (decorators.stopImmediate) {
+            return event.stopImmediatePropagation();
+        }
+    }
+    event.cancelBubble || handler(event, capture, targets, index);
+}) => (eventName, target, listener, capture) => {
+    target.$eventListenerMap || (target.$eventListenerMap = emptier());
+    const listenerSet = target.$eventListenerMap[eventName] || new Set;
+    (listener instanceof Function) && (listener = { decorators: { capture }, handler: listener });
+    originalSetAdd.call(listenerSet, listener);
+    target.$eventListenerMap[eventName] = listenerSet;
+    if ((capture && captureSet.has(eventName)) || (!capture && bubbleSet.has(eventName))) { return; }
+    (capture ? captureSet : bubbleSet).add(eventName);
+    window.addEventListener(eventName, event => handler(event, capture, capture ? event.composedPath().reverse() : event.composedPath(), 0), capture);
+})(), forEach = (iterators, processor) => {
     if (!iterators) { return; }
     const length = iterators.length || 0;
     for (let index = 0; index < length; ++index) { processor(iterators[index], index); }
 }, hashTableResolver = (...array) => {
     const hashTable = emptier();
     return forEach(array, key => (hashTable[key] = true)) || hashTable;
-}, meta = Symbol('meta'), moduleType = { json: 'json', namespace: 'namespace', script: 'script', style: 'style', string: 'string', view: 'view' }, promisor = Promise.resolve(), routerTopology = null, sentrySet = new Set, textNode = document.createTextNode(''), configResolver = ((defaultConfigContent = { options: { debugDirective: true, integrity: true, log: true, warning: true, logPlainStyle: 'color: #337ab7', logHighlightStyle: 'color: #9442d0', warningPlainStyle: 'color: #ff0000', warningHighlightStyle: 'color: #b22222', errorPlainStyle: 'color: #ff0000', errorHighlightStyle: 'color: #b22222', rootSelectors: ['title', 'body'] }, modules: { view: { uri: ['template#view'], type: moduleType.view }, script: { uri: ['script[type="dagger/script"]'], type: moduleType.script, anonymous: true }, style: { uri: ['style[type="dagger/style"]'], type: moduleType.style, scoped: true } }, routers: { mode: 'hash', prefix: '', aliases: {}, default: '', routing: null } }, resolver = (base, content, type, extendsDefaultConfig) => ({ base, content: extendsDefaultConfig ? Object.assign({}, defaultConfigContent[type], content) : content })) => (baseElement, base, type = 'modules') => {
+}, meta = Symbol('meta'), moduleType = { json: 'json', namespace: 'namespace', script: 'script', style: 'style', string: 'string', view: 'view' }, promisor = Promise.resolve(), routerTopology = null, sentrySet = new Set, textNode = document.createTextNode(''), configResolver = ((defaultConfigContent = { options: { debugDirective: true, integrity: true, log: true, warning: true, logPlainStyle: 'color: #337ab7', logHighlightStyle: 'color: #9442d0', warningPlainStyle: 'color: #ff0000', warningHighlightStyle: 'color: #b22222', errorPlainStyle: 'color: #ff0000', errorHighlightStyle: 'color: #b22222', rootSelectors: ['body'] }, modules: { view: { uri: ['template#view'], type: moduleType.view }, script: { uri: ['script[type="dagger/script"]'], type: moduleType.script, anonymous: true }, style: { uri: ['style[type="dagger/style"]'], type: moduleType.style, scoped: true } }, routers: { mode: 'hash', prefix: '', aliases: {}, default: '', routing: null } }, resolver = (base, content, type, extendsDefaultConfig) => ({ base, content: extendsDefaultConfig ? Object.assign({}, defaultConfigContent[type], content) : content })) => (baseElement, base, type = 'modules') => {
     const configContainer = querySelector(baseElement, `script[type="dagger/${ type }"]`, false, true);
     if (configContainer) {
         const src = configContainer.getAttribute('src'), extendsDefaultConfig = !Object.is(type, 'modules') || configContainer.hasAttribute('extends');
@@ -100,12 +122,16 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         directive.processor = processor;
     });
     directiveQueue.length = 0;
-}, processorWrapper = originalMethod => function (...parameters) {
-    const controller = currentController;
-    currentController = null;
-    const result = originalMethod.apply(this, parameters);
-    currentController = controller;
-    return result;
+}, processorWrapper = originalMethod => {
+    const handler = function (...parameters) {
+        const controller = currentController;
+        currentController = null;
+        const result = originalMethod.apply(this, parameters);
+        currentController = controller;
+        return result;
+    };
+    handler.prototype = originalMethod.prototype;
+    return handler;
 }, querySelector = (baseElement, selector, all = false, ignoreMismatch = false) => {
     try {
         const element = baseElement[all ? 'querySelectorAll' : 'querySelector'](selector);
@@ -486,24 +512,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         if (trim) { return value.trim(); }
         return value;
     }
-}, nameFilters = ['draggable'], eventDelegator = ((bubbleSet = new Set, captureSet = new Set, handler = (event, capture, targets, index = 0) => {
-    const currentTarget = targets[index++];
-    if (!currentTarget) { return; }
-    const eventListenerSet = currentTarget.$eventListenerMap && currentTarget.$eventListenerMap[event.type], eventListeners = eventListenerSet ? [...eventListenerSet].filter(listener => Object.is(listener.decorators.capture, capture)) : [];
-    if (!eventListeners.length) { return handler(event, capture, targets, index); }
-    Object.defineProperty(event, 'currentTarget', { configurable: true, value: currentTarget });
-    for (const { decorators, handler } of eventListeners) {
-        handler(event);
-        if (decorators.stopImmediate) {
-            return event.stopImmediatePropagation();
-        }
-    }
-    event.cancelBubble || handler(event, capture, targets, index);
-}) => (eventName, capture) => {
-    if ((capture && captureSet.has(eventName)) || (!capture && bubbleSet.has(eventName))) { return; }
-    (capture ? captureSet : bubbleSet).add(eventName);
-    window.addEventListener(eventName, event => handler(event, capture, capture ? event.composedPath().reverse() : event.composedPath(), 0), capture);
-})(), generalUpdater = (data, node, _, { name }) => node && ((data == null) ? node.removeAttribute(name) : node.setAttribute(name, textResolver(data))), nodeUpdater = ((changeEvent = new Event('change')) => ({
+}, nameFilters = ['draggable'], generalUpdater = (data, node, _, { name }) => node && ((data == null) ? node.removeAttribute(name) : node.setAttribute(name, textResolver(data))), nodeUpdater = ((changeEvent = new Event('change')) => ({
     $boolean: (data, node, _, { name }) => node.toggleAttribute(name, !!data),
     checked: (data, node, { parentNode }, { decorators }) => {
         const { tagName, type } = node, isOption = Object.is(tagName, 'OPTION'), isCheckbox = Object.is(type, 'checkbox');
@@ -517,7 +526,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                     !select.multiple && data && (nodes = querySelector(select, 'option', true));
                     if (!select.$changeEvent) {
                         select.$changeEvent = true;
-                        select.addEventListener('change', event => forEach(querySelector(event.target, 'option', true), option => option.dispatchEvent(changeEvent)));
+                        eventDelegator('change', select, event => forEach(querySelector(event.target, 'option', true), option => option.dispatchEvent(changeEvent)));
                     }
                 }
             } else {
@@ -806,11 +815,8 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                     currentTarget.addEventListener(event, handler, options);
                     return { target: currentTarget, event, handler, options };
                 } else { // use event delegate
-                    eventDelegator(event, capture);
-                    currentTarget.$eventListenerMap || (currentTarget.$eventListenerMap = emptier());
-                    const listenerSet = currentTarget.$eventListenerMap[event] || new Set, listener = { decorators, handler };
-                    originalSetAdd.call(listenerSet, listener);
-                    currentTarget.$eventListenerMap[event] = listenerSet;
+                    const listener = { decorators, handler };
+                    eventDelegator(event, currentTarget, listener, capture);
                     return { target: currentTarget, event, listener };
                 }
             }));
@@ -915,7 +921,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             if (this.profile.plain || this.childrenMap) { return this.removeChildren(isRoot); }
             this.childrenController && this.removeController(this.childrenController);
             forEach(this.controllers, controller => this.removeController(controller)) || (this.controllers = null);
-            forEach(this.eventHandlers, eventHandlerRemover) || (this.eventHandlers = null);
+            forEach(this.eventHandlers, eventHandlerRemover) || (this.eventHandlers = null) || (this.node && (this.node.$eventListenerMap = null));
             if (this.sentry) {
                 originalSetDelete.call(sentrySet, this.sentry);
                 this.sentry = null;
@@ -1401,7 +1407,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         logger(edge);
         logger(`\ua9c1 Powered by "\ud83d\udde1\ufe0f dagger V${ $dagger.version } (https://daggerjs.org)". \ua9c2`);
         logger(edge);
-        window.addEventListener('click', event => {
+        eventDelegator('click', window, event => {
             const node = event.target;
             if (!['A', 'AREA'].includes(node.tagName) || !node.hasAttribute('href')) { return; }
             const href = node.getAttribute('href').trim(), isHistoryMode = Object.is(routerConfigs.mode, 'history');
@@ -1415,7 +1421,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             }
         }, true);
         const resetToken = { detail: true }, changeEvent = new CustomEvent('change', resetToken), inputEvent = new CustomEvent('input', resetToken);
-        window.addEventListener('reset', () => event => Object.is(event.target.tagName, 'FORM') && forEach(querySelector(document.body, 'input, textarea', true, true), child => {
+        eventDelegator('reset', window, () => event => Object.is(event.target.tagName, 'FORM') && forEach(querySelector(document.body, 'input, textarea', true, true), child => {
             child.dispatchEvent(inputEvent);
             child.dispatchEvent(changeEvent);
         }));
@@ -1448,7 +1454,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             const rootNodes = [...rootNodeSet];
             forEach(rootNodes, rootNode => Reflect.construct(NodeProfile, [rootNode, rootNamespace, rootNodeProfiles, null, true]));
             warner(['\u274e No node with valid directive was detected under root elements "%o"', rootNodes], rootNodeProfiles.length);
-            window.addEventListener('popstate', () => routingChangeResolver());
+            eventDelegator('popstate', window, () => routingChangeResolver());
             routingChangeResolver();
         };
         rootNamespace = new ModuleProfile({ content: modules.content, type: moduleType.namespace }, base);

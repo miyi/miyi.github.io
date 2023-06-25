@@ -25,17 +25,15 @@ export const loadConcepts = () => {
   };
 };
 
-export const createLine = (start, start_pos, end, end_pos) => {
+export const createLine = (
+  { start, startSocket, end, endSocket }, ll
+) => {
   if (start && end) {
-    new LeaderLine(start, end, {
+    new ll(start, end, {
       startPlug: "square",
-      startSocket: start_pos,
-      endSocket: end_pos,
+      startSocket,
+      endSocket,
       color: "#ff618c85",
     });
   }
 };
-
-const advantages = [
-  {title: "simplicity", }
-]

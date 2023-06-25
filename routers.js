@@ -1,7 +1,7 @@
 return {
   mode: "history",
   default: "/",
-  aliases: { "/": "home", "/tutorial": "/tutorial/welcome" },
+  aliases: { "/": "/home", "/tutorial": "/tutorial/welcome" },
   modules: [
     "home",
     "tutorial",
@@ -14,13 +14,16 @@ return {
   ],
   routing: {
     constants: {
-      title: 'dagger.js'
+      title: "dagger.js",
     },
     children: [
-      { path: "home", constants: { layer1: "home", title: "home" } },
+      {
+        path: "home",
+        modules: "home",
+        constants: { layer1: "home", title: "home" },
+      },
       {
         path: "tutorial",
-
         modules: "tutorial",
         constants: { layer1: "tutorial", title: "tutorial" },
         children: [
