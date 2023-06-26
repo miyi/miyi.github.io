@@ -3,16 +3,17 @@
     {
       view: '#main',
       textbox: '#textbox',
-      ll: '../leaderline/ldline.js'
+      ll: '../leaderline/ldline.js',
+      styles: './content_block.css',
     }
   </script>
   <template id="main">
-    <div class="content-card">
+    <div class="content-block">
       <div class="content-title">† ${content_title?content_title:null}</div>
       <div class="content-main">
         <div class="text-col">
           <textbox
-            $each="elArray.slice(0,3)"
+            $each="elArray.slice(0,sliceIndex)"
             $watch="createLine(item,LeaderLine)"
           ></textbox>
         </div>
@@ -25,7 +26,7 @@
         </div>
         <div class="text-col">
           <textbox
-            $each="elArray.slice(3)"
+            $each="elArray.slice(sliceIndex)"
             $watch="createLine(item,LeaderLine)"
           ></textbox>
         </div>

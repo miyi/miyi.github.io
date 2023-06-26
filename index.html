@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./index.css"/>
     <style>
       [dg-cloak] {
         display: none !important;
@@ -19,9 +20,9 @@
     <script type="dagger/routers" src="./routers.js"></script>
   </head>
   <body dg-cloak>
-    <div>${$router.paths}</div>
-    <div
+    <template +loaded#router="console.log($router.paths)"></template>
+    <template
       $html#router="$router.schemes.layer1 && `<${ $router.schemes.layer1 }></${ $router.schemes.layer1 }>`"    
-    ></div>
+    ></template>
   </body>
 </html>

@@ -26,10 +26,10 @@ export const loadConcepts = () => {
 };
 
 export const createLine = (
-  { start, startSocket, end, endSocket }, ll
+  { start, startSocket, end, endSocket }, LeaderLine
 ) => {
   if (start && end) {
-    new ll(start, end, {
+    new LeaderLine(start, end, {
       startPlug: "square",
       startSocket,
       endSocket,

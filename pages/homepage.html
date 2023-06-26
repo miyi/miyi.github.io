@@ -9,7 +9,6 @@
       styles: '../styles/styles.css',
       hlstyles: '../highlightjs/github-dark.min.css',
       hljs: '../highlightjs/highlight.min.js',
-
     }
   </script>
   <template id="view">
@@ -18,7 +17,7 @@
         <div class="home-container nav-container">
           <div class="nav-logo"><img src="./svg/logo.svg" alt="dagger" /></div>
           <div class="nav-left-menu">
-            <div class="btn">Learn</div>
+            <a href="/tutorial"><div class="btn">Learn</div></a>
             <div class="btn">Docs</div>
             <div class="btn">About us</div>
             <div class="btn">Blog</div>
@@ -116,6 +115,21 @@
           ></content_block>
         </div>
       </div>
+      <div class="home">
+        <div id="directive-content" class="home-container">
+          <content_block
+            +loading="load_databinding_content($module)"
+          ></content_block>
+        </div>
+      </div>
+      <div class="home">
+        <div id="directive-content" class="home-container">
+          <content_block
+            +loading="load_modules_content($module)"
+          ></content_block>
+        </div>
+      </div>
+
       <!-- <div id="databinding-content" class="home">
       <div id="#databinding-content" class="home-container">
         <content_block

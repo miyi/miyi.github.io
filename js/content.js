@@ -5,6 +5,7 @@ export const load_directive_content = ($module) => ({
     labeledDirectiveContent,
     replaceDirectiveContentLabels
   ),
+  sliceIndex: 3,
   elArray: [
     {
       start: null,
@@ -58,6 +59,7 @@ export const load_databinding_content = ($module) => ({
     labeledDataBindingContent,
     replaceDataBindingContentLabels
   ),
+  sliceIndex: 2,
   elArray: [
     {
       start: null,
@@ -75,21 +77,81 @@ export const load_databinding_content = ($module) => ({
     },
     {
       start: null,
+      text: "in dagger, we call state variables scope variables because the declared values are accessible as regular JS objects anywhere inside the closing html tags, just like a scope.",
+      startSocket: "left",
+      end: null,
+      endSocket: "right",
+    },
+    {
+      start: null,
       text: "the $watch directive re-executes the expression whenever a scope variable in the expression updates, so total updates whenever upvotes or downvotes updates.",
+      startSocket: "left",
+      end: null,
+      endSocket: "right",
+    },
+  ],
+});
+
+export const load_modules_content = ($module) => ({
+  content_title: "module management",
+  codeFunction: highlightContent(
+    $module,
+    labeledModulesContent,
+    replaceModuleContentLabels
+  ),
+  sliceIndex: 3,
+  elArray: [
+    {
+      start: null,
+      text: "Do away with webpack! Dagger comes with a native module management system that allows you to maximize code reusability.",
+      startSocket: "right",
+      end: null,
+      endSocket: "top",
+    },
+    {
+      start: null,
+      text: "Think of modules like components. scripts and styles within the module are accessible only inside the module.",
       startSocket: "right",
       end: null,
       endSocket: "left",
     },
     {
       start: null,
-      text: "in dagger, we call state variables scope variables because the declared values are accessible as regular JS objects anywhere inside the closing html tags, just like a scope.",
+      text: "Pass data into the module via scope variables like any other html element.",
+      startSocket: "right",
+      end: null,
+      endSocket: "left",
+    },
+    {
+      start: null,
+      text: "Call your module via the relative path from the parent html file.",
       startSocket: "left",
       end: null,
       endSocket: "right",
     },
-
+    {
+      start: null,
+      text: "There are many types of modules to import, but dagger auto-detects the module type to make abstractions quick and easy.",
+      startSocket: "left",
+      end: null,
+      endSocket: "right",
+    },
+    {
+      start: null,
+      text: "Sub-modules of the contactList module can be manipulated directly from the top level.",
+      startSocket: "left",
+      end: null,
+      endSocket: "right",
+    },
   ],
 });
+
+const produceCodeNode = (textIndex, replacement) =>
+  `<span +loaded="elArray[` +
+  textIndex +
+  `].end=$node" class="directiveCode"><span class="hljs-attr">` +
+  replacement +
+  `</span></span>`;
 
 const highlightContent = (module, raw, replacementFn) => {
   const hlCode = module.hljs.highlight(raw, { language: "xml" }).value;
@@ -98,12 +160,12 @@ const highlightContent = (module, raw, replacementFn) => {
 
 const produceRawSpan = (str) => "<span @raw>${" + str + "}</span>";
 
-const produceDollarIdSpan = (id) =>
-  `<span +loaded="codeNodes['` +
-  id +
-  `']=$node" class='directiveCode'>` +
+const produceDollarIdSpan = (textIndex, replacement) =>
+  `<span +loaded="elArray[` +
+  textIndex +
+  `].end=$node" class='directiveCode'>` +
   "<span @raw>${" +
-  id +
+  replacement +
   "}</span></span>";
 
 const labeledDirectiveContent = `
@@ -170,51 +232,26 @@ const labeledDataBindingContent = `
 const replaceDataBindingContentLabels = (str) => {
   const loadingRegex = `<span class="hljs-attr">loading</span>`;
   const loadingEl = produceCodeNode(
-    "dbloading",
+    "0",
     `+loading="{upvotes: 0, downvotes: 0, total: 0}"`
   );
   const upclickRegex = `<span class="hljs-attr">upclick</span>`;
-  const upclickEl = produceCodeNode("upclick", `+click="upvotes++"`);
+  const upclickEl = produceCodeNode("1", `+click="upvotes++"`);
   const downclickRegex = `<span class="hljs-attr">downclick</span>`;
-  const downclickEl = produceCodeNode("downclick", `+click="downvotes++"`);
+  const downclickEl = produceCodeNode("1", `+click="downvotes++"`);
   const totalwatchRegex = `<span class="hljs-attr">totalwatch</span>`;
-  const totalwatchEl = produceCodeNode(
-    "totalwatch",
-    `$watch="total=upvotes+downvotes"`
-  );
+  const totalwatchEl = produceCodeNode("3", `$watch="total=upvotes+downvotes"`);
   return str
     .replace(loadingRegex, loadingEl)
-    .replace("dollarupvotes", produceDollarIdSpan("upvotes"))
+    .replace("dollarupvotes", produceDollarIdSpan("2", "upvotes"))
     .replace(upclickRegex, upclickEl)
-    .replace("dollardownvotes", produceDollarIdSpan("downvotes"))
+    .replace("dollardownvotes", produceDollarIdSpan("2", "downvotes"))
     .replace(downclickRegex, downclickEl)
     .replace(totalwatchRegex, totalwatchEl)
-    .replace("dollartotal", produceDollarIdSpan("total"));
+    .replace("dollartotal", produceDollarIdSpan("2", "total"));
 };
 
-const dataBindingContentLeft = [
-  {
-    id: "dbloading",
-    text: "3 number variables are declared in this example.",
-  },
-  {
-    id: "voteclick",
-    text: "clicking the vote buttons will execute their respective +click expressions, which will in turn rerender the upvotes and downvotes values.",
-  },
-  {
-    id: "totalwatch",
-    text: "the $watch directive re-executes the expression whenever a scope variable in the expression updates, so total updates whenever upvotes or downvotes updates.",
-  },
-];
-
-export const dataBindingContentRight = [
-  {
-    id: "dollarvalues",
-    text: "in dagger, we call state variables scope variables because the declared values are accessible as regular JS objects anywhere inside the closing html tags, just like a scope.",
-  },
-];
-
-export const labeledModulesContent = `
+const labeledModulesContent = `
 <html>
     <script type>
       {
@@ -235,69 +272,30 @@ export const labeledModulesContent = `
 </html>
 `;
 
-export const replaceModuleContentLabels = (str) => {
+const replaceModuleContentLabels = (str) => {
   const typeRegex = `<span class="hljs-attr">type</span>`;
-  const typeEl = produceCodeNode("type", 'type="dagger/modules"');
+  const typeEl = produceCodeNode("0", 'type="dagger/modules"');
   const contactlistRegex = `contactlist`;
-  const contactlistEl = produceCodeNode("contactlist", "contactlist");
+  const contactlistEl = produceCodeNode("1", "contactlist");
   const contactpathRegex = "contactpath";
   const contactpathEl = produceCodeNode(
-    "contactpath",
-    "./custom_namespace.html"
+    "3",
+    `<span +loaded="elArray[4].end=$node" class="hljs-attr">./custom_namespace.html</span>`
   );
   const loadingRegex = `<span class="hljs-attr">loading</span>`;
-  const loadingEl = produceCodeNode(
-    "loading",
-    '+loading="{userData, latest_pics}"'
-  );
+  const loadingEl = produceCodeNode("2", '+loading="{userData, latest_pics}"');
   const contactcardRegex = `contactcard`;
   const contactcardEl = produceCodeNode(
-    "contactcard",
+    "5",
     `<span class="hljs-tag">&lt;<span class="hljs-name">contactcard</span> <span class="hljs-attr">$each="userData"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">contactcard</span>&gt;</span>`
-  );
-  const photosRegex = `photos`;
-  const photosEl = produceCodeNode(
-    "photos",
-    `<span class="hljs-tag">&lt;<span class="hljs-name">photos <span class="hljs-attr">$each="latest_pics"</span></span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">photos</span>&gt;</span>`
   );
   return str
     .replace(typeRegex, typeEl)
     .replace(contactlistRegex, contactlistEl)
     .replace(contactpathRegex, contactpathEl)
     .replace(loadingRegex, loadingEl)
-    .replace(contactcardRegex, contactcardEl)
-    .replace(photosRegex, photosEl);
+    .replace(contactcardRegex, contactcardEl);
 };
-
-export const modulesContentLeft = [
-  {
-    id: "type",
-    text: "Do away with webpack! Dagger comes with a native module management system that allows you to maximize code reusability.",
-  },
-  {
-    id: "contactlist",
-    text: "Think of modules like components. scripts and styles within the module are accessible only inside the module.",
-  },
-  {
-    id: "loading",
-    text: "Pass data into the module via scope variables like any other html element.",
-  },
-];
-
-export const modulesContentRight = [
-  {
-    id: "contactpath",
-    text: "Call your module via the relative path from the parent html file.",
-  },
-  {
-    id: "contactpath2",
-    text: "There are many types of modules to import, but dagger auto-detects the module type to make abstractions quick and easy.",
-  },
-  {
-    id: "submodules",
-    text: "Sub-modules of the contactList module can be manipulated directly from the top level.",
-  },
-];
 
 const labeledRoutingContent = `
 {
@@ -307,31 +305,19 @@ const labeledRoutingContent = `
     children: [
       {
         path: 'index',
-        modules: 'home',
-        constants: [
-          layer1: 'home',
-        ],
+        modules: {layer1: 'home'},
         children: [
           {
             path: 'page1',
-            modules: 'page1',
-            constants: [
-              layer2: 'page1',
-            ]
+            modules: {layer2: 'page1'},
           },
           {
             path: 'page2',
-            modules: 'page2',
-            constants: [
-              layer2: 'page2'
-            ]
+            modules: {layer2: 'page2'},
           }
         ]
       }
     ]
   } 
-  
-
-
 }
 `;

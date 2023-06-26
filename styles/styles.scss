@@ -1,16 +1,4 @@
-$bg-color: #251e3f;
-$bg-color-dark: #19182f;
-$bg-color-darker: #150b23;
-$bg-color-lite: #433760;
-$border-color: #5a4e76;
-$border-color-lite: #71609a;
-$primary-color-lite: #e8aec9;
-$primary-color: #e18de8;
-$primary-color-dark: #ff618c;
-$text-color: #9965de;
-$text-color-lite: #c1d1e4;
-$contrast-color: #ddb826;
-$contrast-color-dark: #fc9c00;
+@import "./global.scss";
 
 .outer-container {
   background-color: $bg-color-dark;
@@ -412,73 +400,4 @@ $contrast-color-dark: #fc9c00;
   font-style: italic;
   color: $text-color-lite;
   justify-self: start;
-}
-
-.content-card {
-  margin: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: $bg-color-dark;
-  padding: 1.5rem;
-  border: solid 1px $border-color;
-  border-radius: 0.75rem;
-  .content-main {
-    display: flex;
-    flex-direction: row;
-    gap: 2vw;
-    .text-col {
-      width: 25%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .code-col {
-      width: 50%;
-    }
-  }
-  .box-container {
-    width: 100%;
-    display: flex;
-    .box-text {
-      backdrop-filter: blur(8px);
-      border: solid 1px $text-color;
-      border-radius: 0.5rem;
-      color: $text-color-lite;
-      font-size: 0.9rem;
-      font-weight: 100;
-      width: 20rem;
-      padding: 1rem;
-      &:hover {
-        background-color: $bg-color-lite;
-      }
-    }
-  }
-  .code {
-    margin: 1rem;
-    padding: 1rem;
-    background-color: $bg-color-darker;
-    font-size: 1rem;
-    color: $text-color-lite;
-    border-radius: 0.75rem;
-  }
-}
-
-.directiveCode {
-  cursor: pointer;
-  background-color: $border-color;
-  border-radius: 0.25rem;
-  &:hover {
-    background-color: $border-color-lite;
-  }
-}
-
-html {
-  box-sizing: border-box;
-}
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
 }

@@ -1,0 +1,15 @@
+@import './styles/global.scss';
+
+html {
+  box-sizing: border-box;
+  background-color: $bg-color-darker;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0
+}
