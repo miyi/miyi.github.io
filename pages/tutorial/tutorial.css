@@ -1,28 +1,51 @@
 .layout-container {
-  display: grid;
-  grid-template-columns: 1fr 12fr;
-  gap: 2rem;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+.layout-container .layout {
+  display: flex;
+  max-width: 1200px;
+  width: 92vw;
+  min-width: 1024px;
+  height: 100%;
 }
 
 .menu {
   display: flex;
   flex-direction: column;
+  background-color: #251e3f;
+  min-width: 10rem;
+  max-width: 15rem;
+  width: 18vw;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .menu-item {
+  padding-left: 2rem;
+  display: flex;
+  align-items: center;
   cursor: pointer;
   width: 100%;
   height: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border: #71609a;
+  color: #9965de;
+}
+.menu-item:hover {
+  background-color: #433760;
 }
 
-.content-container {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  overflow: scroll;
-  justify-content: center;
-  align-items: center;
+.item-container {
+  padding-left: 2rem;
+}
+
+.page-container {
+  flex-grow: 1;
+  border: 2px solid white;
+  overflow-y: scroll;
+}
+
+.big-title {
+  font-size: 2rem;
 }/*# sourceMappingURL=tutorial.css.map */

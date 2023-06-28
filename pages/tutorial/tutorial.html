@@ -1,24 +1,38 @@
 <html>
   <script type="dagger/modules">
     {
-      view: "#view"
-      "menu-item": "#menu-item",
+      view: "#view",
+      menuitem: "#menuitem",
       js: "./tutorial.js",
-      style: "./tutorial.css"
+      style: "./tutorial.css",
     }
   </script>
-  <template id="menu-item">
-    <a href="/tutorial/${item.link}"
-      ><div class="menu-item">${item.name}</div></a
-    >
-  </template>
-  <template id="view" class="layout-container">
-    <div class="menu" +loading="{menuitem: menuItem()}">
-      <menu-item $each="menuItem"></menu-item>
+  <template id="menuitem">
+    <div +loading="{active: false}">
+      <a $href="item.link" class="menu-item" +click="active=!active">
+        ${item.name} ${active}
+      </a>
+
+      <div class="item-container">
+        <template
+          $html="active && item.children?`<menuitem $each='item.children'></menuitem>`:''"
+        ></template>
+      </div>
     </div>
-    <div
-      class="content-container"
-      $html#router="$router.schemes.layer2 && `<${ $router.schemes.layer2 }></${ $router.schemes.layer1 }>`"
-    ></div>
+  </template>
+  <template id="view">
+    <div class="layout-container">
+      <div class="layout">
+        <div class="menu" +loading="{menuitem: menuItem()}">
+          <menuitem $each="menuitem"> </menuitem>
+        </div>
+        <div class="page-container">
+          <template
+            class="content-container"
+            $html="$router.constants.layer2"
+          ></template>
+        </div>
+      </div>
+    </div>
   </template>
 </html>

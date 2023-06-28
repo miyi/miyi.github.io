@@ -32,7 +32,7 @@
     display: flex;
     .box-text {
       backdrop-filter: blur(8px);
-      border: solid 1px $text-color;
+      border: solid 1px $border-color-lite;
       border-radius: 0.5rem;
       color: $text-color-lite;
       font-size: 0.9rem;

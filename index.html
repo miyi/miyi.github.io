@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="./index.css"/>
+    <link rel="stylesheet" href="/index.css" />
     <style>
       [dg-cloak] {
         display: none !important;
@@ -13,16 +13,16 @@
     <script
       type="module"
       crossorigin="anonymous"
-      src="./dagger.js"
+      src="/dagger.js"
       defer
     ></script>
-    <script type="dagger/modules" src="./modules.js"></script>
-    <script type="dagger/routers" src="./routers.js"></script>
+    <script type="dagger/modules" src="/modules.js"></script>
+    <script type="dagger/routers" src="/routers.js"></script>
   </head>
   <body dg-cloak>
     <template +loaded#router="console.log($router.paths)"></template>
     <template
-      $html#router="$router.schemes.layer1 && `<${ $router.schemes.layer1 }></${ $router.schemes.layer1 }>`"    
+      $html#router="$router.constants.layer1"
     ></template>
   </body>
 </html>

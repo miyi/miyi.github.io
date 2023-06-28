@@ -13,3 +13,15 @@ html {
 body {
   margin: 0
 }
+
+.brand-text {
+  background-color: $primary-color;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    90deg,
+    rgba(168, 129, 219, 1) 0%,
+    rgba(225, 141, 232, 1) 29%,
+    rgba(221, 184, 38, 1) 100%
+  );
+}

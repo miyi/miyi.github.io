@@ -1,3 +1,5 @@
+
+
 return {
   mode: "history",
   default: "/",
@@ -29,7 +31,6 @@ return {
         children: [
           {
             path: "welcome",
-            title: "welcome",
             modules: "welcome",
             constants: { layer2: "welcome", title: "welcome" },
           },

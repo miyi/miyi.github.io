@@ -1,28 +1,53 @@
+@import "../../styles/global.scss";
+
 .layout-container {
-  display: grid;
-  grid-template-columns: 1fr 12fr;
-  gap: 2rem;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  .layout {
+    display: flex;
+    max-width: 1200px;
+    width: 92vw;
+    min-width: 1024px;
+    height: 100%;
+  }
 }
 
 .menu {
   display: flex;
   flex-direction: column;
+  background-color: $bg-color;
+  min-width: 10rem;
+  max-width: 15rem;
+  width: 18vw;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .menu-item {
+  padding-left: 2rem;
+  display: flex;
+  align-items: center;
   cursor: pointer;
   width: 100%;
   height: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border: $border-color-lite;
+  color: $text-color;
+  &:hover {
+    background-color: $bg-color-lite;
+  }
 }
 
-.content-container {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  overflow: scroll;
-  justify-content: center;
-  align-items: center;
+.item-container {
+  padding-left: 2rem;
+}
+
+.page-container {
+  flex-grow: 1;
+  border: 2px solid white;
+  overflow-y: scroll;
+}
+
+.big-title {
+  font-size: 2rem;
 }

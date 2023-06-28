@@ -161,9 +161,9 @@ const highlightContent = (module, raw, replacementFn) => {
 const produceRawSpan = (str) => "<span @raw>${" + str + "}</span>";
 
 const produceDollarIdSpan = (textIndex, replacement) =>
-  `<span +loaded="elArray[` +
+  `<span +loaded="setTimeout(()=>elArray[` +
   textIndex +
-  `].end=$node" class='directiveCode'>` +
+  `].end=$node,0)" class='directiveCode'>` +
   "<span @raw>${" +
   replacement +
   "}</span></span>";
@@ -319,5 +319,8 @@ const labeledRoutingContent = `
       }
     ]
   } 
+  
+
+
 }
 `;
