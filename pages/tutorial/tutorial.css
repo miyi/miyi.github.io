@@ -40,18 +40,11 @@
 
 .page-container {
   flex-grow: 1;
-  border: 2px solid white;
+  border: 1px solid white;
   overflow-y: scroll;
+  color: #c1d1e4;
 }
 
 .big-title {
   font-size: 2rem;
-}
-
-.link-container {
-  display: flex;
-}
-.link-container .link {
-  display: flex;
-  height: 4rem;
 }/*# sourceMappingURL=tutorial.css.map */

@@ -42,18 +42,12 @@
 
 .page-container {
   flex-grow: 1;
-  border: 2px solid white;
+  border: 1px solid white;
   overflow-y: scroll;
+  color: $text-color-lite
 }
 
 .big-title {
   font-size: 2rem;
 }
 
-.link-container {
-  display: flex;
-  .link {
-    display: flex;
-    height: 4rem;
-  }
-}

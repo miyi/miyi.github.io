@@ -16,7 +16,6 @@
       height: 100%;
       overflow-y: scroll;
       padding-left: 2rem;
-      color: white;
     }
     .title {
       font-size: 3.5rem;
@@ -28,13 +27,19 @@
       line-height: 1.5rem;
     }
     .section {
-      padding: 5rem 0 5rem 0;
+      padding: 5rem 0 3rem 0;
     }
     .link-container {
-      padding: 8rem;
-      gap: 2rem;
+      padding: 4rem;
       justify-self: center;
       align-self: center;
+    }
+    .link-grid {
+      width: 600px;
+      height: 400px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
     }
   </style>
   <script id="script" type="dagger/script">
@@ -75,16 +80,10 @@
         will explain every concept step by step, and by the end you will have
         grasped everything you need to develope a complete dagger SPA.
       </p>
-      <div
-        class="link-container"
-        +loading="{parts: loadParts()}"
-        +loaded="console.log(parts)"
-      >
-        <part
-          $each="parts"
-          +loading="item"
-          +loaded#debug="console.log(item)"
-        ></part>
+      <div class="link-container" +loading="{parts: loadParts()}">
+        <div class="link-grid">
+          <part $each="parts"></part>
+        </div>
       </div>
     </div>
   </template>
