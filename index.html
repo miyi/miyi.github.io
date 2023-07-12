@@ -20,9 +20,6 @@
     <script type="dagger/routers" src="/routers.js"></script>
   </head>
   <body dg-cloak>
-    <template +loaded#router="console.log($router.paths)"></template>
-    <template
-      $html#router="$router.constants.layer1"
-    ></template>
+    <template $html#router="$router.constants.layer1"></template>
   </body>
 </html>

@@ -2,8 +2,8 @@
 
 return {
   mode: "history",
-  default: "/",
-  aliases: { "/": "/home", "/tutorial": "/tutorial/welcome" },
+  default: "",
+  aliases: { "": "home", "tutorial": "tutorial/welcome" },
   modules: [
     "home",
     "tutorial",

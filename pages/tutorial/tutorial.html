@@ -9,14 +9,24 @@
   </script>
   <template id="menuitem">
     <div +loading="{active: false}">
-      <a $href="item.link" class="menu-item" +click="active=!active">
+      <div
+        class="menu-item"
+        +click="history.pushState({},'',item.link),active=!active"
+      >
         ${item.name} ${active}
-      </a>
+      </div>
+      <!-- <a
+        $href="item.link"
+        class="menu-item"
+        +click="history.pushState({},'',item.link),active=!active"
+      >
+        ${item.name} ${active}
+      </a> -->
 
       <div class="item-container">
-        <template
-          $html="active && item.children?`<menuitem $each='item.children'></menuitem>`:''"
-        ></template>
+        <template $exist="active && item.children">
+          <menuitem $each="item.children"></menuitem>
+        </template>
       </div>
     </div>
   </template>
@@ -24,7 +34,7 @@
     <div class="layout-container">
       <div class="layout">
         <div class="menu" +loading="{menuitem: menuItem()}">
-          <menuitem $each="menuitem"> </menuitem>
+          <!-- <menuitem $each="menuitem"> </menuitem> -->
         </div>
         <div class="page-container">
           <template

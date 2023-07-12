@@ -15,9 +15,7 @@
   display: flex;
   flex-direction: column;
   background-color: #251e3f;
-  min-width: 10rem;
-  max-width: 15rem;
-  width: 18vw;
+  width: 500px;
   height: 100%;
   overflow-y: scroll;
 }
@@ -48,4 +46,12 @@
 
 .big-title {
   font-size: 2rem;
+}
+
+.link-container {
+  display: flex;
+}
+.link-container .link {
+  display: flex;
+  height: 4rem;
 }/*# sourceMappingURL=tutorial.css.map */

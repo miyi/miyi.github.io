@@ -65,7 +65,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
 }, hashTableResolver = (...array) => {
     const hashTable = emptier();
     return forEach(array, key => (hashTable[key] = true)) || hashTable;
-}, meta = Symbol('meta'), moduleType = { json: 'json', namespace: 'namespace', script: 'script', style: 'style', string: 'string', view: 'view' }, promisor = Promise.resolve(), routerTopology = null, sentrySet = new Set, textNode = document.createTextNode(''), configResolver = ((defaultConfigContent = { options: { debugDirective: true, integrity: true, log: true, warning: true, logPlainStyle: 'color: #337ab7', logHighlightStyle: 'color: #9442d0', warningPlainStyle: 'color: #ff0000', warningHighlightStyle: 'color: #b22222', errorPlainStyle: 'color: #ff0000', errorHighlightStyle: 'color: #b22222', rootSelectors: ['title', 'body'] }, modules: { view: { uri: ['template#view'], type: moduleType.view }, script: { uri: ['script[type="dagger/script"]'], type: moduleType.script, anonymous: true }, style: { uri: ['style[type="dagger/style"]'], type: moduleType.style, scoped: true } }, routers: { mode: 'hash', prefix: '', aliases: {}, default: '', routing: null } }, resolver = (base, content, type, extendsDefaultConfig) => ({ base, content: extendsDefaultConfig ? Object.assign({}, defaultConfigContent[type], content) : content })) => (baseElement, base, type = 'modules') => {
+}, meta = Symbol('meta'), moduleType = { json: 'json', namespace: 'namespace', script: 'script', style: 'style', string: 'string', view: 'view' }, promisor = Promise.resolve(), routerTopology = null, sentrySet = new Set, textNode = document.createTextNode(''), configResolver = ((defaultConfigContent = { options: { debugDirective: true, integrity: false, log: true, warning: true, logPlainStyle: 'color: #337ab7', logHighlightStyle: 'color: #9442d0', warningPlainStyle: 'color: #ff0000', warningHighlightStyle: 'color: #b22222', errorPlainStyle: 'color: #ff0000', errorHighlightStyle: 'color: #b22222', rootSelectors: ['title', 'body'] }, modules: { view: { uri: ['template#view'], type: moduleType.view }, script: { uri: ['script[type="dagger/script"]'], type: moduleType.script, anonymous: true }, style: { uri: ['style[type="dagger/style"]'], type: moduleType.style, scoped: true } }, routers: { mode: 'hash', prefix: '', aliases: {}, default: '', routing: null } }, resolver = (base, content, type, extendsDefaultConfig) => ({ base, content: extendsDefaultConfig ? Object.assign({}, defaultConfigContent[type], content) : content })) => (baseElement, base, type = 'modules') => {
     const configContainer = querySelector(baseElement, `script[type="dagger/${ type }"]`, false, true);
     if (configContainer) {
         const src = configContainer.getAttribute('src'), extendsDefaultConfig = !Object.is(type, 'modules') || configContainer.hasAttribute('extends');
@@ -138,7 +138,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         ignoreMismatch || asserter(`Failed to get element matched selector "${ selector }"`, all ? element.length : element);
         return element;
     } catch (error) {
-        asserter(`The string "${ selector }" is not a valid querySelector`);
+        asserter(`The string "${ selector }" is not a valid querySelector`, ignoreMismatch);
     }
 }, remoteResourceResolver = (url, integrity = '') => fetch(url, daggerOptions.integrity && integrity ? { integrity: `sha256-${ integrity }` } : {}).then(response => {
     if (response.ok) {
@@ -258,7 +258,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     constructor (config = {}, base = '', name = '', parent = null) {
         name = name.trim();
         asserter(`The module name should be valid string matched RegExp "${ moduleNameRegExp.toString() }" instead of "${ name }"`, !parent || moduleNameRegExp.test(name));
-        this.layer = name ? (((parent || {}).layer || 0) + 1) : 0, this.space = new Array(this.layer * 4).fill(' ').join(''), this.name = name, this.state = 'unresolved', this.childrenCache = emptier(), this.valid = true, this.module = this.integrity = this.parent = this.children = this.type = this.content = this.resolvedContent = this.referenceSet = null;
+        this.layer = name ? (((parent || {}).layer || 0) + 1) : 0, this.space = new Array(this.layer * 4).fill(' ').join(''), this.name = name, this.state = 'unresolved', this.valid = true, this.module = this.integrity = this.parent = this.children = this.type = this.content = this.resolvedContent = null;
         if (parent) {
             this.parent = parent, this.path = parent.path ? `${ parent.path }.${ name }` : name, this.tags = [...parent.tags, this.path.replace(/\./g, '__')], this.baseElement = parent.baseElement;
         } else {
@@ -281,14 +281,26 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         this.config = config, this.promise = new Promise(resolver => (this.resolver = resolver)), this.base = new URL(config.base || base, (parent || {}).base || document.baseURI).href;
         config.prefetch && this.resolve();
     }
-    fetch (paths, asynchronous = false, ignoreMismatch = false) {
-        Array.isArray(paths) || (paths = paths.split('.'));
+    fetch (paths) {
         if (!paths.length) { return this; }
-        const path = paths.shift().trim(), moduleProfile = this.childrenCache[path] || (this.childrenCache[path] = (this.children || []).find(child => Object.is(child.name, path) && child.valid));
-        if (ignoreMismatch && !moduleProfile) { return null; }
-        asserter(`${ this.space }Failed to fetch module "${ path }" within ${ this.path ? `namespace "${ this.path }"` : 'the root namespace' }`, !Object.is(moduleProfile));
-        asserter(`The module "${ moduleProfile.path }" is referenced but not declared in the "modules" field of the current router`, !Object.is(moduleProfile.state, 'unresolved'));
-        return asynchronous ? moduleProfile.resolve().then(moduleProfile => moduleProfile.valid && moduleProfile.fetch(paths)) : (moduleProfile.valid && moduleProfile.fetch(paths));
+        const path = paths.shift(), moduleProfile = this.fetchChild(path);
+        return moduleProfile.fetch(paths);
+    }
+    fetchChild (name, ignoreMismatch = false) {
+        const childModuleProfile = (this.children || []).find(child => Object.is(child.name, name) && child.valid);
+        if (!childModuleProfile && ignoreMismatch) { return; }
+        asserter(`${ this.space }Failed to fetch module "${ name }" within ${ this.path ? `namespace "${ this.path }"` : 'the root namespace' }`, !Object.is(childModuleProfile));
+        return childModuleProfile;
+    }
+    fetchViewModule (name) {
+        const moduleProfile = this.fetchChild(name, true);
+        if (moduleProfile) {
+            asserter(`The module "${ moduleProfile.path }" is referenced but not declared in the "modules" field of the current router`, !Object.is(moduleProfile.state, 'unresolved'));
+            return moduleProfile;
+        } else {
+            asserter(`There is no valid module named "${ name }" found`, this.parent);
+            return this.parent.fetchViewModule(name);
+        }
     }
     resolve (childNameSet = null) {
         const type = this.type;
@@ -380,7 +392,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                     this.type = moduleType.string;
                 }
             }
-            asserter([`The element "%o" of type "${ type }" is not supported`, element], this.type);
+            asserter([`The element "%o" of type "${ type || 'undefined' }" is not supported`, element], this.type);
         }
         return serializer([this.resolveIntegrity(element.innerHTML), content => this.resolveContent(content)]);
     }
@@ -468,17 +480,6 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                 const base = new URL(uri, this.base).href;
                 pipeline = [(_, token) => serializer([remoteResourceResolver(base, this.integrity), result => result || (token.stop = true)]), ({ content, type }) => this.resolveRemoteType(content, type, base) || this.resolveIntegrity(content), content => this.resolveContent(content)];
             }
-        } else if (moduleNameRegExp.test(uri)) { // alias
-            asserter(`It's illegal to set module "${ this.path }" as an alias of itself`, !Object.is(this.name, uri));
-            const moduleProfile = this.parent.fetch(uri);
-            if (moduleProfile.referenceSet) {
-                asserter(`There is a circular reference between module "${ this.path }" and module "${ moduleProfile.path }"`, !moduleProfile.referenceSet.has(this) && ![...moduleProfile.referenceSet].some(moduleProfile => moduleProfile.referenceSet.has(this)));
-                originalSetAdd.call(moduleProfile.referenceSet, this);
-            } else {
-                moduleProfile.referenceSet = new Set([this]);
-            }
-            this.referenceSet ? originalSetAdd.call(this.referenceSet, moduleProfile) : (this.referenceSet = new Set([moduleProfile]));
-            pipeline = [moduleProfile.resolve(), moduleProfile => this.resolveCachedModuleProfile(moduleProfile)];
         } else { // selector
             const element = querySelector(this.baseElement, uri), cachedProfile = elementProfileCacheMap.get(element);
             if (cachedProfile) {
@@ -619,11 +620,11 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     exist: (data, _, nodeContext) => data ? (Object.is(nodeContext.state, 'unloaded') && nodeContext.loading()) : nodeContext.unloading(true),
     file: (data, node) => asserter([`The data bound to directive "$file" of element "%o" should be "File${ node.multiple ? ' array' : '' }" instead of "%o"`, node, data], !data || (node.multiple ? (Array.isArray(data) && data.every(file => (file instanceof File))) : (data instanceof File))),
     focus: (data, node, _, { decorators: { prevent = false } }) => data ? node.focus({ preventScroll: prevent }) : node.blur(),
-    html: (data, node, nodeContext, { decorators: { root = false } }) => {
+    html: (data, node, nodeContext, { decorators: { root = false, strict = false } }) => {
         data = textResolver(data);
         nodeContext.removeChildren(true);
         if (!data) { return; }
-        moduleNameRegExp.test(data) && (data = `<${ data }></${ data }>`);
+        !strict && moduleNameRegExp.test(data) && (data = `<${ data }></${ data }>`);
         const rootNodeProfiles = [], profile = nodeContext.profile, fragment = templateResolver(data);
         if (!node) {
             const tags = profile.node.$tags;
@@ -763,7 +764,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                     asserter(['The value of "@directive" expression should be "string" instead of "%o"', expression.value], isString(expression.value));
                     const name = expression.name.trim();
                     asserter([`It's illegal to create "@raw", "@directive" or "$each" directive with the "@directive" expression "%o"`, expressions], !name.startsWith('@raw') && !name.startsWith('@directive') && !name.startsWith('$each'));
-                    profile.resolveDirective(name, expression.value || '', this.directives);
+                    profile.resolveDirective(name, expression.value, this.directives);
                 });
                 processorResolver();
             }
@@ -1005,28 +1006,15 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         }
     })();
     return NodeContext;
-})(), NodeProfile = ((directiveType = { '$': 'controller', '+': 'event' }, interactiveDirectiveNames = hashTableResolver('checked', 'file', 'focus', 'result', 'selected', 'value'), lifeCycleDirectiveNames = hashTableResolver('loading', 'loaded', 'sentry', 'unloading', 'unloaded'), rawElementNames = hashTableResolver('STYLE', 'SCRIPT'), caseResolver = content => content.includes('__') ? content.replace(/__[a-z]/g, string => string[2].toUpperCase()) : content, viewModuleCacheMap = new WeakMap, dataBinder = (directives, value, fields, event) => directives.eventHandlers.push(directiveResolver(`Object.is(${ value }, _$data_) || (${ value } = _$data_)`, Object.assign({ event }, fields), '$node, _$data_')), directiveAttributeResolver = (node, name, value = '') => {
+})(), NodeProfile = ((directiveType = { '$': 'controller', '+': 'event' }, interactiveDirectiveNames = hashTableResolver('checked', 'file', 'focus', 'result', 'selected', 'value'), lifeCycleDirectiveNames = hashTableResolver('loading', 'loaded', 'sentry', 'unloading', 'unloaded'), rawElementNames = hashTableResolver('STYLE', 'SCRIPT'), caseResolver = content => content.includes('__') ? content.replace(/__[a-z]/g, string => string[2].toUpperCase()) : content, dataBinder = (directives, value, fields, event) => directives.eventHandlers.push(directiveResolver(`Object.is(${ value }, _$data_) || (${ value } = _$data_)`, Object.assign({ event }, fields), '$node, _$data_')), directiveAttributeResolver = (node, name, value = '') => {
     daggerOptions.debugDirective && node.setAttribute(`${ directiveType[name[0]] || 'meta' }-${ decodeURIComponent(name.substring(1)).trim().replace(/\#/g, '__').replace(/:/g, '_').replace(/[^\w]/g, '-') }-debug`, value);
 }, directiveResolver = ((baseSignature = '$module, $scope') => (expression, fields = {}, signature = '$node') => {
     const { clear, debug } = fields.decorators || {};
     expression = `${ signature ? `(${ baseSignature }, ${ signature })` : `(${ baseSignature })` } => { with ($module) with ($scope) return (() => { 'use strict';\n ${ debug ? 'debugger;\n\r' : '' }${ clear ? 'console.clear();\n\r' : '' }return ${ expression }; })(); }`;
-    const processor = processorCaches[expression];
-    const directive = Object.assign({}, fields, { processor: processor || expression });
+    const processor = processorCaches[expression], directive = Object.assign({}, fields, { processor: processor || expression });
     processor || directiveQueue.push(directive);
     return directive;
-})(), viewModuleResolver = (tagName, namespace) => {
-    asserter(`There is no valid module named "${ tagName }" found`, namespace);
-    let isVirtualElement = false, promise = namespace.promise;
-    if (namespace) {
-        promise = namespace.fetch(tagName, true, true);
-        if (promise) {
-            isVirtualElement = true;
-        } else {
-            return viewModuleResolver(tagName, namespace.parent);
-        }
-    }
-    return { promise, isVirtualElement };
-}, NodeProfile = class {
+})(), NodeProfile = class {
     constructor (node, namespace = rootNamespace, rootNodeProfiles = null, parent = null, unique = false, defaultSlotScope = null) {
         this.node = node, this.namespace = namespace, this.unique = unique, this.defaultSlotScope = defaultSlotScope || (parent || {}).defaultSlotScope || null, this.dynamic = this.plain = this.raw = this.virtual = false, this.text = this.inlineStyle = this.styles = this.directives = this.landmark = this.children = this.classNames = this.html = this.slotScope = null;
         const type = node.nodeType;
@@ -1051,7 +1039,9 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                 }
                 rootNodeProfiles && node.removeAttribute(cloak);
             } else {
-                const controllers = [], eventHandlers = [], directives = { controllers, eventHandlers }, name = caseResolver(tagName.toLowerCase()), { promise = null, isVirtualElement = false } = (Object.is(node.constructor, HTMLUnknownElement) && viewModuleResolver(name, namespace)) || {}, dynamicDirective = '@directive', dynamic = attributes[dynamicDirective], slotDirective = '@slot';
+                const controllers = [], eventHandlers = [], directives = { controllers, eventHandlers }, name = caseResolver(tagName.toLowerCase()), moduleProfile = Object.is(node.constructor, HTMLUnknownElement) && namespace.fetchViewModule(name.split('.')[0]), resolved = Object.is(moduleProfile.state, 'resolved'), dynamicDirective = '@directive', dynamic = attributes[dynamicDirective], slotDirective = '@slot';
+                moduleProfile && asserter(`It is illegal to use "$html" or "$text" directive on view module "${ name }"`, !node.hasAttribute('$html') && !node.hasAttribute('$text'));
+                !moduleProfile || resolved || this.resolveDirective('$html', `\`${ node.outerHTML.replace(/`/g, '\\`') }\``, directives);
                 if (node.hasAttribute(slotDirective)) {
                     const slotValue = node.getAttribute(slotDirective).trim(), slotName = `_$slot_${ slotValue }`;
                     directiveAttributeResolver(node, slotDirective, slotValue);
@@ -1061,10 +1051,10 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                         warner([`\u274e Please avoid adding "$html" or "$text" directive on element "%o" as it's declared "${ slotDirective }" meta directive already`, node], !node.hasAttribute('$html') && !node.hasAttribute('$text'));
                         node.removeAttribute('$html');
                         node.removeAttribute('$text');
-                        this.resolveDirective('$html', slotName, directives);
+                        this.resolveDirective('$html#strict', slotName, directives);
                     }
                 }
-                if (isVirtualElement || Object.is(name, 'template')) {
+                if (moduleProfile || Object.is(name, 'template')) {
                     this.virtual = true;
                     this.resolveLandmark(node, 'virtual node removed');
                 }
@@ -1080,9 +1070,8 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                 if (this.html) { return processorResolver(); }
                 this.plain = !(this.directives || this.landmark);
                 rootNodeProfiles && (this.plain ? (node.hasAttribute(cloak) && forEach(node.children, child => child.setAttribute(cloak, '')) || node.removeAttribute(cloak)) : (rootNodeProfiles.push(this) && (rootNodeProfiles = null)));
-                if (isVirtualElement) {
-                    asserter(`It is illegal to use "$html" or "$text" directive on view module "${ name }"`, !directives.child); // TODO
-                    this.promises.push(promise.then(moduleProfile => this.resolveViewModule(moduleProfile)))
+                if (moduleProfile) {
+                    resolved && this.resolveViewModule(moduleProfile.fetch(name.split('.').slice(1)));
                 } else if (!directives.child) {
                     this.resolveChildren(node, rootNodeProfiles);
                 }
@@ -1199,18 +1188,10 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         return this.landmark;
     }
     resolveViewModule (moduleProfile) {
-        const module = moduleProfile.module;
-        let cachedFields = viewModuleCacheMap.get(module);
-        if (!cachedFields) {
-            cachedFields = emptier();
-            const isViewModule = module instanceof NodeProfile, view = isViewModule ? module : ((moduleProfile.children || []).find(moduleProfile => Object.is(moduleProfile.name, 'view')) || {}).module;
-            asserter(`"${ moduleProfile.path }" or "${ moduleProfile.path }.view" is not a valid view module`, view instanceof NodeProfile);
-            cachedFields.children = view.children;
-            cachedFields.defaultSlotScope = view.defaultSlotScope;
-            originalWeakMapSet.call(viewModuleCacheMap, module, cachedFields);
-            isViewModule || originalWeakMapSet.call(viewModuleCacheMap, view, cachedFields);
-        }
-        Object.assign(this, cachedFields);
+        const module = moduleProfile.module, isViewModule = module instanceof NodeProfile, view = isViewModule ? module : moduleProfile.fetchChild('view').module;
+        asserter(`"${ moduleProfile.path }" or "${ moduleProfile.path }.view" is not a valid view module`, view instanceof NodeProfile);
+        this.children = view.children;
+        this.defaultSlotScope = view.defaultSlotScope;
         if (Object.keys(this.defaultSlotScope).length) {
             const slotScope = {}, emptySlot = '_$slot_', slotDirective = '@slot';
             forEach(this.node.children, container => {
@@ -1224,7 +1205,6 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             Reflect.has(this.defaultSlotScope, emptySlot) && !Reflect.has(slotScope, emptySlot) && this.node.innerHTML && (slotScope[emptySlot] = this.node.innerHTML);
             this.slotScope = Object.assign({}, this.defaultSlotScope, slotScope);
         }
-        return '';
     }
 }) => NodeProfile)(), Topology = class {
     constructor (parent, name, value) {
@@ -1274,14 +1254,16 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         }
         forEach(ownKeys(this.children), key => this.children[key].update((newValue || emptier())[key], dispatchSource.mutation));
     }
-}) => styleResolver('[dg-cloak] { display: none !important; }', 'dg-global-style', false) && document.addEventListener('DOMContentLoaded', () => Promise.all(['options', 'modules', 'routers'].map(type => configResolver(document, document.baseURI, type))).then(((base = '', currentStyleSet = null, routers = null, resolvedRouters = null, rootRouter = null, routerConfigs = null, styleModules = { '': styleModuleSet }, anchorResolver = (anchor, event = null) => {
-    if (anchor.startsWith('#@')) {
-        const name = anchor.substring(2), anchorElement = document.getElementById(name) || querySelector(document, `a[name=${ name }]`);
+}) => styleResolver('[dg-cloak] { display: none !important; }', 'dg-global-style', false) && document.addEventListener('DOMContentLoaded', () => Promise.all(['options', 'modules', 'routers'].map(type => configResolver(document, document.baseURI, type))).then(((base = '', currentStyleSet = null, originalPushState = history.pushState, originalReplaceState = history.replaceState, rootRouter = null, routerConfigs = null, styleModules = { '': styleModuleSet }, anchorResolver = (anchor, event = null) => {
+    try {
+        const anchorElement = document.getElementById(anchor) || querySelector(document, `a[name=${ anchor }]`, false, true);
         if(!anchorElement) { return; }
         event && event.preventDefault();
         anchorElement.scrollIntoView();
-        location.href.endsWith(anchor) || history.pushState({}, '', `${ location.href }${ anchor }`);
+        location.href.endsWith(`#@${ anchor }`) || originalPushState.call(history, null, '', `${ location.href }#@${ anchor }`);
         return true;
+    } catch (error) {
+        return;
     }
 }, routingChangeResolver = ((routerChangeResolver = ((resolver = nextRouter => {
     groupEnder(`resolving modules of the router "${ nextRouter.path }"`);
@@ -1306,30 +1288,27 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     styleModuleSet = styleModules[path] || (styleModules[path] = new Set);
     groupStarter(`resolving modules of the router "${ nextRouter.path }"`);
     return rootNamespace.resolve(nextRouter.modules).then(() => resolver(nextRouter));
-})()) => (fullPath = (Object.is(routerConfigs.mode, 'history') ? `${ location.pathname }${ location.search }` : location.hash)) => {
-    fullPath = fullPath.replace(routerConfigs.prefix, '');
-    const slash = '/', anchorIndex = location.hash.lastIndexOf('#@'), anchor = (anchorIndex >= 0) ? location.hash.substring(anchorIndex) : '';
-    fullPath = fullPath.replace(anchor, '');
+})()) => () => {
+    const slash = '/', anchorIndex = location.hash.lastIndexOf('#@'), anchor = (anchorIndex >= 0) ? location.hash.substring(anchorIndex + 2) : '';
+    let fullPath = ((Object.is(routerConfigs.mode, 'history') ? `${ location.pathname }${ location.search }` : location.hash.replace(anchor, ''))).replace(routerConfigs.prefix, '');
     fullPath.startsWith(slash) || (fullPath = `${ slash }${ fullPath }`);
-    const { mode, aliases, prefix } = routerConfigs, [path = '', query = ''] = fullPath.split('?'), redirectPath = aliases[path];
+    const { mode, aliases, prefix } = routerConfigs, [path = '', query = ''] = fullPath.split('?'), redirectPath = aliases[path.substring(1)];
     if (redirectPath) {
-        logger(`\ud83e\udd98 router alias matched, redirecting router from "${ path }" to "${ redirectPath }"`);
-        return routingChangeResolver(`${ query ? `${ redirectPath }?${ query }` : redirectPath }${ anchor }`);
+        logger(`\ud83e\udd98 router alias matched, redirecting router from "${ path }" to "/${ redirectPath }"`);
+        return history.replaceState(null, '', `${ query ? `${ redirectPath }?${ query }` : redirectPath }${ anchor }`);
     }
-    const scenarios = {}, paths = Object.is(path, slash) ? [''] : path.split(slash);
-    routers = [];
+    const scenarios = {}, paths = Object.is(path, slash) ? [''] : path.split(slash), routers = [];
     if (!rootRouter.match(routers, scenarios, paths)) {
         if (Reflect.has(routerConfigs, 'default')) {
+            asserter(`The router "${ path }" is invalid`, !Object.is(`/${ routerConfigs.default }`, path));
             warner(`\u274e The router "${ path }" is invalid, redirect to the default router "${ routerConfigs.default }"`);
-            const defaultPath = routerConfigs.default, resolvedPath = `${ prefix }${ query ? `${ defaultPath }?${ query }` : defaultPath }${ anchor }`;
-            history.pushState({}, '', resolvedPath);
-            return routingChangeResolver(resolvedPath);
+            const defaultPath = routerConfigs.default, resolvedPath = `${ query ? `${ defaultPath }?${ query }` : defaultPath }${ anchor }`;
+            return history.pushState(null, '', resolvedPath);
         } else {
             asserter(`The router "${ path }" is invalid`);
         }
     }
-    resolvedRouters = routers.slice().reverse();
-    const queries = {}, variables = Object.assign({}, ...resolvedRouters.map(router => router.variables)), constants = Object.assign({}, ...resolvedRouters.map(router => router.constants));
+    const resolvedRouters = routers.slice().reverse(), queries = {}, variables = Object.assign({}, ...resolvedRouters.map(router => router.variables)), constants = Object.assign({}, ...resolvedRouters.map(router => router.constants));
     query && forEach([...new URLSearchParams(query)], ([key, value]) => (queries[key] = value));
     forEach(Object.keys(variables), key => {
         if (Reflect.has(queries, key) && !Reflect.has(constants, key)) {
@@ -1346,7 +1325,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     Promise.all([...sentrySet].map(sentry => Promise.resolve(sentry.processor(nextRouter)).then(prevent => ({ sentry, prevent })))).then(results => {
         logger(`\u2705 resolved sentries within router "${ (rootScope.$router || {}).path || '/' }"`);
         const matchedOwners = results.filter(result => result.prevent).map(result => result.sentry.owner);
-        matchedOwners.length ? forEach(matchedOwners, owner => warner(['\u274e The router redirect is prevented by the "$sentry" directive declared on the "%o" element', owner.node || owner.profile.node])) || history.replaceState(null, '', `${ prefix }${ rootScope.$router.path }`) : routerChangeResolver(nextRouter);
+        matchedOwners.length ? forEach(matchedOwners, owner => warner(['\u274e The router redirect is prevented by the "$sentry" directive declared on the "%o" element', owner.node || owner.profile.node])) || originalReplaceState.call(history, null, '', `${ prefix }${ rootScope.$router.path.substring(1) }`) : routerChangeResolver(nextRouter);
     });
 })(), Router = class {
     constructor (router, parent = null) {
@@ -1412,16 +1391,13 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     eventDelegator('click', window, event => {
         const node = event.target;
         if (!['A', 'AREA'].includes(node.tagName) || !node.hasAttribute('href')) { return; }
-        const href = node.getAttribute('href').trim(), isHistoryMode = Object.is(routerConfigs.mode, 'history');
-        if (anchorResolver(href, event)) { return; }
-        const prefix = routerConfigs.prefix;
-        href && ![prefix, '.', '/'].some(prefix => href.startsWith(prefix)) && !Object.is(href, new URL(href, document.baseURI).href) && (node.href = `${ prefix }/${ href }`);
-        if (isHistoryMode) {
+        const href = node.getAttribute('href').trim();
+        if (href.startsWith('#') && anchorResolver(href.substring(1), event)) { return; }
+        if (href && !['.', '/', 'http:', 'https:'].some(prefix => href.startsWith(prefix))) {
             event.preventDefault();
-            history.pushState({}, '', node.href);
-            routingChangeResolver();
+            history.pushState(null, '', href);
         }
-    });
+    }, true);
     const resetToken = { detail: true }, changeEvent = new CustomEvent('change', resetToken), inputEvent = new CustomEvent('input', resetToken);
     eventDelegator('reset', window, () => event => Object.is(event.target.tagName, 'FORM') && forEach(querySelector(document.body, 'input, textarea', true, true), child => {
         child.dispatchEvent(inputEvent);
@@ -1430,6 +1406,14 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     register(Date, ['setDate', 'setFullYear', 'setHours', 'setMilliseconds', 'setMinutes', 'setMonth', 'setSeconds', 'setTime', 'setUTCDate', 'setUTCFullYear', 'setUTCHours', 'setUTCMilliseconds', 'setUTCMinutes', 'setUTCMonth', 'setUTCSeconds', 'setYear']) || register(Map, ['set', 'delete', 'clear']) || register(Set, ['add', 'delete', 'clear']) || register(WeakMap, ['set', 'delete']) || register(WeakSet, ['add', 'delete']);
     JSON.stringify = processorWrapper(JSON.stringify);
     forEach(['concat', 'copyWithin', 'fill', 'find', 'findIndex', 'lastIndexOf', 'pop', 'push', 'reverse', 'shift', 'unshift', 'slice', 'sort', 'splice', 'includes', 'indexOf', 'join', 'keys', 'entries', 'values', 'forEach', 'filter', 'flat', 'flatMap', 'map', 'every', 'some', 'reduce', 'reduceRight', 'toLocaleString', 'toString', 'at'], key => (Array.prototype[key] = processorWrapper(Array.prototype[key])));
+    const stateResolver = (method, parameters) => {
+        const url = (parameters || [])[2], prefix = routerConfigs.prefix;
+        url && !url.startsWith(prefix) && (parameters[2] = `${ prefix }${ url }`);
+        originalPushState.apply(history, parameters);
+        routingChangeResolver();
+    };
+    history.pushState = (...parameters) => stateResolver(originalPushState, parameters);
+    history.replaceState = (...parameters) => stateResolver(originalReplaceState, parameters);
     window.$dagger = Object.freeze(Object.assign(emptier(), { register, version: '1.0.0-RC-debug', validator: (data, path, { type, assert, required } = {}) => {
         if ((data == null) || Number.isNaN(data)) { asserter([`The data "${ path }" should be assigned a valid value instead of "%o" before using`, data], !required); }
         type && (Array.isArray(type) ? asserter([`The type of data "${ path }" should be one of "%o" instead of "%o"`, type, (data.constructor || {}).name], type.some(type => (data instanceof type))) : asserter([`The type of data "${ path }" should be "%o" instead of "%o"`, type, (data.constructor || {}).name], data instanceof type));
@@ -1449,15 +1433,20 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         logger(edge);
         logger(`\ua9c1 Powered by "\ud83d\udde1\ufe0f dagger V${ $dagger.version } (https://daggerjs.org)". \ua9c2`);
         logger(edge);
-        asserter(`The integrity validation is available with "https" protocol or "localhost" host only, while the current origin is "${ location.origin }"`, !daggerOptions.integrity || crypto.subtle);
+        asserter(`The integrity feature is available with "https" protocol or "localhost" host only, while the current origin is "${ location.origin }"`, !daggerOptions.integrity || crypto.subtle);
         base = modules.base;
         routerConfigs = routers.content;
-        const prefix = routerConfigs.prefix;
-        if (Object.is(routerConfigs.mode, 'history')) {
-            asserter('It\'s illegal to use "#" as prefix in "history" router mode', !prefix.startsWith('#'));
+        const prefix = routerConfigs.prefix.trim(), isHistoryMode = Object.is(routerConfigs.mode, 'history');
+        if (prefix) {
+            if (isHistoryMode) {
+                asserter(`In "history" router mode, it's illegal to use "${ prefix }" as router prefix because it contains non-word character`, /^\w*$/.test(prefix));
+                routerConfigs.prefix = `/${ prefix }/`;
+            } else {
+                asserter(`In "hash" router mode, it's illegal to use "${ prefix }" as router prefix because it starts with "@"`, !prefix.startsWith('@'));
+                routerConfigs.prefix = `#${ prefix }/`;
+            }
         } else {
-            asserter('It\'s illegal to use "@" as prefix in "hash" router mode', !prefix.startsWith('@'));
-            routerConfigs.prefix = `#${ prefix }`;
+            routerConfigs.prefix = isHistoryMode ? '/' : '#';
         }
         rootScope = Object.seal(proxyResolver({ $router: null }));
         moduleConfigNormalizer(modules.content);
@@ -1477,8 +1466,8 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             const rootNodes = [...rootNodeSet];
             forEach(rootNodes, rootNode => Reflect.construct(NodeProfile, [rootNode, rootNamespace, rootNodeProfiles, null, true]));
             warner(['\u274e No node with valid directive was detected under root elements "%o"', rootNodes], rootNodeProfiles.length);
-            eventDelegator('popstate', window, () => routingChangeResolver());
-            routingChangeResolver();
+            eventDelegator('popstate', window, routingChangeResolver);
+            history.replaceState(null, '', isHistoryMode ? `${ location.pathname }${ location.search }${ location.hash }` : location.hash);
         };
         rootNamespace = new ModuleProfile({ content: modules.content, type: moduleType.namespace }, base);
         rootNamespace.resolve(new Set(arrayWrapper(routing.modules || []))).then(() => styleModuleSet.forEach(style => (style.disabled = false)) || groupEnder('resolving top level modules') || new NodeContext(new NodeProfile(html)));
