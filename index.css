@@ -1,6 +1,7 @@
 html {
   box-sizing: border-box;
   background-color: #150b23;
+  text-rendering: optimizeLegibility;
 }
 
 *,

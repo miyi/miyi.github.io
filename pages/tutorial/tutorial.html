@@ -11,7 +11,7 @@
     <div +loading="{active: false}">
       <div
         class="menu-item"
-        +click="history.pushState({},'',item.link), active=!active, console.log(active)"
+        +click="history.pushState({},'',item.link), active=!active"
       >
         ${item.name} ${active}
       </div>

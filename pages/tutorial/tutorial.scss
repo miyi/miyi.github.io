@@ -6,8 +6,7 @@
   height: 100%;
   .layout {
     display: flex;
-    max-width: 1200px;
-    width: 92vw;
+    width: 100vw;
     min-width: 1024px;
     height: 100%;
   }
@@ -44,10 +43,10 @@
   flex-grow: 1;
   border: 1px solid white;
   overflow-y: scroll;
-  color: $text-color-lite
+  color: $text-color-lite;
+  font-family: "inter", sans-serif;
 }
 
 .big-title {
   font-size: 2rem;
 }
-

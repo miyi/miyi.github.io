@@ -5,8 +5,7 @@
 }
 .layout-container .layout {
   display: flex;
-  max-width: 1200px;
-  width: 92vw;
+  width: 100vw;
   min-width: 1024px;
   height: 100%;
 }
@@ -43,6 +42,7 @@
   border: 1px solid white;
   overflow-y: scroll;
   color: #c1d1e4;
+  font-family: "inter", sans-serif;
 }
 
 .big-title {
