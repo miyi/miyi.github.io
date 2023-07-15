@@ -1041,8 +1041,12 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             } else {
                 const controllers = [], eventHandlers = [], directives = { controllers, eventHandlers }, name = caseResolver(tagName.toLowerCase()), moduleProfile = Object.is(node.constructor, HTMLUnknownElement) && namespace.fetchViewModule(name.split('.')[0]), resolved = Object.is(moduleProfile.state, 'resolved'), dynamicDirective = '@directive', dynamic = attributes[dynamicDirective], slotDirective = '@slot';
                 moduleProfile && asserter(`It is illegal to use "$html" or "$text" directive on view module "${ name }"`, !node.hasAttribute('$html') && !node.hasAttribute('$text'));
+                if (moduleProfile || Object.is(name, 'template')) {
+                    this.virtual = true;
+                    this.resolveLandmark(node, 'virtual node removed');
+                }
                 if (moduleProfile && !resolved) {
-                    this.resolveDirective('$html', `\`${ node.outerHTML.replace(/`/g, '\\`') }\``, directives);
+                    this.resolveDirective('$html', `\`${ node.outerHTML.replace(/`/g, '\\`').replace(/\${/g, '\\${') }\``, directives);
                     this.directives = directives;
                 } else {
                     if (node.hasAttribute(slotDirective)) {
@@ -1056,10 +1060,6 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                             node.removeAttribute('$text');
                             this.resolveDirective('$html#strict', slotName, directives);
                         }
-                    }
-                    if (moduleProfile || Object.is(name, 'template')) {
-                        this.virtual = true;
-                        this.resolveLandmark(node, 'virtual node removed');
                     }
                     forEach([...attributes], ({ name, value }) => this.resolveDirective(name, value, directives));
                     if (dynamic) {
