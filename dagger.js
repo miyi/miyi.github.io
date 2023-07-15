@@ -1416,7 +1416,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     const stateResolver = (method, parameters) => {
         const url = (parameters || [])[2], prefix = routerConfigs.prefix;
         url && !url.startsWith(prefix) && (parameters[2] = `${ prefix }${ url }`);
-        originalPushState.apply(history, parameters);
+        method.apply(history, parameters);
         routingChangeResolver();
     };
     history.pushState = (...parameters) => stateResolver(originalPushState, parameters);
