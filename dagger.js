@@ -308,6 +308,13 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             if (childNameSet) { // rootNamespace
                 this.promise = new Promise(resolver => (this.resolver = resolver));
             } else {
+                if (this.valid && Object.is(this.state, 'resolved')) {
+                    if (Object.is(type, moduleType.style)) {
+                        this.resolveModule(this.resolvedContent);
+                    } else if (Object.is(type, moduleType.namespace)) {
+                        forEach(this.children, child => child.resolve());
+                    }
+                }
                 return this.promise;
             }
         }
@@ -1336,7 +1343,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         const { children, constants = {}, variables = {}, modules = [], tailable = false, match = '' } = router;
         this.layer = parent ? (parent.layer + 1) : 0;
         const space = new Array(this.layer * 4).fill(' ').join('');
-        let path = router.path;
+        let path = (router.path || '').trim();
         this.modules = arrayWrapper(modules);
         asserter([`${ space }The "modules" field of router should be either "string" or "string array" matched RegExp "${ moduleNameRegExp.toString() }" instead of "%o"`, modules], this.modules.every(module => isString(module) && moduleNameRegExp.test(module)));
         if (parent) {
@@ -1355,7 +1362,6 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             return;
         }
         this.constants = constants, this.variables = variables, this.children = null, this.parent = parent, this.scenarios = (path instanceof Object) ? Object.keys(path).map(scenario => ({ scenario, regExp: new RegExp(path[scenario] || '^$') })) : [{ scenario: path, regExp: new RegExp(`^${ path }$`) }];
-        forEach(this.modules, module => module.trim());
         if (children) {
             asserter([`${ space }The router's "children" field should be "array" instead of "%o"`, children], Array.isArray(children));
             this.children = children.map(child => new Router(child, this)).filter(child => !child.invalid);
