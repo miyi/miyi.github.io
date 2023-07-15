@@ -1258,7 +1258,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         }
         forEach(ownKeys(this.children), key => this.children[key].update((newValue || emptier())[key], dispatchSource.mutation));
     }
-}) => styleResolver('[dg-cloak] { display: none !important; }', 'dg-global-style', false) && document.addEventListener('DOMContentLoaded', () => Promise.all(['options', 'modules', 'routers'].map(type => configResolver(document, document.baseURI, type))).then(((base = '', currentStyleSet = null, originalPushState = history.pushState, originalReplaceState = history.replaceState, rootRouter = null, routerConfigs = null, styleModules = { '': styleModuleSet }, anchorResolver = (anchor, event = null) => {
+}) => styleResolver('[dg-cloak] { display: none !important; }', 'dg-global-style', false) && document.addEventListener('DOMContentLoaded', () => Promise.all(['options', 'modules', 'routers'].map(type => configResolver(document, document.baseURI, type))).then(((base = '', originalPushState = history.pushState, originalReplaceState = history.replaceState, rootRouter = null, routerConfigs = null, styleModuleCache = { '': styleModuleSet }, anchorResolver = (anchor, event = null) => {
     try {
         const anchorElement = document.getElementById(anchor) || querySelector(document, `a[name=${ anchor }]`, false, true);
         if(!anchorElement) { return; }
@@ -1273,23 +1273,23 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     groupEnder(`resolving modules of the router "${ nextRouter.path }"`);
     logger(`\u2705 router has changed from "${ (rootScope.$router || {}).path || '/' }" to "${ nextRouter.path }"`);
     processorResolver();
+    const currentStyleModuleSet = rootScope.$router && styleModuleCache[rootScope.$router.path];
     isRouterWritable = true;
     rootScope.$router = nextRouter;
     isRouterWritable = false;
-    if (!currentStyleSet) {
+    if (!routerTopology) {
         rootNodeProfiles.map(nodeProfile => new NodeContext(nodeProfile));
         routerTopology = [...rootScope.$router[meta]][0];
     }
-    if (!Object.is(currentStyleSet, styleModuleSet)) {
-        currentStyleSet && currentStyleSet.forEach(style => (style.disabled = !styleModuleSet.has(style), style.setAttribute('active-debug', !style.disabled)));
+    if (!Object.is(currentStyleModuleSet, styleModuleSet)) {
+        currentStyleModuleSet && currentStyleModuleSet.forEach(style => (style.disabled = !styleModuleSet.has(style), style.setAttribute('active-debug', !style.disabled)));
         styleModuleSet.forEach(style => (style.disabled = false, style.setAttribute('active-debug', true)));
-        currentStyleSet = styleModuleSet;
     }
     anchorResolver(nextRouter.anchor);
 }) => nextRouter => {
     logger(`\u23f3 router is changing from "${ (rootScope.$router || {}).path || '/' }" to "${ nextRouter.path }"...`);
     const path = nextRouter.path;
-    styleModuleSet = styleModules[path] || (styleModules[path] = new Set);
+    styleModuleSet = styleModuleCache[path] || (styleModuleCache[path] = new Set);
     groupStarter(`resolving modules of the router "${ nextRouter.path }"`);
     return rootNamespace.resolve(nextRouter.modules).then(() => resolver(nextRouter));
 })()) => () => {
@@ -1393,9 +1393,12 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         forEach(names, name => resolver(target.prototype, name));
     })();
     eventDelegator('click', window, event => {
-        const node = event.target;
-        if (!['A', 'AREA'].includes(node.tagName) || !node.hasAttribute('href')) { return; }
-        const href = node.getAttribute('href').trim();
+        let target = event.target;
+        while (target && !['A', 'AREA'].includes(target.tagName)) {
+            target = target.parentNode;
+        }
+        if (!target || !target.hasAttribute('href')) { return; }
+        const href = target.getAttribute('href').trim();
         if (href.startsWith('#') && anchorResolver(href.substring(1), event)) { return; }
         if (href && !['.', '/', 'http:', 'https:'].some(prefix => href.startsWith(prefix))) {
             event.preventDefault();
