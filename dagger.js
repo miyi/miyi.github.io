@@ -416,8 +416,8 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     resolveModule (resolvedContent) {
         this.resolvedContent = resolvedContent;
         let module = resolvedContent;
-        const type = this.type, isNamespace = Object.is(type, moduleType.namespace);
-        if (this.parent && (isNamespace || Object.is(type, moduleType.view))) {
+        const type = this.type, isNamespace = Object.is(type, moduleType.namespace), isView = Object.is(type, moduleType.view);
+        if (this.parent && (isNamespace || isView)) {
             try {
                 const element = document.createElement(this.name);
                 asserter([`${ this.space }It's illegal to use "${ this.name }" as a namespace or view module name as it's the tag name of builtin html element "%o"`, element.constructor], !Object.is(this.name, this.name.toLowerCase()) || (element instanceof HTMLUnknownElement));
