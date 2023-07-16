@@ -1,4 +1,4 @@
-.container {
+.t-c-container {
   border: 1px solid #71609a;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -7,16 +7,16 @@
   gap: 1rem;
   cursor: pointer;
 }
-.container .title {
+.t-c-container .t-c-title {
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 600;
 }
-.container .description {
+.t-c-container .t-c-description {
   flex-grow: 1;
   font-size: 1rem;
   font-weight: 400;
 }
-.container .bottom {
+.t-c-container .t-c-bottom {
   align-self: end;
   justify-self: end;
   font-size: 0.75rem;

@@ -42,9 +42,11 @@
 .page-container {
   flex-grow: 1;
   border: 1px solid white;
+  height: 100vh;
   overflow-y: scroll;
   color: $text-color-lite;
   font-family: "inter", sans-serif;
+  line-height: 1.6;
 }
 
 .big-title {

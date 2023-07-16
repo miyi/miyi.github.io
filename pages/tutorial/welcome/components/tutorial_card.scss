@@ -1,6 +1,6 @@
 @import "../../../../styles/global.scss";
 
-.container {
+.t-c-container {
   border: 1px solid $border-color-lite;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -8,16 +8,16 @@
   flex-direction: column;
   gap: 1rem;
   cursor: pointer;
-  .title {
+  .t-c-title {
     font-size: 1.75rem;
-    font-weight: 700;
+    font-weight: 600;
   }
-  .description {
+  .t-c-description {
     flex-grow: 1;
     font-size: 1rem;
     font-weight: 400;
   }
-  .bottom {
+  .t-c-bottom {
     align-self: end;
     justify-self: end;
     font-size: 0.75rem;

@@ -13,6 +13,7 @@
       flex-direction: row;
     }
     .content {
+      border: 1px solid greenyellow;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
@@ -22,8 +23,9 @@
     }
     .title {
       margin: 3rem 0 3rem 0;
-      font-size: 3.5rem;
-      font-weight: 900;
+      font-size: 3rem;
+      line-height: 0.9;
+      font-weight: 700;
     }
     p {
       font-weight: 100;
@@ -35,6 +37,7 @@
     }
     .link-grid {
       width: 80%;
+      min-width: 500px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
@@ -87,12 +90,10 @@
           own.
         </p>
         <div class="link-container" +loading="{parts: loadParts()}">
-          <div class="link-grid">
-            <part $each="parts"></part>
-          </div>
+          <part class="link-grid" $each="parts" +loading="item"></part>
         </div>
-        <div class="title">quick start</div>
-        <p>to get started</p>
+        <div class="title">getting started</div>
+        <p>installing dagger to your project is as easy as</p>
       </div>
       <div class="toc-container"></div>
     </div>

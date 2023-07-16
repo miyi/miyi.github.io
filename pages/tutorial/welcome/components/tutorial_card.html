@@ -6,10 +6,10 @@
     }
   </script>
   <template id="view">
-    <div class="container" +click="history.pushState({},'',item.link)">
-      <div class="title">${item.title}</div>
-      <div class="description">${item.description}</div>
-      <div class="bottom">${item.bottom}</div>
+    <div class="t-c-container" +click="history.pushState({},'',link)">
+      <div class="t-c-title">${title}</div>
+      <div class="t-c-description">${description}</div>
+      <div class="t-c-bottom">${bottom}</div>
     </div>
   </template>
 </html>
