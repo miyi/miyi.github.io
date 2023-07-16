@@ -222,15 +222,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     }
     isRootScope ? data[meta].add(new Topology(null, '', data)) : (target[property] = data);
     return data;
-})(), ModuleProfile = ((elementProfileCacheMap = new Map, embeddedType = { json: 'dagger/json', namespace: 'dagger/modules', script: 'dagger/script', style: 'dagger/style', string: 'dagger/string' }, integrityProfileCache = emptier(), mimeType = { html: 'text/html', json: 'application/json', script: ['application/javascript', 'javascript/esm', 'text/javascript'], style: 'text/css' }, relativePathRegExp = /(?:^|;|\s+)(?:export|import)\s*?(?:(?:(?:[$\w*\s{},]*)\s*from\s*?)|)(?:(?:"([^"]+)?")|(?:'([^']+)?'))[\s]*?(?:$|)/gm, remoteUrlRegExp = /^(http:\/\/|https:\/\/|\/|\.\/|\.\.\/)/i, textEncoder = new TextEncoder(), childModuleResolver = (parentModule, { config, module, name, type }) => {
-    if (Object.is(type, moduleType.script)) {
-        Object.is(config.anonymous, false) ? (parentModule[name] = module) : Object.assign(parentModule, module);
-    } else if ((Object.is(type, moduleType.namespace) && config.explicit) || Object.is(type, moduleType.json)) {
-        config.anonymous ? Object.assign(parentModule, module) : (parentModule[name] = module);
-    } else if (Object.is(type, moduleType.string)) {
-        parentModule[name] = module;
-    }
-}, scopedRuleResolver = ((selectorRegExp = /([\s:+>~])/) => (sheet, rule, name, iterator) => {
+})(), ModuleProfile = ((elementProfileCacheMap = new Map, embeddedType = { json: 'dagger/json', namespace: 'dagger/modules', script: 'dagger/script', style: 'dagger/style', string: 'dagger/string' }, integrityProfileCache = emptier(), mimeType = { html: 'text/html', json: 'application/json', script: ['application/javascript', 'javascript/esm', 'text/javascript'], style: 'text/css' }, relativePathRegExp = /(?:^|;|\s+)(?:export|import)\s*?(?:(?:(?:[$\w*\s{},]*)\s*from\s*?)|)(?:(?:"([^"]+)?")|(?:'([^']+)?'))[\s]*?(?:$|)/gm, remoteUrlRegExp = /^(http:\/\/|https:\/\/|\/|\.\/|\.\.\/)/i, textEncoder = new TextEncoder(), scopedRuleResolver = ((selectorRegExp = /([\s:+>~])/) => (sheet, rule, name, iterator) => {
     if (rule instanceof CSSKeyframesRule) {
         const originalName = rule.name;
         rule.name = `${ originalName }-${ name }`;
@@ -310,7 +302,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             } else {
                 if (this.valid && Object.is(this.state, 'resolved')) {
                     if (Object.is(type, moduleType.style)) {
-                        this.resolveModule(this.resolvedContent);
+                        originalSetAdd.call(styleModuleSet, this.module);
                     } else if (Object.is(type, moduleType.namespace)) {
                         forEach(this.children, child => child.resolve());
                     }
@@ -426,14 +418,15 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             }
         }
         if (isNamespace) {
-            module = emptier();
+            module = this.module;
             this.children || (this.children = resolvedContent);
-            forEach(resolvedContent, moduleProfile => childModuleResolver(module, moduleProfile));
+            this.config.explicit && (this.config.anonymous ? Object.assign(this.parent.module, module) : (this.parent.module[this.name] = module));
             this.parent && this.parent.resolve().then(moduleProfile => Object.setPrototypeOf(module, moduleProfile.module));
-        } else if (Object.is(type, moduleType.view)) {
+        } else if (isView) {
             selectorInjector(module.node, this.parent.tags);
         } else if (Object.is(type, moduleType.script)) {
             module = scriptModuleResolver(module, emptier());
+            Object.is(this.config.anonymous, false) ? (this.parent.module[this.name] = module) : Object.assign(this.parent.module, module);
         } else if (Object.is(type, moduleType.style)) {
             if (!Object.is(this.config.scoped, false)) {
                 const style = styleResolver('', this.path, true), sheet = style.sheet, iterator = { index: 0 }, tag = this.parent.path ? this.parent.path.replace(/\./g, '__') : '__';
@@ -442,6 +435,10 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                 module = style;
             }
             originalSetAdd.call(styleModuleSet, module);
+        } else if (Object.is(type, moduleType.json)) {
+            this.config.anonymous ? Object.assign(this.parent.module, module) : (this.parent.module[this.name] = module);
+        } else if (Object.is(type, moduleType.string)) {
+            this.parent.module[this.name] = module;
         }
         return module;
     }
@@ -456,6 +453,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                 asserter(`The modules "${ [...childNameSet].join(', ') }" is not declared in the root namespace`);
             }
         }
+        this.module = emptier();
         return Promise.all(children.map(child => child.resolve()));
     }
     resolveRemoteType (content, type, url) {
