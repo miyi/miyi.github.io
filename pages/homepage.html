@@ -17,7 +17,7 @@
         <div class="home-container nav-container">
           <div class="nav-logo"><img src="./svg/logo.svg" alt="dagger" /></div>
           <div class="nav-left-menu">
-            <a href="tutorial"><div class="btn">Learn</div></a>
+            <a href="/tutorial"><div class="btn">Learn</div></a>
             <div class="btn">Docs</div>
             <div class="btn">About us</div>
             <div class="btn">Blog</div>
@@ -129,70 +129,6 @@
           ></content_block>
         </div>
       </div>
-
-      <!-- <div id="databinding-content" class="home">
-      <div id="#databinding-content" class="home-container">
-        <content_block
-          +loading="{
-            content_title: 'data binding',
-            contentLeft: dataBindingContentLeft, 
-            contentRight: dataBindingContentRight,
-            codeFunction: highlightContent($module,labeledDataBindingContent, replaceDataBindingContentLabels),
-            textNodes: {},
-            codeNodes: {}
-          }"
-          $watch#1="createLine(textNodes.dbloading, 'right', codeNodes.dbloading, 'top')"
-          $watch#2="createLine(textNodes.voteclick, 'right', codeNodes.upclick, 'left')"
-          $watch#3="createLine(textNodes.voteclick, 'right', codeNodes.downclick, 'left')"
-          $watch#4="createLine(textNodes.totalwatch, 'right', codeNodes.totalwatch, 'left')"
-          $watch#5="createLine(textNodes.dollarvalues, 'left', codeNodes.upvotes, 'right')"
-          $watch#6="createLine(textNodes.dollarvalues, 'left', codeNodes.downvotes, 'right')"
-          $watch#7="createLine(textNodes.dollarvalues, 'left', codeNodes.total, 'right')"
-        ></content_block>
-      </div>
-    </div>
-    <div id="modules-content" class="home">
-      <div class="home-container">
-        <content_block
-          +loading="{
-              content_title: 'module management',
-              contentLeft: modulesContentLeft,
-              contentRight: modulesContentRight,
-              textNodes: {},
-              codeNodes: {},
-              codeFunction: highlightContent($module,labeledModulesContent, replaceModuleContentLabels)
-          }"
-          $watch#1="createLine(textNodes.type, 'right', codeNodes.type, 'top')"
-          $watch#2="createLine(textNodes.loading, 'right', codeNodes.loading, 'left')"
-          $watch#3="createLine(textNodes.contactlist, 'right', codeNodes.contactlist, 'left')"
-          $watch#4="createLine(textNodes.contactpath, 'left', codeNodes.contactpath, 'right')"
-          $watch#5="createLine(textNodes.contactpath2, 'left', codeNodes.contactpath, 'right')"
-          $watch#6="createLine(textNodes.submodules, 'left', codeNodes.contactcard, 'right')"
-          $watch#7="createLine(textNodes.submodules, 'left', codeNodes.photos, 'right')"
-        ></content_block>
-      </div>
-    </div>
-    <div id="modules-content" class="home">
-      <div class="home-container">
-        <content_block
-          +loading="{
-              content_title: 'routing management',
-              contentLeft: modulesContentLeft,
-              contentRight: modulesContentRight,
-              textNodes: {},
-              codeNodes: {},
-              codeFunction: highlightContent($module, labeledModulesContent, replaceModuleContentLabels)
-          }"
-          $watch#1="createLine(textNodes.type, 'right', codeNodes.type, 'top')"
-          $watch#2="createLine(textNodes.loading, 'right', codeNodes.loading, 'left')"
-          $watch#3="createLine(textNodes.contactlist, 'right', codeNodes.contactlist, 'left')"
-          $watch#4="createLine(textNodes.contactpath, 'left', codeNodes.contactpath, 'right')"
-          $watch#5="createLine(textNodes.contactpath2, 'left', codeNodes.contactpath, 'right')"
-          $watch#6="createLine(textNodes.submodules, 'left', codeNodes.contactcard, 'right')"
-          $watch#7="createLine(textNodes.submodules, 'left', codeNodes.photos, 'right')"
-        ></content_block>
-      </div>
-    </div> -->
     </div>
   </template>
 </html>
