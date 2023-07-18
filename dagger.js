@@ -1312,7 +1312,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             asserter(`The router "${ path }" is invalid`, !Object.is(`/${ routerConfigs.default }`, path));
             warner(`\u274e The router "${ path }" is invalid, redirect to the default router "${ routerConfigs.default }"`);
             const defaultPath = routerConfigs.default, resolvedPath = `${ query ? `${ defaultPath }?${ query }` : defaultPath }${ anchor }`;
-            return history.pushState(null, '', resolvedPath);
+            return history.pushState(null, '', resolvedPath || routerConfigs.prefix);
         } else {
             asserter(`The router "${ path }" is invalid`);
         }
