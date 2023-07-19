@@ -1,23 +1,12 @@
-
-
 return {
   mode: "history",
-  default: "",
-  aliases: { "": "home", "tutorial": "tutorial/welcome" },
-  modules: [
-    "home",
-    "tutorial",
-    "welcome",
-    "part1",
-    "part2",
-    "part3",
-    "part4",
-    "documentation",
-  ],
+  default: "home",
+  aliases: { "": "home", learn: "learn/welcome" },
   routing: {
     constants: {
       title: "dagger.js",
     },
+    modules: "home",
     children: [
       {
         path: "home",
@@ -25,9 +14,9 @@ return {
         constants: { layer1: "home", title: "home" },
       },
       {
-        path: "tutorial",
-        modules: "tutorial",
-        constants: { layer1: "tutorial", title: "tutorial" },
+        path: "learn",
+        modules: "learnlayout",
+        constants: { layer1: "learnlayout", title: "learn" },
         children: [
           {
             path: "welcome",
@@ -36,8 +25,8 @@ return {
           },
           {
             path: "part1",
-            modules: "part1",
-            constants: { layer2: "part1", title: "part 1" },
+            modules: "welcome",
+            constants: { layer2: "welcome", title: "part 1" },
           },
           {
             path: "part2",

@@ -29,7 +29,6 @@ export const createLine = (
   { start, startSocket, end, endSocket }, LeaderLine
 ) => {
   if (start && end) {
-
     new LeaderLine(start, end, {
       startPlug: "square",
       startSocket,

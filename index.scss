@@ -1,8 +1,9 @@
-@import './styles/global.scss';
+@import "./styles/global.scss";
 
 html {
   box-sizing: border-box;
   background-color: $bg-color-darker;
+  text-rendering: optimizeLegibility;
 }
 *,
 *:before,
@@ -11,7 +12,7 @@ html {
 }
 
 body {
-  margin: 0
+  margin: 0;
 }
 
 .brand-text {

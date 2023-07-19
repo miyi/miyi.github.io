@@ -2,22 +2,17 @@
 
 .layout-container {
   display: flex;
-  justify-content: center;
+
   height: 100%;
-  .layout {
-    display: flex;
-    max-width: 1200px;
-    width: 92vw;
-    min-width: 1024px;
-    height: 100%;
-  }
+  width: 100%;
+  min-width: 1024px;
 }
 
 .menu {
   display: flex;
   flex-direction: column;
   background-color: $bg-color;
-  width: 500px;
+  width: 280px;
   height: 100%;
   overflow-y: scroll;
 }
@@ -41,13 +36,31 @@
 }
 
 .page-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
   flex-grow: 1;
   border: 1px solid white;
+  height: 100vh;
   overflow-y: scroll;
-  color: $text-color-lite
+  color: $text-color-lite;
+  font-family: "inter", sans-serif;
+  line-height: 1.6;
+  .page-content {
+    border: 1px solid greenyellow;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    overflow-y: scroll;
+    padding: 2rem 6rem 0 6rem;
+  }
+  .toc-container {
+    min-width: 250px;
+    border: 1px dashed orange;
+  }
 }
 
 .big-title {
   font-size: 2rem;
 }
-

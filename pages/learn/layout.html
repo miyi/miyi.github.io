@@ -3,15 +3,15 @@
     {
       view: "#view",
       menuitem: "#menuitem",
-      js: "./tutorial.js",
-      style: "./tutorial.css",
+      js: "./learn.js",
+      style: "./learn.css",
     }
   </script>
   <template id="menuitem">
-    <div +loading="{active: false}">
+    <div +loading="{active: false}" +loaded="console.log('refreshed')">
       <div
         class="menu-item"
-        +click="history.pushState({},'',item.link), active=!active, console.log(active)"
+        +click="active=!active, history.pushState({}, '', item.link)"
       >
         ${item.name} ${active}
       </div>
@@ -24,16 +24,14 @@
   </template>
   <template id="view">
     <div class="layout-container">
-      <div class="layout">
-        <div class="menu" +loading="{menuitem: menuItem()}">
-          <menuitem $each="menuitem"></menuitem>
+      <div class="menu" +loading="{menuitem: menuItem()}">
+        <menuitem $each="menuitem"></menuitem>
+      </div>
+      <div class="page-container">
+        <div class="page-content">
+          <template $html="$router.constants.layer2"></template>
         </div>
-        <div class="page-container">
-          <template
-            class="content-container"
-            $html="$router.constants.layer2"
-          ></template>
-        </div>
+        <div class="toc-container"></div>
       </div>
     </div>
   </template>

@@ -1,0 +1,111 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      style: "#style",
+      js: "#script",
+      part: "./components/tutorial_card.html",
+    }
+  </script>
+  <style id="style" type="dagger/style">
+    .title {
+      margin: 2rem 0 2rem 0;
+      padding: 1rem 0 1rem 0;
+      font-size: 3rem;
+      line-height: 0.9;
+      font-weight: 700;
+    }
+    .subtitle {
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+    .text {
+      font-weight: 100;
+    }
+    .link-container {
+      padding: 4rem 0 4rem 0;
+      justify-self: center;
+      align-self: flex-start;
+    }
+    .link-grid {
+      width: 80%;
+      min-width: 500px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  </style>
+  <script id="script" type="dagger/script">
+    export const loadParts = () => [
+      {
+        title: "part 1",
+        description:
+          "Create a basic component with scope variables and event directives.",
+        bottom: "5 min",
+        link: "learn/part1"
+      },
+      {
+        title: "part 2",
+        description:
+          "Enhance interactive features with control directives and decorators.",
+        bottom: "10 min",
+        link: "learn/part2"
+      },
+      {
+        title: "part 3",
+        description:
+          "Use dagger modules to build complex components",
+        bottom: "15 min",
+        link: "learn/part3"
+      },
+      {
+        title: "part 4",
+        description: "Finish a complete SPA through configuring the router",
+        bottom: "20 min",
+        link: "learn/part4"
+      },
+    ];
+    
+  </script>
+  <template id="view">
+    <div class="title brand-text">What is dagger.js?</div>
+
+    <p class="text">
+      Dagger.js is a frontend web framework all written in native javascript. It
+      has no APIs and no external dependencies. You can get started right away
+      with just the knowledge of html, javascript, and css.
+    </p>
+    <div class="title">
+      core features
+      <div class="subtitle">
+        What makes developing with dagger.js intuitive and fast?
+      </div>
+    </div>
+    <ul class="text">
+      <li>html directives to streamline modern web development needs</li>
+      <li>easy state management with scope variables</li>
+      <li>
+        internal module management that does away with bundlers like webpack
+      </li>
+      <li>routing management</li>
+      <li>dagger.js is a run-time framework so there is no need to compile</li>
+    </ul>
+    <p></p>
+    <div class="title">quick start</div>
+    <p class="text">
+      Getting started is as easy as adding the library to the html header.
+    </p>
+    <div class="title">Tutorials</div>
+    <p>
+      Follow through our 4 part tutorial to create a task board that allows
+      users to create tasks and drag them through various stages of completion.
+      We will explain all major concepts step by step, and by the end you will
+      be able to develope a complete dagger SPA on your own.
+    </p>
+    <div class="link-container" +loading="{parts: loadParts()}">
+      <div class="link-grid">
+        <part $each="parts" +loading="item"></part>
+      </div>
+    </div>
+  </template>
+</html>
