@@ -36,7 +36,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     warner: (messages, condition) => daggerOptions.warning && vendor(messages, condition, console.warn, daggerOptions.warningPlainStyle, daggerOptions.warningHighlightStyle),
     groupStarter: label => daggerOptions.log && console.group(label),
     groupEnder: label => daggerOptions.log && console.groupEnd(label)
-}))(), context = Symbol('context'), currentController = null, daggerOptions = { integrity: true }, directiveQueue = [], dispatchSource = { bubble: 'bubble', self: 'self', mutation: 'mutation' }, isRouterWritable = false, moduleNameRegExp = /^[a-z]{1}[\w]*$/, remoteUrlRegExp = /^(http:\/\/|https:\/\/|\/|\.\/|\.\.\/)/i, rootNamespace = null, rootScope = null, rootScopeCallback = null, rootNodeProfiles = [], arrayWrapper = target => Array.isArray(target) ? target : [target], emptier = () => Object.create(null), processorCaches = emptier(), styleModuleSet = new Set, eventDelegator = ((bubbleSet = new Set, captureSet = new Set, handler = (event, capture, targets, index = 0) => {
+}))(), context = Symbol('context'), currentController = null, daggerOptions = { integrity: true }, directiveQueue = [], dispatchSource = { bubble: 'bubble', self: 'self', mutation: 'mutation' }, isRouterWritable = false, moduleNameRegExp = /^[a-z]{1}[\w]*$/, plainRootScope = null, remoteUrlRegExp = /^(http:\/\/|https:\/\/|\/|\.\/|\.\.\/)/i, rootNamespace = null, rootScope = null, rootScopeCallback = null, rootNodeProfiles = [], arrayWrapper = target => Array.isArray(target) ? target : [target], emptier = () => Object.create(null), processorCaches = emptier(), styleModuleSet = new Set, eventDelegator = ((bubbleSet = new Set, captureSet = new Set, handler = (event, capture, targets, index = 0) => {
     const currentTarget = targets[index++];
     if (!currentTarget) { return; }
     const eventListenerSet = currentTarget.$eventListenerMap && currentTarget.$eventListenerMap[event.type], eventListeners = eventListenerSet ? [...eventListenerSet].filter(listener => Object.is(listener.decorators.capture, capture)) : [];
@@ -185,6 +185,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         return value;
     },
     set: (target, property, newValue) => {
+        asserter('It\'s illegal to overwrite "$router" of the rootScope', isRouterWritable || !Object.is(target, plainRootScope) || !Object.is(property, '$router'));
         target[property] = newValue;
         if (!invalidSymbols.has(property) && hasOwnProperty.call(target, property)) {
             const topologySet = target[meta];
@@ -1459,7 +1460,8 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         } else {
             routerConfigs.prefix = isHistoryMode ? '/' : '#';
         }
-        rootScope = Object.seal(proxyResolver({ $router: null }));
+        plainRootScope = { $router: null };
+        rootScope = Object.seal(proxyResolver(plainRootScope));
         moduleConfigNormalizer(modules.content);
         const html = document.documentElement, routing = routerConfigs.routing || { modules: Object.keys(modules.content) };
         groupStarter('resolving top level modules');
