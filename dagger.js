@@ -1307,21 +1307,20 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     if (redirectPath) {
         logger('\ud83e\udd98 router alias matched');
     } else if (rootRouter.match(routers, scenarios, paths)) {
+        routers.reverse();
         redirectPath = (routers.find(router => router.redirectPath || Object.is(router.redirectPath, '')) || {}).redirectPath;
+    } else if (Reflect.has(routerConfigs, 'default')) {
+        asserter(`The router "${ path }" is invalid`, !Object.is(`/${ routerConfigs.default }`, path));
+        warner('\u274e The router "${ path }" is invalid');
+        redirectPath = routerConfigs.default;
     } else {
-        if (Reflect.has(routerConfigs, 'default')) {
-            asserter(`The router "${ path }" is invalid`, !Object.is(`/${ routerConfigs.default }`, path));
-            warner('\u274e The router "${ path }" is invalid');
-            redirectPath = routerConfigs.default;
-        } else {
-            asserter(`The router "${ path }" is invalid`);
-        }
+        asserter(`The router "${ path }" is invalid`);
     }
     if (redirectPath != null) {
         logger(`The router is redirecting from "${ path }" to "/${ redirectPath }"`);
         return history.replaceState(null, '', `${ query ? `${ redirectPath }?${ query }` : redirectPath }${ anchor }` || routerConfigs.prefix);
     }
-    const resolvedRouters = routers.slice().reverse(), queries = {}, variables = Object.assign({}, ...resolvedRouters.map(router => router.variables)), constants = Object.assign({}, ...resolvedRouters.map(router => router.constants));
+    const queries = {}, variables = Object.assign({}, ...routers.map(router => router.variables)), constants = Object.assign({}, ...routers.map(router => router.constants));
     query && forEach([...new URLSearchParams(query)], ([key, value]) => (queries[key] = value));
     forEach(Object.keys(variables), key => {
         if (Reflect.has(queries, key) && !Reflect.has(constants, key)) {
@@ -1333,7 +1332,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             }
         }
     });
-    const nextRouter = { url: location.href, mode, prefix, path, paths, modules: new Set(resolvedRouters.map(router => router.modules).flat()), query, queries, scenarios, variables, constants, anchor };
+    const nextRouter = { url: location.href, mode, prefix, path, paths, modules: new Set(routers.map(router => router.modules).flat()), query, queries, scenarios, variables, constants, anchor };
     logger(`\u23f3 resolving sentries within router "${ (rootScope.$router || {}).path || '/' }"...`);
     Promise.all([...sentrySet].map(sentry => Promise.resolve(sentry.processor(nextRouter)).then(prevent => ({ sentry, prevent })))).then(results => {
         logger(`\u2705 resolved sentries within router "${ (rootScope.$router || {}).path || '/' }"`);
