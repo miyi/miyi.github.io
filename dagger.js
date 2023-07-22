@@ -1285,7 +1285,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     isRouterWritable = false;
     if (!routerTopology) {
         rootNodeProfiles.map(nodeProfile => new NodeContext(nodeProfile));
-        routerTopology = [...rootScope.$router[meta]][0];
+        routerTopology = [...nextRouter[meta]][0];
     }
     if (!Object.is(currentStyleModuleSet, styleModuleSet)) {
         currentStyleModuleSet && currentStyleModuleSet.forEach(style => (style.disabled = !styleModuleSet.has(style), style.setAttribute('active-debug', !style.disabled)));
@@ -1302,21 +1302,24 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     const slash = '/', anchorIndex = location.hash.lastIndexOf('#@'), anchor = (anchorIndex >= 0) ? location.hash.substring(anchorIndex + 2) : '';
     let fullPath = ((Object.is(routerConfigs.mode, 'history') ? `${ location.pathname }${ location.search }` : location.hash.replace(anchor, ''))).replace(routerConfigs.prefix, '');
     fullPath.startsWith(slash) || (fullPath = `${ slash }${ fullPath }`);
-    const { mode, aliases, prefix } = routerConfigs, [path = '', query = ''] = fullPath.split('?'), redirectPath = aliases[path.substring(1)];
+    const { mode, aliases, prefix } = routerConfigs, [path = '', query = ''] = fullPath.split('?'), scenarios = {}, paths = Object.is(path, slash) ? [''] : path.split(slash), routers = [];
+    let redirectPath = aliases[path.substring(1)];
     if (redirectPath) {
-        logger(`\ud83e\udd98 router alias matched, redirecting router from "${ path }" to "/${ redirectPath }"`);
-        return history.replaceState(null, '', `${ query ? `${ redirectPath }?${ query }` : redirectPath }${ anchor }`);
-    }
-    const scenarios = {}, paths = Object.is(path, slash) ? [''] : path.split(slash), routers = [];
-    if (!rootRouter.match(routers, scenarios, paths)) {
+        logger('\ud83e\udd98 router alias matched');
+    } else if (rootRouter.match(routers, scenarios, paths)) {
+        redirectPath = (routers.find(router => router.redirectPath || Object.is(router.redirectPath, '')) || {}).redirectPath;
+    } else {
         if (Reflect.has(routerConfigs, 'default')) {
             asserter(`The router "${ path }" is invalid`, !Object.is(`/${ routerConfigs.default }`, path));
-            warner(`\u274e The router "${ path }" is invalid, redirect to the default router "${ routerConfigs.default }"`);
-            const defaultPath = routerConfigs.default, resolvedPath = `${ query ? `${ defaultPath }?${ query }` : defaultPath }${ anchor }`;
-            return history.pushState(null, '', resolvedPath || routerConfigs.prefix);
+            warner('\u274e The router "${ path }" is invalid');
+            redirectPath = routerConfigs.default;
         } else {
             asserter(`The router "${ path }" is invalid`);
         }
+    }
+    if (redirectPath != null) {
+        logger(`The router is redirecting from "${ path }" to "/${ redirectPath }"`);
+        return history.replaceState(null, '', `${ query ? `${ redirectPath }?${ query }` : redirectPath }${ anchor }` || routerConfigs.prefix);
     }
     const resolvedRouters = routers.slice().reverse(), queries = {}, variables = Object.assign({}, ...resolvedRouters.map(router => router.variables)), constants = Object.assign({}, ...resolvedRouters.map(router => router.constants));
     query && forEach([...new URLSearchParams(query)], ([key, value]) => (queries[key] = value));
@@ -1339,7 +1342,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     });
 })(), Router = class {
     constructor (router, parent = null) {
-        const { children, constants = {}, variables = {}, modules = [], tailable = false, match = '' } = router;
+        const { children, constants = {}, variables = {}, modules = [], tailable = false, redirect = '' } = router;
         this.layer = parent ? (parent.layer + 1) : 0;
         const space = new Array(this.layer * 4).fill(' ').join('');
         let path = (router.path || '').trim();
@@ -1350,20 +1353,17 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             this.path = `${ parent.path }/${ path }`;
         } else {
             warner(`${ space }\u274e The "path" field of the root router will be ignored`, !Reflect.has(router, 'path'));
-            warner(`${ space }\u274e The "match" field of the root router will be ignored`, !Reflect.has(router, 'match'));
             path = '';
             this.path = '';
         }
         logger(`${ space }\u23f3 resolving the ${ this.path ? `router with path "${ this.path }"` : 'root router' }`);
-        if (parent && Reflect.has(router, 'match') && !((match instanceof Function) ? match(rootScope, rootNamespace.module) : functionResolver(`($module, $scope) => { with ($module) with ($scope) return (() => { 'use strict'; return ${ match }; })() }`)(rootNamespace.module, rootScope))) {
-            warner([`${ space }\u274e The router "%o" is invalid as the "match" field "%o" returns falsy or equivalent`, router, match]);
-            this.invalid = true;
-            return;
+        if (redirect) {
+            this.redirectPath = (redirect instanceof Function) ? redirect(rootScope, rootNamespace.module) : functionResolver(`($module, $scope) => { with ($module) with ($scope) return (() => { 'use strict'; return ${ redirect }; })() }`)(rootNamespace.module, rootScope);
         }
         this.constants = constants, this.variables = variables, this.children = null, this.parent = parent, this.scenarios = (path instanceof Object) ? Object.keys(path).map(scenario => ({ scenario, regExp: new RegExp(path[scenario] || '^$') })) : [{ scenario: path, regExp: new RegExp(`^${ path }$`) }];
         if (children) {
             asserter([`${ space }The router's "children" field should be "array" instead of "%o"`, children], Array.isArray(children));
-            this.children = children.map(child => new Router(child, this)).filter(child => !child.invalid);
+            this.children = children.map(child => new Router(child, this));
         }
         this.tailable = tailable || !(this.children || []).length;
         logger(`${ space }\u2705 resolved the ${ this.path ? `router with path "${ this.path }"` : 'root router' }`);
@@ -1371,12 +1371,12 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     match (routers, scenarios, paths, length = paths.length, start = 0) {
         const scenarioLength = this.scenarios.length;
         if ((length >= scenarioLength) && this.scenarios.every(({ scenario, regExp }, index) => {
-                const path = paths[start + index];
-                if (regExp.test(path)) {
-                    scenarios[scenario] = path;
-                    return true;
-                }
-            })) {
+            const path = paths[start + index];
+            if (regExp.test(path)) {
+                scenarios[scenario] = path;
+                return true;
+            }
+        })) {
             start += scenarioLength;
             return ((Object.is(length, start) && this.tailable) || (this.children || []).find(child => child.match(routers, scenarios, paths, length, start))) && routers.push(this);
         }
