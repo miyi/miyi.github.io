@@ -1225,7 +1225,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         }
     }
     dispatch (source = dispatchSource.bubble) {
-        asserter('It is illegal to modify fields of "$router"', isRouterWritable || !Object.is(routerTopology, this.parent));
+        asserter('It is illegal to modify fields under "$router" of the rootScope', isRouterWritable || !Object.is(routerTopology, this.parent));
         Object.is(source, dispatchSource.mutation) || (this.parent && this.parent.parent && this.parent.dispatch(dispatchSource.bubble));
         const force = Object.is(source, dispatchSource.bubble);
         (this.value && this.value[meta]) ? this.value[meta].forEach(topology => topology.trigger(force)) : this.trigger(force);
@@ -1284,8 +1284,8 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     rootScope.$router = nextRouter;
     isRouterWritable = false;
     if (!routerTopology) {
-        rootNodeProfiles.map(nodeProfile => new NodeContext(nodeProfile));
         routerTopology = [...nextRouter[meta]][0];
+        rootNodeProfiles.map(nodeProfile => new NodeContext(nodeProfile));
     }
     if (!Object.is(currentStyleModuleSet, styleModuleSet)) {
         currentStyleModuleSet && currentStyleModuleSet.forEach(style => (style.disabled = !styleModuleSet.has(style), style.setAttribute('active-debug', !style.disabled)));
@@ -1303,8 +1303,9 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     let fullPath = ((Object.is(routerConfigs.mode, 'history') ? `${ location.pathname }${ location.search }` : location.hash.replace(anchor, ''))).replace(routerConfigs.prefix, '');
     fullPath.startsWith(slash) || (fullPath = `${ slash }${ fullPath }`);
     const { mode, aliases, prefix } = routerConfigs, [path = '', query = ''] = fullPath.split('?'), scenarios = {}, paths = Object.is(path, slash) ? [''] : path.split(slash), routers = [];
-    let redirectPath = aliases[path.substring(1)];
-    if (redirectPath) {
+    let redirectPath = null;
+    if (Reflect.has(aliases, path.substring(1))) {
+        redirectPath = aliases[path.substring(1)];
         logger('\ud83e\udd98 router alias matched');
     } else if (rootRouter.match(routers, scenarios, paths)) {
         routers.reverse();
