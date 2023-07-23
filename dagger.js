@@ -1312,7 +1312,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         redirectPath = (routers.find(router => router.redirectPath || Object.is(router.redirectPath, '')) || {}).redirectPath;
     } else if (Reflect.has(routerConfigs, 'default')) {
         asserter(`The router "${ path }" is invalid`, !Object.is(routerConfigs.default, path));
-        warner('\u274e The router "${ path }" is invalid');
+        warner(`\u274e The router "${ path }" is invalid`);
         redirectPath = routerConfigs.default;
     } else {
         asserter(`The router "${ path }" is invalid`);
