@@ -1302,23 +1302,23 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     const slash = '/', anchorIndex = location.hash.lastIndexOf('#@'), anchor = (anchorIndex >= 0) ? location.hash.substring(anchorIndex + 2) : '';
     let fullPath = ((Object.is(routerConfigs.mode, 'history') ? `${ location.pathname }${ location.search }` : location.hash.replace(anchor, ''))).replace(routerConfigs.prefix, '');
     fullPath.startsWith(slash) || (fullPath = `${ slash }${ fullPath }`);
-    const { mode, aliases, prefix } = routerConfigs, [path = '', query = ''] = fullPath.split('?'), scenarios = {}, paths = Object.is(path, slash) ? [''] : path.split(slash), routers = [];
+    const { mode, aliases, prefix } = routerConfigs, [rawPath = '', query = ''] = fullPath.split('?'), path = rawPath.substring(1), scenarios = {}, paths = Object.is(rawPath, slash) ? [''] : rawPath.split(slash), routers = [];
     let redirectPath = null;
-    if (Reflect.has(aliases, path.substring(1))) {
-        redirectPath = aliases[path.substring(1)];
+    if (Reflect.has(aliases, path)) {
+        redirectPath = aliases[path];
         logger('\ud83e\udd98 router alias matched');
     } else if (rootRouter.match(routers, scenarios, paths)) {
         routers.reverse();
         redirectPath = (routers.find(router => router.redirectPath || Object.is(router.redirectPath, '')) || {}).redirectPath;
     } else if (Reflect.has(routerConfigs, 'default')) {
-        asserter(`The router "${ path }" is invalid`, !Object.is(`/${ routerConfigs.default }`, path));
+        asserter(`The router "${ path }" is invalid`, !Object.is(routerConfigs.default, path));
         warner('\u274e The router "${ path }" is invalid');
         redirectPath = routerConfigs.default;
     } else {
         asserter(`The router "${ path }" is invalid`);
     }
     if (redirectPath != null) {
-        logger(`The router is redirecting from "${ path }" to "/${ redirectPath }"`);
+        logger(`The router is redirecting from "${ path }" to "${ redirectPath }"`);
         return history.replaceState(null, '', `${ query ? `${ redirectPath }?${ query }` : redirectPath }${ anchor }` || routerConfigs.prefix);
     }
     const queries = {}, variables = Object.assign({}, ...routers.map(router => router.variables)), constants = Object.assign({}, ...routers.map(router => router.constants));
