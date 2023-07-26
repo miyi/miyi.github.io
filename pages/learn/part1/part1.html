@@ -1,3 +1,20 @@
-<div>
-  <div class="title">I am part 1!</div>
-</div>
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      demo_container: "../components/tutorial_demo/index.html",
+      js: "./part1.js",
+    }
+  </script>
+  <template id="view">
+    <demo_container +loading="loadingData()">
+      <div class="grid-container" height="360px">
+        <demo_html +loading="loadingHtml()"></demo_html>
+        <demo_browser
+          $watch="html=loadingBrowser(title, assignee, details)"
+          +loading="{html: ''}"
+        ></demo_browser>
+      </div>
+    </demo_container>
+  </template>
+</html>

@@ -36,7 +36,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     warner: (messages, condition) => daggerOptions.warning && vendor(messages, condition, console.warn, daggerOptions.warningPlainStyle, daggerOptions.warningHighlightStyle),
     groupStarter: label => daggerOptions.log && console.group(label),
     groupEnder: label => daggerOptions.log && console.groupEnd(label)
-}))(), context = Symbol('context'), currentController = null, daggerOptions = { integrity: true }, directiveQueue = [], dispatchSource = { bubble: 'bubble', self: 'self', mutation: 'mutation' }, isRouterWritable = false, moduleNameRegExp = /^[a-z]{1}[\w]*$/, rootNamespace = null, rootScope = null, rootScopeCallback = null, rootNodeProfiles = [], arrayWrapper = target => Array.isArray(target) ? target : [target], emptier = () => Object.create(null), processorCaches = emptier(), styleModuleSet = new Set, eventDelegator = ((bubbleSet = new Set, captureSet = new Set, handler = (event, capture, targets, index = 0) => {
+}))(), context = Symbol('context'), currentController = null, daggerOptions = { integrity: true }, directiveQueue = [], dispatchSource = { bubble: 'bubble', self: 'self', mutation: 'mutation' }, isRouterWritable = false, moduleNameRegExp = /^[_a-z]{1}[\w]*$/, plainRootScope = null, remoteUrlRegExp = /^(http:\/\/|https:\/\/|\/|\.\/|\.\.\/)/i, rootNamespace = null, rootScope = null, rootScopeCallback = null, rootNodeProfiles = [], arrayWrapper = target => Array.isArray(target) ? target : [target], emptier = () => Object.create(null), processorCaches = emptier(), styleModuleSet = new Set, eventDelegator = ((bubbleSet = new Set, captureSet = new Set, handler = (event, capture, targets, index = 0) => {
     const currentTarget = targets[index++];
     if (!currentTarget) { return; }
     const eventListenerSet = currentTarget.$eventListenerMap && currentTarget.$eventListenerMap[event.type], eventListeners = eventListenerSet ? [...eventListenerSet].filter(listener => Object.is(listener.decorators.capture, capture)) : [];
@@ -185,6 +185,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         return value;
     },
     set: (target, property, newValue) => {
+        asserter('It\'s illegal to overwrite "$router" of the rootScope', isRouterWritable || !Object.is(target, plainRootScope) || !Object.is(property, '$router'));
         target[property] = newValue;
         if (!invalidSymbols.has(property) && hasOwnProperty.call(target, property)) {
             const topologySet = target[meta];
@@ -222,7 +223,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     }
     isRootScope ? data[meta].add(new Topology(null, '', data)) : (target[property] = data);
     return data;
-})(), ModuleProfile = ((elementProfileCacheMap = new Map, embeddedType = { json: 'dagger/json', namespace: 'dagger/modules', script: 'dagger/script', style: 'dagger/style', string: 'dagger/string' }, integrityProfileCache = emptier(), mimeType = { html: 'text/html', json: 'application/json', script: ['application/javascript', 'javascript/esm', 'text/javascript'], style: 'text/css' }, relativePathRegExp = /(?:^|;|\s+)(?:export|import)\s*?(?:(?:(?:[$\w*\s{},]*)\s*from\s*?)|)(?:(?:"([^"]+)?")|(?:'([^']+)?'))[\s]*?(?:$|)/gm, remoteUrlRegExp = /^(http:\/\/|https:\/\/|\/|\.\/|\.\.\/)/i, textEncoder = new TextEncoder(), scopedRuleResolver = ((selectorRegExp = /([\s:+>~])/) => (sheet, rule, name, iterator) => {
+})(), ModuleProfile = ((elementProfileCacheMap = new Map, embeddedType = { json: 'dagger/json', namespace: 'dagger/modules', script: 'dagger/script', style: 'dagger/style', string: 'dagger/string' }, integrityProfileCache = emptier(), mimeType = { html: 'text/html', json: 'application/json', script: ['application/javascript', 'javascript/esm', 'text/javascript'], style: 'text/css' }, relativePathRegExp = /(?:^|;|\s+)(?:export|import)\s*?(?:(?:(?:[$\w*\s{},]*)\s*from\s*?)|)(?:(?:"([^"]+)?")|(?:'([^']+)?'))[\s]*?(?:$|)/gm, textEncoder = new TextEncoder(), scopedRuleResolver = ((selectorRegExp = /([\s:+>~])/) => (sheet, rule, name, iterator) => {
     if (rule instanceof CSSKeyframesRule) {
         const originalName = rule.name;
         rule.name = `${ originalName }-${ name }`;
@@ -453,7 +454,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
                 asserter(`The modules "${ [...childNameSet].join(', ') }" is not declared in the root namespace`);
             }
         }
-        this.module = emptier();
+        this.module = this.module || emptier();
         return Promise.all(children.map(child => child.resolve()));
     }
     resolveRemoteType (content, type, url) {
@@ -1224,7 +1225,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         }
     }
     dispatch (source = dispatchSource.bubble) {
-        asserter('It is illegal to modify fields of "$router"', isRouterWritable || !Object.is(routerTopology, this.parent));
+        asserter('It is illegal to modify fields under "$router" of the rootScope', isRouterWritable || !Object.is(routerTopology, this.parent));
         Object.is(source, dispatchSource.mutation) || (this.parent && this.parent.parent && this.parent.dispatch(dispatchSource.bubble));
         const force = Object.is(source, dispatchSource.bubble);
         (this.value && this.value[meta]) ? this.value[meta].forEach(topology => topology.trigger(force)) : this.trigger(force);
@@ -1275,16 +1276,16 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         return;
     }
 }, routingChangeResolver = ((routerChangeResolver = ((resolver = nextRouter => {
-    groupEnder(`resolving modules of the router "${ nextRouter.path }"`);
-    logger(`\u2705 router has changed from "${ (rootScope.$router || {}).path || '/' }" to "${ nextRouter.path }"`);
+    groupEnder(`resolving modules of the router "${ nextRouter.path || '/' }"`);
+    logger(`\u2705 router has changed from "${ (rootScope.$router || {}).path || '/' }" to "${ nextRouter.path || '/' }"`);
     processorResolver();
     const currentStyleModuleSet = rootScope.$router && styleModuleCache[rootScope.$router.path];
     isRouterWritable = true;
     rootScope.$router = nextRouter;
     isRouterWritable = false;
     if (!routerTopology) {
+        routerTopology = [...nextRouter[meta]][0];
         rootNodeProfiles.map(nodeProfile => new NodeContext(nodeProfile));
-        routerTopology = [...rootScope.$router[meta]][0];
     }
     if (!Object.is(currentStyleModuleSet, styleModuleSet)) {
         currentStyleModuleSet && currentStyleModuleSet.forEach(style => (style.disabled = !styleModuleSet.has(style), style.setAttribute('active-debug', !style.disabled)));
@@ -1292,7 +1293,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     }
     anchorResolver(nextRouter.anchor);
 }) => nextRouter => {
-    logger(`\u23f3 router is changing from "${ (rootScope.$router || {}).path || '/' }" to "${ nextRouter.path }"...`);
+    logger(`\u23f3 router is changing from "${ (rootScope.$router || {}).path || '/' }" to "${ nextRouter.path || '/' }"...`);
     const path = nextRouter.path;
     styleModuleSet = styleModuleCache[path] || (styleModuleCache[path] = new Set);
     groupStarter(`resolving modules of the router "${ nextRouter.path }"`);
@@ -1301,23 +1302,26 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     const slash = '/', anchorIndex = location.hash.lastIndexOf('#@'), anchor = (anchorIndex >= 0) ? location.hash.substring(anchorIndex + 2) : '';
     let fullPath = ((Object.is(routerConfigs.mode, 'history') ? `${ location.pathname }${ location.search }` : location.hash.replace(anchor, ''))).replace(routerConfigs.prefix, '');
     fullPath.startsWith(slash) || (fullPath = `${ slash }${ fullPath }`);
-    const { mode, aliases, prefix } = routerConfigs, [path = '', query = ''] = fullPath.split('?'), redirectPath = aliases[path.substring(1)];
-    if (redirectPath) {
-        logger(`\ud83e\udd98 router alias matched, redirecting router from "${ path }" to "/${ redirectPath }"`);
-        return history.replaceState(null, '', `${ query ? `${ redirectPath }?${ query }` : redirectPath }${ anchor }`);
+    const { mode, aliases, prefix } = routerConfigs, [rawPath = '', query = ''] = fullPath.split('?'), path = rawPath.substring(1), scenarios = {}, paths = Object.is(rawPath, slash) ? [''] : rawPath.split(slash), routers = [];
+    let redirectPath = null;
+    if (Reflect.has(aliases, path)) {
+        redirectPath = aliases[path];
+        logger('\ud83e\udd98 router alias matched');
+    } else if (rootRouter.match(routers, scenarios, paths)) {
+        routers.reverse();
+        redirectPath = (routers.find(router => router.redirectPath || Object.is(router.redirectPath, '')) || {}).redirectPath;
+    } else if (Reflect.has(routerConfigs, 'default')) {
+        asserter(`The router "${ path }" is invalid`, !Object.is(routerConfigs.default, path));
+        warner(`\u274e The router "${ path }" is invalid`);
+        redirectPath = routerConfigs.default;
+    } else {
+        asserter(`The router "${ path }" is invalid`);
     }
-    const scenarios = {}, paths = Object.is(path, slash) ? [''] : path.split(slash), routers = [];
-    if (!rootRouter.match(routers, scenarios, paths)) {
-        if (Reflect.has(routerConfigs, 'default')) {
-            asserter(`The router "${ path }" is invalid`, !Object.is(`/${ routerConfigs.default }`, path));
-            warner(`\u274e The router "${ path }" is invalid, redirect to the default router "${ routerConfigs.default }"`);
-            const defaultPath = routerConfigs.default, resolvedPath = `${ query ? `${ defaultPath }?${ query }` : defaultPath }${ anchor }`;
-            return history.pushState(null, '', resolvedPath);
-        } else {
-            asserter(`The router "${ path }" is invalid`);
-        }
+    if (redirectPath != null) {
+        logger(`The router is redirecting from "${ path }" to "${ redirectPath }"`);
+        return history.replaceState(null, '', `${ query ? `${ redirectPath }?${ query }` : redirectPath }${ anchor }` || routerConfigs.prefix);
     }
-    const resolvedRouters = routers.slice().reverse(), queries = {}, variables = Object.assign({}, ...resolvedRouters.map(router => router.variables)), constants = Object.assign({}, ...resolvedRouters.map(router => router.constants));
+    const queries = {}, variables = Object.assign({}, ...routers.map(router => router.variables)), constants = Object.assign({}, ...routers.map(router => router.constants));
     query && forEach([...new URLSearchParams(query)], ([key, value]) => (queries[key] = value));
     forEach(Object.keys(variables), key => {
         if (Reflect.has(queries, key) && !Reflect.has(constants, key)) {
@@ -1329,16 +1333,16 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             }
         }
     });
-    const nextRouter = { mode, prefix, path, paths, modules: new Set(resolvedRouters.map(router => router.modules).flat()), query, queries, scenarios, variables, constants, anchor };
+    const nextRouter = { url: location.href, mode, prefix, path, paths, modules: new Set(routers.map(router => router.modules).flat()), query, queries, scenarios, variables, constants, anchor };
     logger(`\u23f3 resolving sentries within router "${ (rootScope.$router || {}).path || '/' }"...`);
     Promise.all([...sentrySet].map(sentry => Promise.resolve(sentry.processor(nextRouter)).then(prevent => ({ sentry, prevent })))).then(results => {
         logger(`\u2705 resolved sentries within router "${ (rootScope.$router || {}).path || '/' }"`);
         const matchedOwners = results.filter(result => result.prevent).map(result => result.sentry.owner);
-        matchedOwners.length ? forEach(matchedOwners, owner => warner(['\u274e The router redirect is prevented by the "$sentry" directive declared on the "%o" element', owner.node || owner.profile.node])) || originalReplaceState.call(history, null, '', `${ prefix }${ rootScope.$router.path.substring(1) }`) : routerChangeResolver(nextRouter);
+        matchedOwners.length ? forEach(matchedOwners, owner => warner(['\u274e The router redirect is prevented by the "$sentry" directive declared on the "%o" element', owner.node || owner.profile.node])) || originalPushState.call(history, null, '', rootScope.$router.url) : routerChangeResolver(nextRouter);
     });
 })(), Router = class {
     constructor (router, parent = null) {
-        const { children, constants = {}, variables = {}, modules = [], tailable = false, match = '' } = router;
+        const { children, constants = {}, variables = {}, modules = [], tailable = false, redirect = '' } = router;
         this.layer = parent ? (parent.layer + 1) : 0;
         const space = new Array(this.layer * 4).fill(' ').join('');
         let path = (router.path || '').trim();
@@ -1349,20 +1353,17 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
             this.path = `${ parent.path }/${ path }`;
         } else {
             warner(`${ space }\u274e The "path" field of the root router will be ignored`, !Reflect.has(router, 'path'));
-            warner(`${ space }\u274e The "match" field of the root router will be ignored`, !Reflect.has(router, 'match'));
             path = '';
             this.path = '';
         }
         logger(`${ space }\u23f3 resolving the ${ this.path ? `router with path "${ this.path }"` : 'root router' }`);
-        if (parent && Reflect.has(router, 'match') && !((match instanceof Function) ? match(rootScope, rootNamespace.module) : functionResolver(`($module, $scope) => { with ($module) with ($scope) return (() => { 'use strict'; return ${ match }; })() }`)(rootNamespace.module, rootScope))) {
-            warner([`${ space }\u274e The router "%o" is invalid as the "match" field "%o" returns falsy or equivalent`, router, match]);
-            this.invalid = true;
-            return;
+        if (redirect) {
+            this.redirectPath = (redirect instanceof Function) ? redirect(rootScope, rootNamespace.module) : functionResolver(`($module, $scope) => { with ($module) with ($scope) return (() => { 'use strict'; return ${ redirect }; })() }`)(rootNamespace.module, rootScope);
         }
         this.constants = constants, this.variables = variables, this.children = null, this.parent = parent, this.scenarios = (path instanceof Object) ? Object.keys(path).map(scenario => ({ scenario, regExp: new RegExp(path[scenario] || '^$') })) : [{ scenario: path, regExp: new RegExp(`^${ path }$`) }];
         if (children) {
             asserter([`${ space }The router's "children" field should be "array" instead of "%o"`, children], Array.isArray(children));
-            this.children = children.map(child => new Router(child, this)).filter(child => !child.invalid);
+            this.children = children.map(child => new Router(child, this));
         }
         this.tailable = tailable || !(this.children || []).length;
         logger(`${ space }\u2705 resolved the ${ this.path ? `router with path "${ this.path }"` : 'root router' }`);
@@ -1370,12 +1371,12 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
     match (routers, scenarios, paths, length = paths.length, start = 0) {
         const scenarioLength = this.scenarios.length;
         if ((length >= scenarioLength) && this.scenarios.every(({ scenario, regExp }, index) => {
-                const path = paths[start + index];
-                if (regExp.test(path)) {
-                    scenarios[scenario] = path;
-                    return true;
-                }
-            })) {
+            const path = paths[start + index];
+            if (regExp.test(path)) {
+                scenarios[scenario] = path;
+                return true;
+            }
+        })) {
             start += scenarioLength;
             return ((Object.is(length, start) && this.tailable) || (this.children || []).find(child => child.match(routers, scenarios, paths, length, start))) && routers.push(this);
         }
@@ -1404,7 +1405,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         if (!target || !target.hasAttribute('href')) { return; }
         const href = target.getAttribute('href').trim();
         if (href.startsWith('#') && anchorResolver(href.substring(1), event)) { return; }
-        if (href && !['.', '/', 'http:', 'https:'].some(prefix => href.startsWith(prefix))) {
+        if (href && !remoteUrlRegExp.test(href)) {
             event.preventDefault();
             history.pushState(null, '', href);
         }
@@ -1459,7 +1460,8 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
         } else {
             routerConfigs.prefix = isHistoryMode ? '/' : '#';
         }
-        rootScope = Object.seal(proxyResolver({ $router: null }));
+        plainRootScope = { $router: null };
+        rootScope = Object.seal(proxyResolver(plainRootScope));
         moduleConfigNormalizer(modules.content);
         const html = document.documentElement, routing = routerConfigs.routing || { modules: Object.keys(modules.content) };
         groupStarter('resolving top level modules');

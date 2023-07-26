@@ -6,7 +6,6 @@ return {
     constants: {
       title: "dagger.js",
     },
-    modules: "home",
     children: [
       {
         path: "home",
@@ -25,8 +24,8 @@ return {
           },
           {
             path: "part1",
-            modules: "welcome",
-            constants: { layer2: "welcome", title: "part 1" },
+            modules: "part1",
+            constants: { layer2: "part1", title: "part 1" },
           },
           {
             path: "part2",

@@ -1,0 +1,19 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      style: "./index.css",
+      demo_browser: "./demo_browser_namespace.html",
+      demo_html: "./demo_html_namespace.html",
+      demo_js: "./demo_js_namespace.html",
+      hljs: {
+        uri: "../../../../highlightjs/highlight.min.js",
+        anonymous: false,
+      },
+      hlstyles: "../../../../highlightjs/github-dark.min.css",
+    }
+  </script>
+  <template id="view">
+    <template @slot></template>
+  </template>
+</html>
