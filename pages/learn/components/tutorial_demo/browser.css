@@ -33,6 +33,7 @@
   float: left;
 }
 .browser-container .render-box .content {
+  width: 100%;
   height: calc(100% - 24px);
   display: flex;
   align-items: center;

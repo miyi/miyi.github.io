@@ -3,15 +3,26 @@
     {
       view: "#view",
       demo_container: "../components/tutorial_demo/index.html",
-      js: "./part1.js",
+      scene1: {uri:"./scene1.js", anonymous:false},
+      styles: "./part1.css",
     }
   </script>
   <template id="view">
-    <demo_container +loading="loadingData()">
-      <div class="grid-container" height="360px">
-        <demo_html +loading="loadingHtml()"></demo_html>
+    <div class="title">Part 1</div>
+    <div class="text">
+      To follow this tutorial you need a basic understanding of html, css, and
+      javascript. Every dagger functionality is accessible through the dagger
+      defined attributes and configuration. Let's see exactly how it work and
+      how to use it with a few simple tutorials. Our tutorials will first
+      introduce how a few specific directives work, then work our way to the
+      bigger picture where we create reusable components and put it all together
+      into a functional web.
+    </div>
+    <demo_container +loading="scene1.loadingData()">
+      <div class="demo-grid" height="360px">
+        <demo_html +loading="scene1.loadingHtml()"></demo_html>
         <demo_browser
-          $watch="html=loadingBrowser(title, assignee, details)"
+          $watch="html=scene1.loadingBrowser(title, assignee, details)"
           +loading="{html: ''}"
         ></demo_browser>
       </div>

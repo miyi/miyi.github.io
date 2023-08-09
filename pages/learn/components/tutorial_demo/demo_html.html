@@ -1,5 +1,5 @@
 <html>
-  <script type="dagger/configs">
+  <script type="dagger/modules">
     {
       view: "#view",
       style: "./code_container.css",
@@ -9,7 +9,7 @@
   <template id="view">
     <div
       class="code-container"
-      +loading="{demoHtml: produceDemoHtml(hljs, demo)}"
+      +loading="console.log(hljs),{demoHtml: produceDemoHtml(hljs, demo)}"
     >
       <span class="sandbox-label">${label?label:'html'}</span>
       <div class="code-box">

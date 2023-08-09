@@ -1,0 +1,103 @@
+.tutorial-contact-card {
+  box-sizing: border-box;
+  height: auto;
+  width: 300px;
+  background-color: #f1f1f1;
+  box-shadow: 10px 5px 5px #928484;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  color: #0078f1;
+}
+.tutorial-contact-card .card-title {
+  font-size: 1.5rem;
+  display: inline-block;
+}
+.tutorial-contact-card .card-title .collapse-btn {
+  float: right;
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  transition: 0.6s;
+}
+.tutorial-contact-card .content {
+  display: flex;
+  flex-direction: column;
+  max-height: 300px;
+  transition: all 0.6s;
+}
+.tutorial-contact-card .content div {
+  margin-bottom: 8px;
+  width: 100%;
+}
+.tutorial-contact-card .content .details {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  line-height: 1.5rem;
+  font-size: 0.9rem;
+}
+.tutorial-contact-card .content .assignee {
+  justify-self: end;
+  font-size: 0.75rem;
+  height: auto;
+  text-align: end;
+}
+.tutorial-contact-card .content .complete-button {
+  margin-top: 8px;
+  border: 0;
+  border: 1px solid #0078f1;
+  background-color: #0078f1;
+  transition: 0.6s;
+  color: white;
+  width: 100%;
+}
+.tutorial-contact-card .details {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+.tutorial-contact-card .assignee {
+  justify-self: end;
+  font-size: 0.85rem;
+  height: auto;
+  text-align: end;
+}
+
+.complete {
+  background-color: rgb(29, 217, 29);
+  box-shadow: 10px 5px 5px #668a78;
+  color: white;
+  transition: all 0.6s;
+}
+.complete .title .collapse-btn {
+  fill: white;
+  transition: 0.6s;
+}
+.complete .content .complete-button {
+  border: 1px solid white;
+  background-color: rgb(29, 217, 29);
+  box-shadow: 6px 3px 3px #668a78;
+  transition: 0.6s;
+}
+
+.collapse .title .collapse-btn {
+  transform: rotate(180deg);
+  transition: 0.6s;
+}
+.collapse .content {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.6s;
+}
+
+.demo-grid {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+.demo-grid div {
+  width: calc(55% - 0.5rem);
+  min-width: 24rem;
+}/*# sourceMappingURL=part1.css.map */

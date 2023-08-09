@@ -19,28 +19,33 @@ return {
         children: [
           {
             path: "welcome",
-            modules: "welcome",
+            modules: "tutorialWelcome",
             constants: { layer2: "welcome", title: "welcome" },
           },
           {
             path: "part1",
-            modules: "part1",
-            constants: { layer2: "part1", title: "part 1" },
+            modules: "tutorial1",
+            constants: { layer2: "tutorial1", title: "part 1" },
           },
           {
             path: "part2",
-            modules: "part2",
-            constants: { layer2: "part2", title: "part 2" },
+            modules: "tutorial2",
+            constants: { layer2: "tutorial2", title: "part 2" },
           },
           {
             path: "part3",
-            modules: "part3",
-            constants: { layer2: "part3", title: "part 3" },
+            modules: "tutorial3",
+            constants: { layer2: "tutorial3", title: "part 3" },
           },
           {
             path: "part4",
-            modules: "part4",
-            constants: { layer2: "part4", title: "part 4" },
+            modules: "tutorial4",
+            constants: { layer2: "tutorial4", title: "part 4" },
+          },
+          {
+            path: "routing",
+            modules: "routing",
+            constants: { layer2: "routing", title: "routing fundamentals" },
           },
         ],
       },

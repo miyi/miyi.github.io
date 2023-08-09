@@ -3,12 +3,13 @@
     {
       view: "#view",
       menuitem: "#menuitem",
-      js: "./learn.js",
-      style: "./learn.css",
+      js: "./layout.js",
+      layout_css: "./layout.css",
+      page_content_css: "./page-content.css"
     }
   </script>
   <template id="menuitem">
-    <div +loading="{active: false}" +loaded="console.log('refreshed')">
+    <div +loading="{active: false}">
       <div
         class="menu-item"
         +click="active=!active, history.pushState({}, '', item.link)"

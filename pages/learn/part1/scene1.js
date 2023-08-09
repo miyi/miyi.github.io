@@ -20,8 +20,8 @@ export const loadingHtml = () => ({
 });
 
 export const loadingBrowser = (title, assignee, details) => `
-<div class="card">
-<div class="title">${title}</div>
+<div class="tutorial-contact-card">
+<div class="card-title">${title}</div>
 <div class="assignee">assigned to: ${assignee}</div>
 <div class="details">${details}</div>
 </div>
