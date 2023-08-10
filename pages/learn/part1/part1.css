@@ -91,13 +91,6 @@
   transition: 0.6s;
 }
 
-.demo-grid {
-  width: 100%;
+.part1-scene1-grid {
   display: flex;
-  flex-direction: row;
-  gap: 1rem;
-}
-.demo-grid div {
-  width: calc(55% - 0.5rem);
-  min-width: 24rem;
 }/*# sourceMappingURL=part1.css.map */

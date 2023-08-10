@@ -11,15 +11,10 @@
     <div class="title">Part 1</div>
     <div class="text">
       To follow this tutorial you need a basic understanding of html, css, and
-      javascript. Every dagger functionality is accessible through the dagger
-      defined attributes and configuration. Let's see exactly how it work and
-      how to use it with a few simple tutorials. Our tutorials will first
-      introduce how a few specific directives work, then work our way to the
-      bigger picture where we create reusable components and put it all together
-      into a functional web.
+      javascript. In part 1 you will build a s.
     </div>
     <demo_container +loading="scene1.loadingData()">
-      <div class="demo-grid" height="360px">
+      <div class="part1-scene1-grid">
         <demo_html +loading="scene1.loadingHtml()"></demo_html>
         <demo_browser
           $watch="html=scene1.loadingBrowser(title, assignee, details)"

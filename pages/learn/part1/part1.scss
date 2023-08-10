@@ -105,13 +105,6 @@ $complete-green: rgb(29, 217, 29);
   }
 }
 
-.demo-grid {
-  width: 100%;
+.part1-scene1-grid {
   display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  div {
-    width: calc(55% - 0.5rem);
-    min-width: 24rem;
-  }
 }

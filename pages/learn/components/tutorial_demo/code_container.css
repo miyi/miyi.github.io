@@ -5,7 +5,7 @@
   flex-direction: column;
 }
 .code-container .code-box {
-  border-radius: 24px;
+  border-radius: 0 0 24px 24px;
   padding: 16px 32px;
   width: 100%;
   flex: 1;
