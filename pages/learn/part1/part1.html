@@ -4,6 +4,8 @@
       view: "#view",
       demo_container: "../components/tutorial_demo/index.html",
       scene1: {uri:"./scene1.js", anonymous:false},
+      scene2: {uri:"./scene2.js", anonymous:false},
+      scene3: {uri:"./scene3.js", anonymous:false},
       styles: "./part1.css",
     }
   </script>
@@ -14,12 +16,35 @@
       javascript. In part 1 you will build a s.
     </div>
     <demo_container +loading="scene1.loadingData()">
-      <div class="part1-scene1-grid">
+      <div class="flex-grid">
         <demo_html +loading="scene1.loadingHtml()"></demo_html>
         <demo_browser
           $watch="html=scene1.loadingBrowser(title, assignee, details)"
           +loading="{html: ''}"
         ></demo_browser>
+      </div>
+    </demo_container>
+    <demo_container +loading="scene2.loadingData()">
+      <div class="flex-grid">
+        <demo_html +loading="scene2.loadingHtml()"></demo_html>
+        <demo_browser
+          $watch="html=scene2.loadingBrowser(
+          dollar_class,
+          complete,
+          complete_btn_click,
+          collapse_btn_click,
+          title,
+          assignee,
+          details,
+          collapse)"
+          +loading="{html: ''}"
+        ></demo_browser>
+      </div>
+    </demo_container>
+    <demo_container>
+      <div class="flex-grid">
+        <demo_html +loading="scene3.loadingHtml()"></demo_html>
+        <demo_browser +loading="{html: scene3.loadingBrowser()}"></demo_browser>
       </div>
     </demo_container>
   </template>

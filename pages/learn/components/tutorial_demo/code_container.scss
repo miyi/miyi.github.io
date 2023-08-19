@@ -8,7 +8,7 @@
     padding: 16px 32px;
     width: 100%;
     flex: 1;
-    background-color: #011727;
+    background-color: #0a151b;
     color: #d5deeb;
     * {
       flex-wrap: wrap;
@@ -24,7 +24,7 @@
   color: rgb(40, 40, 40);
   border-radius: 0.2rem;
   transition: all 150ms ease 0s;
-  font-size: 0.70rem;
+  font-size: 0.7rem;
   height: 1.25rem;
 }
 
@@ -34,4 +34,12 @@
 
 .eval {
   min-width: 12rem;
+}
+
+.sandbox-label {
+  padding-left: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #024eaa;
+  border-radius: 8px 8px 0 0;
 }

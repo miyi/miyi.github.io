@@ -11,9 +11,9 @@ export const loadingHtml = () => ({
    assignee: '%%assignee%%',
     details: '%%details%%',
 }">
-  <div>{{title}}</div>
-  <div>assigned to: {{assignee}}</div>
-  <div>{{details}}</div>
+  <div>{{scope.title}}</div>
+  <div>assigned to: {{scope.assignee}}</div>
+  <div>{{scope.details}}</div>
 </div>
     `,
   label: "card.html",

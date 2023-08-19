@@ -14,6 +14,5 @@ export const menuItem = () => [
   { name: "part two", link: "/learn/part2" },
   { name: "part three", link: "/learn/part3" },
   { name: "part four", link: "/learn/part4" },
+  { name: "routing", link: "/learn/routing" },
 ];
-
-

@@ -1,1 +1,37 @@
-
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      demo_container: "../components/tutorial_demo/index.html",
+      cardList: "./demo_modules.html",
+      scene1: {uri: "./scene1.js", anonymous: false},
+      scene2: {uri: "./scene2.js", anonymous: false},
+      css: "./part2.css"
+    }
+  </script>
+  <template id="view">
+    <demo_container>
+      <div class="flex-grid">
+        <demo_html +loading="scene1.loadingCard()"></demo_html>
+        <demo_js +loading="scene1.loadingCardListJs()"></demo_js>
+      </div>
+      <div class="flex-grid">
+        <demo_html +loading="scene1.loadingCardList()"></demo_html>
+        <demo_browser +loading="{html: scene1.loadingBrowser()}"></demo_browser>
+      </div>
+      <div class="flex-grid">
+        <demo_html +loading="scene2.loadingCardList()"></demo_html>
+        <demo_js +loading="scene2.loadingFetch()"></demo_js>
+        <demo_html +loading="scene2.loadingRoot()"></demo_html>
+      </div>
+      <!-- <div class="flex-grid">
+        <demo_browser +loading="{html: scene2.loadingBrowser()}"></demo_browser>
+      </div> -->
+    </demo_container>
+    <!-- <div class="flex-grid">
+      <cardList +loading="{cards: fetchList1()}"></cardList>
+      <cardList +loading="{cards: fetchList2()}"></cardList>
+    </div> -->
+    <cardList.card +loading="{item: fetchCard()}"></cardList.card>
+  </template>
+</html>

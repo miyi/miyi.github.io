@@ -3,11 +3,12 @@
     {
       view: "#view",
       style: "./code_container.css",
-      script: "./js_container.js"
+      script: "./demo_js.js",
+      
     }
   </script>
   <template id="view">
-    <div class="code-container" +loading="{demoJs: produceDemoJs(hljs, demo)}">
+    <div class="code-container" +loading="{demoJs: produceDemoJs(hljs, hljsGrammar, demo)}">
       <span class="sandbox-label">${label?label:"javascript"}</span>
       <div class="code-box">
         <pre><code class="javascript" $html="demoJs"></code></pre>

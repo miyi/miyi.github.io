@@ -19,6 +19,7 @@
   width: 2rem;
   height: 2rem;
   text-align: center;
+  transition: 0.6s;
 }
 .tutorial-contact-card .content {
   display: flex;
@@ -101,4 +102,4 @@
   flex-direction: column;
   gap: 0.5rem;
   border-radius: 1rem;
-}/*# sourceMappingURL=part1.css.map */
+}/*# sourceMappingURL=part2.css.map */

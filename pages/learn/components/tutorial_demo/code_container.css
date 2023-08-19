@@ -9,7 +9,7 @@
   padding: 16px 32px;
   width: 100%;
   flex: 1;
-  background-color: #011727;
+  background-color: #0a151b;
   color: #d5deeb;
 }
 .code-container .code-box * {
@@ -34,4 +34,12 @@
 
 .eval {
   min-width: 12rem;
+}
+
+.sandbox-label {
+  padding-left: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #024eaa;
+  border-radius: 8px 8px 0 0;
 }/*# sourceMappingURL=code_container.css.map */
