@@ -2,7 +2,7 @@ export const loadingCard = () => ({
   label: "cardView.html",
   demo: `
 <div class="card"
-  $class="match_card_classnames(complete, active, id)"
+  $class="match_classnames(complete, active, id)"
   +loading="{ ...item}"
 >
   <div +click="active=id">
@@ -33,7 +33,10 @@ export const loadingCardList = () => ({
   </script>
   <body>
     <div class="card-container"
-      +loading="fetchCards()"
+      +loading="{
+        cards: fetchCards(),
+        active: 1
+      }"
     >
       <card 
         $each="cards"
@@ -64,7 +67,7 @@ export const fetchCards = () => ([
   }
 ])
 
-export const match_card_classnames = (complete, active, id) => (
+export const match_classnames = (complete, active, id) => (
   {
     complete,
     collapse: active != id

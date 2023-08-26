@@ -1,16 +1,16 @@
 <html>
   <script type="dagger/modules">
     {
-      view: "#cardList",
-      card: "#tutorialCard",
+      card_list: "#card-list",
+      card: "#tutorial-card",
     }
   </script>
-  <template id="cardList">
+  <template id="card-list">
     <div class="tutorial-card-container">
       <card $each="cards"></card>
     </div>
   </template>
-  <template id="tutorialCard">
+  <template id="tutorial-card">
     <div
       class="tutorial-contact-card"
       +loading="{...item}"

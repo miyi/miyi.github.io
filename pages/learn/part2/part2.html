@@ -3,9 +3,11 @@
     {
       view: "#view",
       demo_container: "../components/tutorial_demo/index.html",
-      cardList: "./demo_modules.html",
+      submit_form: "./submit_form/submitForm.html",
+      components: "./pt2_components.html",
       scene1: {uri: "./scene1.js", anonymous: false},
       scene2: {uri: "./scene2.js", anonymous: false},
+      scene3: {uri: "./scene3.js", anonymous: false},
       css: "./part2.css"
     }
   </script>
@@ -24,14 +26,12 @@
         <demo_js +loading="scene2.loadingFetch()"></demo_js>
         <demo_html +loading="scene2.loadingRoot()"></demo_html>
       </div>
-      <!-- <div class="flex-grid">
+      <div class="flex-grid">
         <demo_browser +loading="{html: scene2.loadingBrowser()}"></demo_browser>
-      </div> -->
+      </div>
+      <div class="flex-grid">
+        <demo_browser +loading="{html: scene3.loadingBrowser()}"></demo_browser>
+      </div>
     </demo_container>
-    <!-- <div class="flex-grid">
-      <cardList +loading="{cards: fetchList1()}"></cardList>
-      <cardList +loading="{cards: fetchList2()}"></cardList>
-    </div> -->
-    <cardList.card +loading="{item: fetchCard()}"></cardList.card>
   </template>
 </html>

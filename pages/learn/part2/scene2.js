@@ -1,10 +1,10 @@
 export const fetchCard = () => ({
   id: 1,
-    title: "create card",
-    assignee: "me",
-    details: "keep it simple",
-    complete: true,
-})
+  title: "create card",
+  assignee: "me",
+  details: "keep it simple",
+  complete: true,
+});
 
 export const fetchList1 = () => [
   {
@@ -25,14 +25,14 @@ export const fetchList1 = () => [
 
 export const fetchList2 = () => [
   {
-    id: 1,
+    id: 3,
     title: "use modules",
     assignee: "me",
     details: "style/js/view modules",
     complete: true,
   },
   {
-    id: 2,
+    id: 4,
     title: "use namespace",
     assignee: "tony",
     details: "nest card inside cardList",
@@ -71,10 +71,10 @@ export const fetchList1 = () => ([
   {id: 2, title: "create card list", ...},
 ])
 
-export const fetchList2 = () => ({
+export const fetchList2 = () => ([
   {id: 3, title: "use modules", ...},
   {id: 4, title: "use component", ...}
-})
+])
   `,
 });
 
@@ -84,19 +84,21 @@ export const loadingRoot = () => ({
 <html>
   <script type="dagger/modules">
     {
-      cardList: "./components/cardList.html",
-      js: "listFetcher.js",
-      css: "root.css",
+      card_list: "./components/cardList.html",
+      js: "./listFetcher.js",
+      css: "./root.css",
     }
   </script>
   <body>
-    <div class="flex-grid">
-      <cardList 
-        +loading="fetchList1()"
-      ></cardList>
-      <cardList 
-        +loading="fetchList2()"
-      ></cardList>
+    <div class="flex-grid"
+      +loading="{active: 1}"
+    >
+      <card_list 
+        +loading="{cards: fetchList1()}"
+      ></card_list>
+      <card_list 
+        +loading="{cards: fetchList2()}"
+      ></card_list>
     </div>
   </body>
 </html>
@@ -104,14 +106,8 @@ export const loadingRoot = () => ({
 });
 
 export const loadingBrowser = () => `
-<div class="flex-grid">
-<cardList +loading="{cards: fetchList1()}"></cardList>
-</div>
-`;
-
-export const loadingBrowser1 = () => `
-<div class="flex-grid">
-  <cardList +loading="{cards: fetchList1()}"></cardList>
-  <cardList +loading="{cards: fetchList2()}"></cardList>
+<div class="flex-grid" +loading="{active: 1}">
+  <components.card_list +loading="{cards: scene2.fetchList1()}"></components.card_list>
+  <components.card_list +loading="{cards: scene2.fetchList2()}"></components.card_list>
 </div>
 `;

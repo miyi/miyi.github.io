@@ -615,6 +615,9 @@ export default ((
     scopedRuleResolver = (
       (selectorRegExp = /([\s:+>~])/) =>
       (sheet, rule, name, iterator) => {
+        if (Object.is(rule.selectorText, ":root")) {
+          return sheet.insertRule(rule.cssText, iterator.index++);
+        }
         if (rule instanceof CSSKeyframesRule) {
           const originalName = rule.name;
           rule.name = `${originalName}-${name}`;
