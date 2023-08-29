@@ -1,0 +1,83 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      bs_style: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css",
+      js: "./submitForm.js",
+      modal: "#modal",
+    }
+  </script>
+  <template id="view">
+    <div class="create-task-btn" +loading="{exist: false}">
+      <modal></modal>
+      <div class="btn btn-primary btn-lg container-fluid" +click="exist=true">
+        + create
+      </div>
+    </div>
+  </template>
+  <template id="modal">
+    <dialog
+      $exist="exist"
+      style="background: rgba(0, 0, 0, 0); padding: 0; border: 0"
+      +loaded="$node.showModal()"
+    >
+      <div
+        class="card"
+        +click#outside="exist=false"
+        style="width: 20rem"
+        +loading="{title: '',assignee: '',details: '', complete: false, list_number: 1}"
+      >
+        <div class="card-header h4">create a new task:</div>
+        <div class="card-body">
+          <div>
+            <label class="form-label">title:</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="type your task name here"
+              $value="title"
+            />
+          </div>
+          <div>
+            <label class="form-label">assigned to:</label>
+            <select
+              $selected="assignee"
+              class="form-select"
+              aria-label="Default select example"
+              required
+            >
+              <option selected value="me">me</option>
+              <option value="Tony">Tony Peakman</option>
+              <option value="Olivia">Olivia Smith</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">publish to:</label>
+            <select
+              $selected="list_number"
+              class="form-select"
+              aria-label="Default select example"
+              required
+            >
+              <option selected value="1">list 1</option>
+              <option value="2">list 2</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">details:</label>
+            <textarea class="form-control" rows="3" $value="details">
+            </textarea>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button
+            class="btn btn-primary container-fluid"
+            +click#prevent="pushToList($scope), exist=false"
+          >
+            publish
+          </button>
+        </div>
+      </div>
+    </dialog>
+  </template>
+</html>

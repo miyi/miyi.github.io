@@ -615,9 +615,6 @@ export default ((
     scopedRuleResolver = (
       (selectorRegExp = /([\s:+>~])/) =>
       (sheet, rule, name, iterator) => {
-        if (Object.is(rule.selectorText, ":root")) {
-          return sheet.insertRule(rule.cssText, iterator.index++);
-        }
         if (rule instanceof CSSKeyframesRule) {
           const originalName = rule.name;
           rule.name = `${originalName}-${name}`;
@@ -639,11 +636,14 @@ export default ((
               .map(
                 (selector) =>
                   (selector = selector.trim()) &&
-                  `${
-                    selectorRegExp.test(selector)
-                      ? selector.replace(selectorRegExp, `[${name}]$1`)
-                      : `${selector}[${name}]`
-                  }, [${name}] ${selector}`
+                  (((selector.includes(":root") ||
+                    selector.includes(":scope")) &&
+                    selector) ||
+                    `${
+                      selectorRegExp.test(selector)
+                        ? selector.replace(selectorRegExp, `[${name}]$1`)
+                        : `${selector}[${name}]`
+                    }, [${name}] ${selector}`)
               )
               .join(", ")}{${style.cssText}}`,
             iterator.index++

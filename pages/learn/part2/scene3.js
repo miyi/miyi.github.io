@@ -33,12 +33,12 @@ export const fetchList2 = () => [
 ];
 
 export const loadingRoot = () => ({
-  label: 'root.html',
+  label: "root.html",
   demo: `
 <html>
   <script type="dagger/modules">
     {
-      js: listFetcher.js,
+      js: "listFetcher.js",
       css: "./root.css",
       card_list: "./card_list/cardList.html",
       submit_form: "./submit_form/submitForm.html"
@@ -64,33 +64,45 @@ export const loadingRoot = () => ({
     </div>
   </body>
 </html>
-  `
-})
+  `,
+});
 
-export const loadingTaskModal = () => ({
-  label: "taskModal.html",
+export const loadingSubmitForm = () => ({
+  label: "submitForm.html",
   demo: `
 <html>
   <script type="dagger/modules">
     {
       view: "#view",
-      bs_style: "https://cdn.../css/bootstrap.min.css",
-      custom_style: "./custom.css",
+      bs_style: "https://cdn.../bootstrap.min.css",
       js: "./task_form.js",
-      modal: "./modalView.html",
+      modal: "#modal",
     }
   </script>
   <template id="view">
-    <div class="create-task-btn" +loading="{modal: null, exist: false}">
+    <div +loading="{exist: false}">
       <modal></modal>
-      <div class="btn btn-primary container-fluid h3" +click="exist=true">
+      <div 
+        class="btn btn-primary container-fluid" 
+        +click="exist=true"
+      >
         + create
       </div>
     </div>
   </template>
+  <template id="modal">
+    <dialog $exist="exist" +loaded="$node.showModal()">
+      <div class="card" +click#outside="exist=false"  +loading="{...}">
+        ...
+        <button +click#prevent="pushToList($scope), exist=false">
+          publish
+        </button>
+      </div>
+    </dialog>
+  </template>
 </html>
-  `
-})
+  `,
+});
 
 export const loadingModalView = {
   label: "modalView.html",
@@ -102,45 +114,37 @@ export const loadingModalView = {
     style="width: 20rem"
     +loading="{title: '',assignee: '',details: '', complete: false, list_number: 1}"
   >
-    <form novalidate>
-      <div class="card-header h4">create a new task:</div>
-      <div class="card-body">
-        <div>
-          <label class="form-label">title:</label>
-          <input $value="title"/>
-        </div>
-        <div>
-          <label class="form-label">assigned to:</label>
-          <select $selected="assignee">
-            <option selected value="me">me</option>
-            ...
-          </select>
-        </div>
-        <div>
-          <label class="form-label">publish to:</label>
-          <select $selected="list_number">
-            <option selected value="1">list 1</option>
-            <option value="2">list 2</option>
-          </select>
-        </div>
-        <div>
-          <label class="form-label">details:</label>
-          <textarea $value="details"></textarea>
-        </div>
+    <div class="card-header h4">create a new task:</div>
+    <div class="card-body">
+      <div>
+        <label class="form-label">title:</label>
+        <input $value="title"/>
       </div>
-      <button
-        +click#prevent="pushToList($scope), exist=false"
-      >
-        publish
-      </button>
-    </form>
+      <div>
+        <label class="form-label">assigned to:</label>
+        <select $selected="assignee">
+          <option selected value="me">me</option>
+          ...
+        </select>
+      </div>
+      <div>
+        <label class="form-label">publish to:</label>
+        <select $selected="list_number">
+          ...
+        </select>
+      </div>
+      <div>
+        <label class="form-label">details:</label>
+        <textarea $value="details"></textarea>
+      </div>
+    </div>
+    <button +click#prevent="pushToList($scope), exist=false">
+      publish
+    </button>
   </div>
 </dialog>
-
-  `
-}
-
-
+  `,
+};
 
 export const loadingBrowser = () => `
 <div +loading="{

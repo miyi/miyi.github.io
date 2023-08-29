@@ -103,12 +103,4 @@
   flex-direction: column;
   gap: 0.5rem;
   border-radius: 1rem;
-}
-
-.scene2-card-list {
-  height: 500px;
-}
-
-.create-task-btn {
-  margin: 2rem 2rem 0 2rem;
-}/*# sourceMappingURL=part2.css.map */
+}/*# sourceMappingURL=taskCard.css.map */

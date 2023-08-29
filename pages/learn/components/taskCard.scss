@@ -1,7 +1,4 @@
-$base-blue: #0078f1;
-$shadow-grey: #928484;
-$shadow-light: #668a78;
-$complete-green: rgb(29, 217, 29);
+@import "./demoPalette.scss";
 
 .tutorial-contact-card {
   box-sizing: border-box;
@@ -69,7 +66,6 @@ $complete-green: rgb(29, 217, 29);
     text-align: end;
   }
 }
-
 .complete {
   background-color: $complete-green;
   box-shadow: 10px 5px 5px $shadow-light;
@@ -88,7 +84,6 @@ $complete-green: rgb(29, 217, 29);
     }
   }
 }
-
 .collapse {
   transition: all 0.6s;
   .card-title {
@@ -101,11 +96,9 @@ $complete-green: rgb(29, 217, 29);
     overflow: hidden;
   }
 }
-
 .flex-grid {
   display: flex;
 }
-
 .tutorial-card-container {
   min-height: 300px;
   margin: 2rem;
@@ -115,12 +108,4 @@ $complete-green: rgb(29, 217, 29);
   flex-direction: column;
   gap: 0.5rem;
   border-radius: 1rem;
-}
-
-.scene2-card-list {
-  height: 500px;
-}
-
-.create-task-btn {
-  margin: 2rem 2rem 0 2rem;
 }

@@ -3,6 +3,7 @@
     {
       card_list: "#card-list",
       card: "#tutorial-card",
+      js: "./bonus.js",
     }
   </script>
   <template id="card-list">
@@ -19,6 +20,7 @@
       <div class="card-title" +click="active=id">
         <span>${title}</span>
         <svg
+          $exist="active!=id"
           class="collapse-btn"
           viewBox="0 0 24 24"
           fill="#0078f1"
@@ -27,6 +29,17 @@
           <path
             d="M5.16108 14.9083C4.45387 15.7165 5.02785 16.9814 6.1018 16.9814H17.898C18.972 16.9814 19.5459 15.7165 18.8388 14.9083L13.3169 8.59762C12.6197 7.80079 11.3801 7.80079 10.6829 8.59762L5.16108 14.9083ZM6.65274 15.4814L11.8118 9.58537C11.9114 9.47154 12.0885 9.47154 12.1881 9.58537L17.3471 15.4814H6.65274Z"
           />
+        </svg>
+        <svg
+          $exist="active==id"
+          +click#stop="removeTask($scope)"
+          class="delete-btn"
+          viewBox="0 0 22 22"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18ZM20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Zm-3-1a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"
+          ></path>
         </svg>
       </div>
       <div class="content">

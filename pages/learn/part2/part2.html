@@ -3,12 +3,13 @@
     {
       view: "#view",
       demo_container: "../components/tutorial_demo/index.html",
-      submit_form: "./submit_form/submitForm.html",
-      components: "./pt2_components.html",
+      submit_form: "../components/submit_form/index.html",
+      components: "../components/cardList.html",
       scene1: {uri: "./scene1.js", anonymous: false},
       scene2: {uri: "./scene2.js", anonymous: false},
       scene3: {uri: "./scene3.js", anonymous: false},
-      css: "./part2.css"
+      card_style: "../components/taskCard.css",
+      list_style: "../components/taskList.css",
     }
   </script>
   <template id="view">
@@ -28,6 +29,10 @@
       </div>
       <div class="flex-grid">
         <demo_browser +loading="{html: scene2.loadingBrowser()}"></demo_browser>
+      </div>
+      <div class="flex-grid">
+        <demo_html +loading="scene3.loadingRoot()"></demo_html>
+        <demo_html +loading="scene3.loadingSubmitForm()"></demo_html>
       </div>
       <div class="flex-grid">
         <demo_browser +loading="{html: scene3.loadingBrowser()}"></demo_browser>
