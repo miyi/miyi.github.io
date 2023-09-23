@@ -19,8 +19,8 @@ return {
         children: [
           {
             path: "welcome",
-            modules: "tutorialWelcome",
-            constants: { layer2: "welcome", title: "welcome" },
+            modules: "tutorial_welcome",
+            constants: { layer2: "tutorial_welcome", title: "welcome" },
           },
           {
             path: "part1",

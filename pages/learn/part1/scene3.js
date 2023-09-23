@@ -76,7 +76,7 @@ export const loadingHtml = () => ({
     $class="{complete: item.complete, collapse: active!=item.id}"
     $each="cards"
   >
-    <div +click="active=1">
+    <div +click="active=id">
       <span>{{item.title}}</span>
       <svg></svg>
     </div>

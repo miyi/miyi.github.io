@@ -1,0 +1,18 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      style: "./code_container.css",
+      script: "./demo_js.js",
+      
+    }
+  </script>
+  <template id="view">
+    <div class="code-container" +loading="{demoJs: produceDemoJs(hljs, hljsGrammar, demo)}">
+      <span class="sandbox-label">${label?label:"javascript"}</span>
+      <div class="code-box">
+        <pre><code class="javascript" $html="demoJs"></code></pre>
+      </div>
+    </div>
+  </template>
+</html>

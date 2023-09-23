@@ -1,0 +1,20 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      style: "./code_container.css",
+      script: "./html_container.js",
+    }
+  </script>
+  <template id="view">
+    <div
+      class="code-container"
+      +loading="{demoHtml: produceDemoHtml(hljs, demo)}"
+    >
+      <span class="sandbox-label">${label?label:'html'}</span>
+      <div class="code-box">
+        <pre><code class="html" $html="demoHtml"></code></pre>
+      </div>
+    </div>
+  </template>
+</html>

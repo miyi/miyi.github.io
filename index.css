@@ -14,6 +14,10 @@ body {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 .brand-text {
   background-color: #e18de8;
   -webkit-background-clip: text;

@@ -2,52 +2,160 @@
   <script type="dagger/modules">
     {
       card_list: "#card-list",
-      card: "#tutorial-card",
+      create_button: "#create-button",
       js: "./bonus.js",
+      card_style: "./taskCard.css",
+      list_style: "./taskList.css",
+      bonus_style: "./bonus.css",
+      bs_styles: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css",
+      view: "#view"
     }
   </script>
-  <template id="card-list">
-    <div class="tutorial-card-container">
-      <card $each="cards"></card>
+  <!-- 
+  SCOPE REQUIREMENT: 
+    * task: {title: str, assginee: str, details: str, complete: bool, priority: num[1-3]} 
+    * all_tasks: [task] 
+    * card_list: {list_label: str, tasks: [task]}
+  -->
+  <template id="view">
+    <create_button></create_button>
+    <div class="flex-grid">
+      <card_list
+        $watch="tasks=filterByPriority(all_tasks, priority_rank)"
+        +loading="{
+          list_label: 'Urgent',
+          priority_rank: 3,
+          tasks: filterByPriority(all_tasks, 3),
+        }"
+      ></card_list>
+      <card_list
+        $watch="tasks=filterByPriority(all_tasks, priority_rank)"
+        +loading="{
+          list_label: 'ASAP',
+          priority_rank: 2,
+          tasks: filterByPriority(all_tasks, 2)     
+        }"
+      ></card_list>
+      <card_list
+        $watch="tasks=filterByPriority(all_tasks, priority_rank)"
+        +loading="{
+          list_label: 'Right Now!',
+          priority_rank: 1,
+          tasks: filterByPriority(all_tasks, 1)
+        }"
+      ></card_list>
     </div>
   </template>
-  <template id="tutorial-card">
-    <div
-      class="tutorial-contact-card"
-      +loading="{...item}"
-      $class="{complete, collapse: active!=id}"
-    >
-      <div class="card-title" +click="active=id">
-        <span>${title}</span>
-        <svg
-          $exist="active!=id"
-          class="collapse-btn"
-          viewBox="0 0 24 24"
-          fill="#0078f1"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M5.16108 14.9083C4.45387 15.7165 5.02785 16.9814 6.1018 16.9814H17.898C18.972 16.9814 19.5459 15.7165 18.8388 14.9083L13.3169 8.59762C12.6197 7.80079 11.3801 7.80079 10.6829 8.59762L5.16108 14.9083ZM6.65274 15.4814L11.8118 9.58537C11.9114 9.47154 12.0885 9.47154 12.1881 9.58537L17.3471 15.4814H6.65274Z"
-          />
-        </svg>
-        <svg
-          $exist="active==id"
-          +click#stop="removeTask($scope)"
-          class="delete-btn"
-          viewBox="0 0 22 22"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18ZM20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Zm-3-1a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"
-          ></path>
-        </svg>
+  <template id="card-list">
+    <div class="tutorial-card-container">
+      <div class="list-label">${list_label}</div>
+      <div
+        class="tutorial-contact-card"
+        $each="tasks"
+        +loading="{...item, collapse: false}"
+        $class="{complete, collapse}"
+      >
+        <div class="card-title" +click="collapse=false">
+          <span>${title}</span>
+          <svg
+            $exist="collapse"
+            class="collapse-btn"
+            viewBox="0 0 24 24"
+            fill="#0078f1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.16108 14.9083C4.45387 15.7165 5.02785 16.9814 6.1018 16.9814H17.898C18.972 16.9814 19.5459 15.7165 18.8388 14.9083L13.3169 8.59762C12.6197 7.80079 11.3801 7.80079 10.6829 8.59762L5.16108 14.9083ZM6.65274 15.4814L11.8118 9.58537C11.9114 9.47154 12.0885 9.47154 12.1881 9.58537L17.3471 15.4814H6.65274Z"
+            />
+          </svg>
+          <svg
+            $exist="!collapse"
+            +click#stop="removeTask($scope)"
+            class="delete-btn"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10,18a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,10,18ZM20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Zm-3-1a1,1,0,0,0,1-1V11a1,1,0,0,0-2,0v6A1,1,0,0,0,14,18Z"
+            ></path>
+          </svg>
+        </div>
+        <div class="content">
+          <div class="assignee">assigned to: ${item.assignee}</div>
+          <div class="details">${item.details}</div>
+          <button class="complete-button" +click="complete=!complete">
+            ${complete ? "completed" : "not complete"}
+          </button>
+        </div>
       </div>
-      <div class="content">
-        <div class="assignee">assigned to: ${item.assignee}</div>
-        <div class="details">${item.details}</div>
-        <button class="complete-button" +click="complete=!complete">
-          ${complete ? "completed" : "not complete"}
-        </button>
+    </div>
+  </template>
+  <template id="create-button">
+    <div class="create-task-btn" +loading="{exist: false}">
+      <dialog
+        $exist="exist"
+        style="background: rgba(0, 0, 0, 0); padding: 0; border: 0"
+        +loaded="$node.showModal()"
+      >
+        <div
+          class="card"
+          +click#outside="exist=false"
+          style="width: 20rem"
+          +loading="{title: '',assignee: '',details: '', priority: 3, complete: false, list_number: 1}"
+        >
+          <div class="card-header h4">create a new task:</div>
+          <div class="card-body">
+            <div>
+              <label class="form-label">title:</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="type your task name here"
+                $value="title"
+              />
+            </div>
+            <div>
+              <label class="form-label">assigned to:</label>
+              <select
+                $selected="assignee"
+                class="form-select"
+                aria-label="Default select example"
+              >
+                <option selected value="me">me</option>
+                <option value="tony">Tony Peakman</option>
+                <option value="olivia">Olivia Smith</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">priority:</label>
+              <select
+                $selected="priority"
+                class="form-select"
+                aria-label="Default select example"
+              >
+                <option selected value="3">Urgent</option>
+                <option value="2">ASAP</option>
+                <option value="1">Right Now!</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">details:</label>
+              <textarea class="form-control" rows="3" $value="details">
+              </textarea>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button
+              class="btn btn-primary container-fluid"
+              +click#prevent="pushToList($scope), exist=false"
+            >
+              publish
+            </button>
+          </div>
+        </div>
+      </dialog>
+      <div class="btn btn-primary btn-lg container-fluid" +click="exist=true">
+        + create
       </div>
     </div>
   </template>

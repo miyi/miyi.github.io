@@ -36,6 +36,7 @@ export const loadingRoot = () => ({
   label: "root.html",
   demo: `
 <html>
+  <head>...</head>
   <script type="dagger/modules">
     {
       js: "listFetcher.js",

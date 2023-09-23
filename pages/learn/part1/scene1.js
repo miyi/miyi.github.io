@@ -26,3 +26,11 @@ export const loadingBrowser = (title, assignee, details) => `
 <div class="details">${details}</div>
 </div>
 `;
+
+export const loadingBrowserHtml = () => `
+<div class="tutorial-contact-card">
+<div class="card-title">\${title}</div>
+<div class="assignee">assigned to: \${assignee}</div>
+<div class="details">\${details}</div>
+</div>
+`;

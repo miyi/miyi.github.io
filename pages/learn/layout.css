@@ -28,6 +28,10 @@
   background-color: #433760;
 }
 
+.active {
+  background-color: #433760;
+}
+
 .item-container {
   padding-left: 2rem;
 }
@@ -37,7 +41,6 @@
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  border: 1px solid white;
   height: 100vh;
   overflow-y: scroll;
   color: #c1d1e4;
@@ -45,9 +48,9 @@
   line-height: 1.6;
 }
 .page-container .page-content {
-  border: 1px solid greenyellow;
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
   flex-grow: 1;
   height: 100%;
   overflow-y: scroll;
@@ -55,7 +58,6 @@
 }
 .page-container .toc-container {
   min-width: 250px;
-  border: 1px dashed orange;
 }
 
 .big-title {

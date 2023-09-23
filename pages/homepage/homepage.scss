@@ -1,4 +1,4 @@
-@import "../styles/global.scss";
+@import "../../styles/global.scss";
 
 .outer-container {
   background-color: $bg-color-dark;
@@ -20,6 +20,16 @@
   width: 100%;
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: col;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
@@ -255,6 +265,23 @@
   }
 }
 
+.sub {
+  font-size: 1.25rem;
+  color: $primary-color;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.main {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: $text-color;
+  .highlight {
+    color: $primary-color;
+    font-weight: 600;
+  }
+}
+
 .concepts {
   width: 100%;
   padding-top: 100px;
@@ -268,21 +295,6 @@
       width: 45%;
       max-width: 450px;
       min-width: 250px;
-      .sub {
-        font-size: 1.25rem;
-        color: $primary-color;
-        font-weight: 400;
-        margin-bottom: 1.5rem;
-      }
-      .main {
-        font-size: 2.5rem;
-        font-weight: 500;
-        color: $text-color;
-        .highlight {
-          color: $primary-color;
-          font-weight: 600;
-        }
-      }
     }
     .card-container {
       width: 100%;

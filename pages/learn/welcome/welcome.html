@@ -2,56 +2,16 @@
   <script type="dagger/modules">
     {
       view: "#view",
-      js: "#script",
       style: "#style",
-      part: "./components/tutorial_card.html",
+      part_card: "../components/part_card/part_card.html",
+      demo_container: "../components/tutorial_demo/index.html",
     }
   </script>
   <style id="style" type="dagger/style">
-    .link-container {
-      padding: 4rem 0 4rem 0;
-      justify-self: center;
-      align-self: flex-start;
-    }
-    .link-grid {
-      width: 80%;
-      min-width: 500px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+    .tetrahedron {
+      width: 50rem;
     }
   </style>
-  <script id="script" type="dagger/script">
-    export const loadParts = () => [
-      {
-        title: "part 1",
-        description:
-          "Create a basic component with scope variables and event directives.",
-        bottom: "5 min",
-        link: "learn/part1"
-      },
-      {
-        title: "part 2",
-        description:
-          "Enhance interactive features with control directives and decorators.",
-        bottom: "10 min",
-        link: "learn/part2"
-      },
-      {
-        title: "part 3",
-        description:
-          "Use dagger modules to build complex components",
-        bottom: "15 min",
-        link: "learn/part3"
-      },
-      {
-        title: "part 4",
-        description: "Finish a complete SPA through configuring the router",
-        bottom: "20 min",
-        link: "learn/part4"
-      },
-    ];
-  </script>
   <template id="view">
     <div class="title brand-text">What is dagger.js?</div>
 
@@ -62,34 +22,96 @@
     </p>
     <div class="title">
       core features
-      <div class="subtitle">
-        What makes developing with dagger.js intuitive and fast?
-      </div>
+      <div class="subtitle">Understanding Dagger</div>
     </div>
-    <ul class="text">
-      <li>html directives to streamline modern web development needs</li>
-      <li>easy state management with scope variables</li>
+    <div class="text">
+      The first step into the framework is understanding how dagger controls
+      html elements through UI/state data. This data is how the browser
+      determines what to render and how the rendered outputs should behave. For
+      example the data can store if a button has been clicked and how many
+      times, or who is the current user and what matching information should be
+      displayed. Manipulating the data will directly change the rendered
+      outputs.
+    </div>
+    <div class="text">
+      Dagger stores all the UI data inside 3 objects:
+      <ul>
+        <li>$scope: data collection used to represent state information</li>
+      </ul>
+      <ul>
+        <li>
+          $module: resource collection that can point to html snippets or
+          javascript files
+        </li>
+      </ul>
+      <ul>
+        <li>$router: router specific data</li>
+      </ul>
+    </div>
+    <div class="flex-grid center">
+      <img class="tetrahedron" src="/img/tetrahedron.png" />
+    </div>
+    <div class="title">
+      Directives
+      <div class="subtitle">control elements from inside the html</div>
+    </div>
+    <div class="text">
+      Directives can be conceptually thought of as connectors between the UI
+      data and the DOM. They can establish a one way or two way binding
+      depending on the directive.
+    </div>
+    <div class="text">
+      There 3 types of directives:
       <li>
-        internal module management that does away with bundlers like webpack
+        + lifecycle directives: triggers at various stages of html element
+        lifecycle
       </li>
-      <li>routing management</li>
-      <li>dagger.js is a run-time framework so there is no need to compile</li>
-    </ul>
-    <p></p>
+      <li>
+        $ event directives : triggers when the event occurs, similar to event
+        listeners
+      </li>
+      <li>+ control directives: watches for changes in the assigned UI data</li>
+    </div>
+
     <div class="title">quick start</div>
     <p class="text">
       Getting started is as easy as adding the library to the html header.
     </p>
+    <div class="codepen-container" style="height: 700px">
+      <iframe
+        height="550"
+        style="width: 100%"
+        scrolling="no"
+        title="[dagger-demo] the empty entry page"
+        src="https://codepen.io/dagger8224/embed/ZErWBpB?default-tab=html"
+        frameborder="no"
+        loading="lazy"
+        allowtransparency="true"
+        allowfullscreen="true"
+      >
+        See the Pen
+        <a href="https://codepen.io/dagger8224/pen/ZErWBpB">
+          [dagger-demo] the empty entry page</a
+        >
+        by Tony Peakman (<a href="https://codepen.io/dagger8224">@dagger8224</a
+        >) on <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+    </div>
     <div class="title">Tutorials</div>
-    <p>
+    <div class="text">
       Follow through our 4 part tutorial to create a task board that allows
       users to create tasks and drag them through various stages of completion.
       We will explain all major concepts step by step, and by the end you will
-      be able to develope a complete dagger SPA on your own.
-    </p>
-    <div class="link-container" +loading="{parts: loadParts()}">
+      be able to develope a complete dagger SPA on your own. To follow through
+      with the tutorial you will need a basic understanding of HTML, CSS, and
+      Javascript.
+    </div>
+    <div class="link-container">
       <div class="link-grid">
-        <part $each="parts" +loading="item"></part>
+        <part_card +loading="{part_number: 1}"></part_card>
+        <part_card +loading="{part_number: 2}"></part_card>
+        <part_card +loading="{part_number: 3}"></part_card>
+        <part_card +loading="{part_number: 4}"></part_card>
       </div>
     </div>
   </template>

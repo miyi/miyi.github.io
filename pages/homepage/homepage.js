@@ -25,8 +25,31 @@ export const loadConcepts = () => {
   };
 };
 
+export const declareStateDemo = () => `
+<div +loading="{name: "John Smith", age: 23, email: 'johny69smith@aol.com'}">
+  Hi! my name is \${name}, I am \${23} years old, you can contact me at \${email}.
+</div>
+`;
+export const updateStateDemo = `
+<div +loading="{name: 'John'}">
+  \${name}
+  <button +click="name='Jane">
+    change name
+  </button>
+</div>
+`;
+
+export const computeStateDemo = `
+<div +loading="{euros: 1000}">
+  <div +loading="{dollars: euros*1.06}">
+    
+  </div>
+</div>
+`;
+
 export const createLine = (
-  { start, startSocket, end, endSocket }, LeaderLine
+  { start, startSocket, end, endSocket },
+  LeaderLine
 ) => {
   if (start && end) {
     new LeaderLine(start, end, {

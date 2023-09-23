@@ -16,10 +16,8 @@ export const pushToList = ({
     complete,
   };
   if (list_number == 2) {
-    console.log(list2);
     list2.push(data);
   } else {
-    console.log(list1);
     list1.push(data);
   }
 };

@@ -6,8 +6,9 @@
       content_block: './components/content_block.html',
       js: './homepage.js',
       styles: './homepage.css',
-      hlstyles: 'http://localhost:8080/highlightjs//github-dark.min.css',
-      hljs: 'http://localhost:8080/highlightjs/highlight.min.js',
+      hlstyles: '/highlightjs/github-dark.min.css',
+      hljs: '/highlightjs/highlight.min.js',
+      tutorial_demo: '/components/tutorial_demo/index.html'
     }
   </script>
   <template id="view">
@@ -57,7 +58,7 @@
                 </div>
               </div>
               <div class="start-group">
-                <div class="link btn">tutorials</div>
+                <a href="/learn"><div class="link btn">tutorials</div></a>
                 <div class="link btn">docs</div>
               </div>
             </div>
@@ -107,7 +108,23 @@
           </div>
         </div>
       </div>
-      <div class="home">
+      <div class="home concepts">
+        <div class="home-container flex-col">
+          <div class="sub">declaring state</div>
+          <tutorial_demo>
+            <demo_html
+              +loading="{label: '', demo: declareStateDemo()}"
+            ></demo_html>
+          </tutorial_demo>
+        </div>
+      </div>
+      <!-- <div class="home">
+        <tutorial_demo>
+          <demo_html +loading="{label: '', demo: updateStateDemo}"></demo_html>
+          <demo_html +loading="{label: '', demo: computeStateDemo}"></demo_html>
+        </tutorial_demo>
+      </div> -->
+      <!-- <div class="home">
         <div id="directive-content" class="home-container">
           <content_block
             +loading="load_directive_content($module)"
@@ -127,7 +144,7 @@
             +loading="load_modules_content($module)"
           ></content_block>
         </div>
-      </div>
+      </div> -->
     </div>
   </template>
 </html>

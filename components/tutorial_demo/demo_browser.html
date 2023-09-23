@@ -1,0 +1,22 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      browser_style: "./browser.css",
+    }
+  </script>
+  <template id="view">
+    <div class="browser-container">
+      <div class="render-box">
+        <div class="row">
+          <div class="column">
+            <span class="dot" style="background: #ed594a"></span>
+            <span class="dot" style="background: #fdd800"></span>
+            <span class="dot" style="background: #5ac05a"></span>
+          </div>
+        </div>
+        <div class="content" $html="html"></div>
+      </div>
+    </div>
+  </template>
+</html>

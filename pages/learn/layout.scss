@@ -31,6 +31,10 @@
   }
 }
 
+.active {
+  background-color: $bg-color-lite;
+}
+
 .item-container {
   padding-left: 2rem;
 }
@@ -40,16 +44,15 @@
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  border: 1px solid white;
   height: 100vh;
   overflow-y: scroll;
   color: $text-color-lite;
   font-family: "inter", sans-serif;
   line-height: 1.6;
   .page-content {
-    border: 1px solid greenyellow;
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
     flex-grow: 1;
     height: 100%;
     overflow-y: scroll;
@@ -57,7 +60,6 @@
   }
   .toc-container {
     min-width: 250px;
-    border: 1px dashed orange;
   }
 }
 

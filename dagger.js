@@ -613,7 +613,10 @@ export default ((
     relativePathRegExp = /(?:^|;|\s+)(?:export|import)\s*?(?:(?:(?:[$\w*\s{},]*)\s*from\s*?)|)(?:(?:"([^"]+)?")|(?:'([^']+)?'))[\s]*?(?:$|)/gm,
     textEncoder = new TextEncoder(),
     scopedRuleResolver = (
-      (selectorRegExp = /([\s:+>~])/) =>
+      (
+        selectorRegExp = /([\s:+>~])/,
+        whitelist = [":root", ":scope", "html", "body"]
+      ) =>
       (sheet, rule, name, iterator) => {
         if (rule instanceof CSSKeyframesRule) {
           const originalName = rule.name;
@@ -636,8 +639,7 @@ export default ((
               .map(
                 (selector) =>
                   (selector = selector.trim()) &&
-                  (((selector.includes(":root") ||
-                    selector.includes(":scope")) &&
+                  ((whitelist.some((key) => selector.startsWith(key)) &&
                     selector) ||
                     `${
                       selectorRegExp.test(selector)
@@ -2463,7 +2465,7 @@ export default ((
                 `It is illegal to use "$html" or "$text" directive on view module "${name}"`,
                 !node.hasAttribute("$html") && !node.hasAttribute("$text")
               );
-            if (moduleProfile || Object.is(name, "template")) {
+            if (moduleProfile) {
               this.virtual = true;
               this.resolveLandmark(node, "virtual node removed");
             }
@@ -2529,8 +2531,18 @@ export default ((
                 this.resolveViewModule(
                   moduleProfile.fetch(name.split(".").slice(1))
                 );
-            } else if (!directives.child) {
-              this.resolveChildren(node, rootNodeProfiles);
+            } else {
+              if (Object.is(name, "template")) {
+                if (this.plain) {
+                  (this.raw = true) && (this.plain = false);
+                } else {
+                  this.virtual = true;
+                  this.resolveLandmark(node, "virtual node removed");
+                }
+              }
+              this.raw ||
+                directives.child ||
+                this.resolveChildren(node, rootNodeProfiles);
             }
           }
           if (parent) {
@@ -2992,7 +3004,9 @@ export default ((
             }
             if (redirectPath != null) {
               logger(
-                `The router is redirecting from "${path}" to "${redirectPath}"`
+                `The router is redirecting from "${path}" to "${
+                  redirectPath || "/"
+                }"`
               );
               return history.replaceState(
                 null,

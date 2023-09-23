@@ -1,0 +1,52 @@
+<html>
+  <script type="dagger/modules">
+    {
+
+      view: "#view",
+      card: "#card",
+      js: "#js",
+      style: "./part_card.css",
+    }
+  </script>
+  <script id="js" type="dagger/script">
+    export const partCardScopes = [
+      {
+        title: "part 1",
+        description: "Create a basic component with $scope and event directives.",
+        bottom: "5 min",
+        link: "learn/part1",
+      },
+      {
+        title: "part 2",
+        description:
+          "Use abstractions to create more complex components with modules.",
+        bottom: "10 min",
+        link: "learn/part2",
+      },
+      {
+        title: "part 3",
+        description:
+          "create a hash router with the $router variable and the $html directive",
+        bottom: "15 min",
+        link: "learn/part3",
+      },
+      {
+        title: "part 4",
+        description: "Finish a complete SPA with some bonus content",
+        bottom: "20 min",
+        link: "learn/part4",
+      },
+    ];
+  </script>
+  required: part_number: num
+  <template id="view">
+    <card +loading="{...partCardScopes[part_number-1]}"></card>
+  </template>
+  <template id="card">
+    <div class="t-c-container" +click="history.pushState({},'',link)">
+      <div class="t-c-title">${title}</div>
+      <div class="t-c-description">${description}</div>
+      <div class="t-c-bottom">${bottom}</div>
+    </div>
+  </template>
+</html>

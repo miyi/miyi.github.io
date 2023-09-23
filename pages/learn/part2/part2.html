@@ -2,7 +2,8 @@
   <script type="dagger/modules">
     {
       view: "#view",
-      demo_container: "../components/tutorial_demo/index.html",
+      demo_container: "../../../components/tutorial_demo/index.html",
+      part_card: "../components/part_card/part_card.html",
       submit_form: "../components/submit_form/index.html",
       components: "../components/cardList.html",
       scene1: {uri: "./scene1.js", anonymous: false},
@@ -13,6 +14,37 @@
     }
   </script>
   <template id="view">
+    <div class="title">part 2</div>
+    <div class="text">
+      Modules in dagger are code snippets that help users maximize code
+      reusability.
+    </div>
+    <div class="text">
+      In part 1 of the tutorial we created components with scopes and directives
+      all within a single html page, but as projects become more complex, we can
+      use modules to create abstractions and reuse code. In dagger any reusable
+      resource is called a module.
+    </div>
+    <div class="text">
+      Main module types:
+      <ul>
+        <li>script modules: javascript resources in ESM format.</li>
+        <li>style modules: css resources.</li>
+        <li>
+          view modules: html fragments. You can use it by inserting the module
+          name as an element tag.
+        </li>
+        <li>namespace: a collection of modules, including other namespaces.</li>
+      </ul>
+    </div>
+    <div class="text">
+      In the following example we recreated the part 1 example using modules. To
+      start let's create a file structure for the following 4 files, with
+      cardList.html as the root file of our project.
+    </div>
+    <div class="flex-grid">
+      <img style="width: 700px" src="/img/file_struc1.png" />
+    </div>
     <demo_container>
       <div class="flex-grid">
         <demo_html +loading="scene1.loadingCard()"></demo_html>
@@ -22,6 +54,39 @@
         <demo_html +loading="scene1.loadingCardList()"></demo_html>
         <demo_browser +loading="{html: scene1.loadingBrowser()}"></demo_browser>
       </div>
+    </demo_container>
+    <div class="text">
+      CardList.html created a namespace by defining a modules config via the
+      <script type="dagger/modules">
+        ...
+      </script>
+      tag. Inside the config object, the key is a self defined module name, and
+      the value is the location of the module resource, which could be a local
+      DOM selector of the current file, or a remote URL.
+    </div>
+    <div class="text">
+      There are 3 modules defined in the modules config above: card, js, and
+      css. Dagger can automatically detect the module type, but there are also
+      ways to set content type manually (docs). Additionally, a module will only
+      take effect inside its owner namespace.
+    </div>
+    <div class="text">
+      Any html file with a dagger/modules config is considered a namespace.
+      Conceptually, a namespace is simply a collection of modules. Since
+      namespace is also a type of module, we can reference a namespace inside
+      other namespaces in a tree structure. Sitting at the very top of the tree
+      is the root namespace. It is a special-case namespace defined in the entry
+      file with no parent namespace. Think of it like the starting point of
+      dagger, all dagger projects can only have one root namespace.
+    </div>
+    <div class="text">
+      let's see how namespace works in nested scenarios. First we start with the
+      folder structure.
+    </div>
+    <div class="flex-grid">
+      <img style="width: 700px" src="/img/file_struc2.png" />
+    </div>
+    <demo_container>
       <div class="flex-grid">
         <demo_html +loading="scene2.loadingCardList()"></demo_html>
         <demo_js +loading="scene2.loadingFetch()"></demo_js>
@@ -30,6 +95,35 @@
       <div class="flex-grid">
         <demo_browser +loading="{html: scene2.loadingBrowser()}"></demo_browser>
       </div>
+    </demo_container>
+    <div class="text">
+      We can render view modules inside the "card_list" namespace by calling its
+      module path. We can directly call the card module inside root.html by
+      writing &lt;card_list.card&gt;. Non-root namespace assumes that the view
+      module named "view" is the default render. For example, in root.html, when
+      we inserted &lt;card_list&gt; we actually inserted the
+      &lt;card_list.view&gt;.
+    </div>
+    <div class="text">
+      Root.html is the root namespace, the starting point of the dagger project
+      and where we load the dagger.js file into the head. The root namespace
+      renders from the &lt;body&gt; by default, so you don't need to reference a
+      default view module inside dagger/modules config to initiate render.
+    </div>
+    <div class="text">
+      Let's take a closer look at a few other changes we made. The cardView.html
+      file is the same in both this example and the one before. cardList.html on
+      the other hand is now a nested namespace. We moved the data fetching logic
+      from inside the cardList.html to root.html. This way we can create
+      multiple card_list instances, and assign different card data to each.
+    </div>
+    <div class="text">
+      additionally we also moved the active scope scope variable from to the
+      root namespace so that only one card among all the card lists can be
+      expanded at a time.
+    </div>
+    <div class="text">let's see the next example with more namespaces.</div>
+    <demo_container>
       <div class="flex-grid">
         <demo_html +loading="scene3.loadingRoot()"></demo_html>
         <demo_html +loading="scene3.loadingSubmitForm()"></demo_html>
@@ -38,5 +132,53 @@
         <demo_browser +loading="{html: scene3.loadingBrowser()}"></demo_browser>
       </div>
     </demo_container>
+    <div class="text">
+      This example added the "submit_form" namespace to the previous example.
+      The "submit_form" contains a button that toggles a dialog element
+      containing the submission modal. The modal gathers the new task card info
+      such title, assignee, and details, as well as which list the user would
+      like to submit to, the submit button then pushes that info to either list1
+      or list2 via $scope.
+    </div>
+    <div class="text">
+      We introduced a few new ways to use dagger here. Inside submitForm.html,
+      the "bs_style" module referenced the external bootstrap css cdn, and
+      "modal" referenced a view module through its id selector then inserted in
+      the default view. This is just to demonstrate some of the ways we can
+      leverage abstractions in dagger.
+    </div>
+    <div class="text">
+      There are also two new control directives: $watch and $exist. $watch
+      watches for changes in the scope variables in the assigned expression.
+      $exist toggles the existence of the element based on whether assigned
+      expression returns true or false. The html dialog element comes with its
+      own javascript handlers to toggle its visibility, but dagger offers a
+      simpler solutions to the modal problem.
+    </div>
+    <div class="text">
+      We also introduced the use of decorators in the modal module. You can find
+      these in the directives +click#prevent and +click#outside. These are
+      syntactic sugars for repetitive logics, or shorthands, to give users
+      better control of the element. The #prevent decorator is the dagger
+      shorthand for Event.preventDefault(). The +click#outside is a +click
+      specific decorator that triggers when the user clicks outside of the
+      element, in this case clicking outside of the modal sets the exist scope
+      variable to false, and in turn toggles $exist to false.
+    </div>
+    <div class="text">
+      Under the hood dagger is constructing a module tree of all the modules
+      needed for the render, and then loads these modules in run time. In real
+      projects, the tree depth could be deep and many modules pop in and out of
+      use. If some modules share the same dependencies, dagger will load the
+      shared dependencies from its cache instead of refetching the resource.
+    </div>
+    <div class="flex-grid">
+      <img style="width: 100%" src="/img/module_tree.png" />
+    </div>
+    <div class="link-container">
+      <div class="link-grid">
+        <part_card +loading="{part_number: 3}"></part_card>
+      </div>
+    </div>
   </template>
 </html>

@@ -20,6 +20,16 @@
   padding-right: 2rem;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: col;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -251,6 +261,23 @@
   color: #c1d1e4;
 }
 
+.sub {
+  font-size: 1.25rem;
+  color: #e18de8;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.main {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #9965de;
+}
+.main .highlight {
+  color: #e18de8;
+  font-weight: 600;
+}
+
 .concepts {
   width: 100%;
   padding-top: 100px;
@@ -266,21 +293,6 @@
   width: 45%;
   max-width: 450px;
   min-width: 250px;
-}
-.concepts .home-container .header .sub {
-  font-size: 1.25rem;
-  color: #e18de8;
-  font-weight: 400;
-  margin-bottom: 1.5rem;
-}
-.concepts .home-container .header .main {
-  font-size: 2.5rem;
-  font-weight: 500;
-  color: #9965de;
-}
-.concepts .home-container .header .main .highlight {
-  color: #e18de8;
-  font-weight: 600;
 }
 .concepts .home-container .card-container {
   width: 100%;

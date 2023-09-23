@@ -1,3 +1,43 @@
-<div>
-  <div class="title">I am part 3!</div>
-</div>
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      demo_container: "../../../components/tutorial_demo/index.html",
+      scene1: "./scene1.js"
+    }
+  </script>
+  <template id="view">
+    <div class="title">part 3</div>
+    <div>${JSON.stringify($router)}</div>
+    <div class="text">
+      For dagger, routing is all about leveraging concepts from part one and two
+      to fulfill its functionalities. Let's revisit the main concepts of the
+      previous two parts to better understand the relationship between data and
+      render in the dagger framework.
+    </div>
+    <div class="text">
+      In part one we learned about how directives can use data to control the
+      render in the browser.
+    </div>
+    <div class="flex-grid">
+      <img style="width: 750px" src="/img/scope_to_component.png" />
+    </div>
+    <div class="text">
+      In part two we learned how to use nested modules to compose complex
+      components, and at the very top of the nested structure is the root
+      namespace which as no parent. From that root namespace we start rendering
+      all our components inside the &lt;body&gt; element.
+    </div>
+    <div class="flex-grid">
+      <img style="width: 100%" src="/img/modules_to_render.png" />
+    </div>
+    <div class="text">
+      Imagine a $scope like data store, but instead of directing components what
+      data to render it tells dagger which namespace to render depending on the
+      routing path.
+    </div>
+    <!-- <demo_container>
+      <demo_js></demo_js>
+    </demo_container> -->
+  </template>
+</html>

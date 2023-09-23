@@ -5,7 +5,7 @@
       menuitem: "#menuitem",
       js: "./layout.js",
       layout_css: "./layout.css",
-      page_content_css: "./page-content.css"
+      page_content_css: "./page-content.css",
     }
   </script>
   <template id="menuitem">
@@ -14,7 +14,7 @@
         class="menu-item"
         +click="active=!active, history.pushState({}, '', item.link)"
       >
-        ${item.name} ${active}
+        ${item.name}
       </div>
       <div class="item-container">
         <template $exist="active && item.children">

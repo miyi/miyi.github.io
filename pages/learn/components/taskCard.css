@@ -11,6 +11,7 @@
   color: #0078f1;
 }
 .tutorial-contact-card .card-title {
+  cursor: pointer;
   font-size: 1.5rem;
   display: inline-block;
 }
@@ -19,7 +20,6 @@
   width: 2rem;
   height: 2rem;
   text-align: center;
-  transition: 0.6s;
 }
 .tutorial-contact-card .content {
   display: flex;
@@ -48,7 +48,6 @@
   border: 0;
   border: 1px solid #0078f1;
   background-color: #0078f1;
-  transition: 0.6s;
   color: white;
   width: 100%;
 }
@@ -73,6 +72,9 @@
 .complete .card-title .collapse-btn {
   fill: white;
 }
+.complete .card-title .delete-btn {
+  fill: white;
+}
 .complete .content .complete-button {
   border: 1px solid white;
   background-color: rgb(29, 217, 29);
@@ -92,15 +94,5 @@
 
 .flex-grid {
   display: flex;
-}
-
-.tutorial-card-container {
-  min-height: 300px;
-  margin: 2rem;
-  padding: 2rem;
-  background-color: #a0c2e4;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  border-radius: 1rem;
+  flex-direction: row;
 }/*# sourceMappingURL=taskCard.css.map */

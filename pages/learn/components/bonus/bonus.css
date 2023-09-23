@@ -1,0 +1,19 @@
+.list-label {
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgb(41, 40, 40);
+}
+
+.delete-btn {
+  cursor: pointer;
+  float: right;
+  height: 2rem;
+  width: 2rem;
+  margin-right: 1rem;
+  fill: #0078f1;
+}
+
+.delete-btn:hover {
+  fill: red;
+}
+

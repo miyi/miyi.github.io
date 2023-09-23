@@ -1,0 +1,52 @@
+export const loading = () => ({
+  all_tasks: [
+    {
+      id: 1,
+      title: "create card",
+      assignee: "me",
+      details: "keep it simple",
+      priority: 1,
+      complete: true,
+    },
+    {
+      id: 2,
+      title: "create card list",
+      assignee: "tony",
+      details: "use nested scopes",
+      priority: 1,
+      complete: true,
+    },
+    {
+      id: 3,
+      title: "use modules",
+      assignee: "me",
+      details: "use style/js/view modules",
+      priority: 2,
+      complete: true,
+    },
+    {
+      id: 4,
+      title: "use namespace",
+      assignee: "tony",
+      details: "nest card inside cardList",
+      priority: 2,
+      complete: false,
+    },
+    {
+      id: 5,
+      title: "add delete function",
+      assignee: "tony",
+      details: "add a delete button to the top right corner of the card",
+      priority: 3,
+      complete: false,
+    },
+    {
+      id: 6,
+      title: "use drag/drop",
+      assignee: "olivia",
+      details: "drag and drop card to a new list",
+      priority: 3,
+      complete: false,
+    },
+  ],
+});

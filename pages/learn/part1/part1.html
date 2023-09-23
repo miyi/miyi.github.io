@@ -2,28 +2,42 @@
   <script type="dagger/modules">
     {
       view: "#view",
-      demo_container: "../components/tutorial_demo/index.html",
+      part_card: "../components/part_card/part_card.html",
       scene1: {uri:"./scene1.js", anonymous:false},
       scene2: {uri:"./scene2.js", anonymous:false},
       scene3: {uri:"./scene3.js", anonymous:false},
       styles: "../components/taskCard.css",
+      demo_container: "../../../components/tutorial_demo/index.html",
     }
   </script>
   <template id="view">
     <div class="title">Part 1</div>
     <div class="text">
-      To follow this tutorial you need a basic understanding of html, css, and
-      javascript. In part 1 you will build a s.
+      This part is about introducing basic ways to use dagger with directives
+      and scopes. Let's see how that works with a simple task card example.
     </div>
     <demo_container +loading="scene1.loadingData()">
       <div class="flex-grid">
         <demo_html +loading="scene1.loadingHtml()"></demo_html>
         <demo_browser
-          $watch="html=scene1.loadingBrowser(title, assignee, details)"
+          $watch="html=scene1.loadingBrowserHtml()"
           +loading="{html: ''}"
         ></demo_browser>
       </div>
     </demo_container>
+    <div class="text">
+      The +loading lifecycle directive created 3 scope variables that are then
+      stored in the $scope object. Like javascript scoping rules, these scope
+      variables are accessible anywhere inside the element tags.
+    </div>
+    <div class="text">
+      to read the scope variables we used the \${} control directive. It outputs
+      the scope variables as strings, and will update the DOM on change. Try
+      change the scope variables yourself!
+    </div>
+    <div class="text">
+      Next up we will manipulate $scope to create a more interactive task card.
+    </div>
     <demo_container +loading="scene2.loadingData()">
       <div class="flex-grid">
         <demo_html +loading="scene2.loadingHtml()"></demo_html>
@@ -41,11 +55,77 @@
         ></demo_browser>
       </div>
     </demo_container>
+    <div class="text">
+      We added 2 more scope variables complete and collapse with boolean data
+      type. We also added +click even directive to the title div and the
+      complete button. Clicking on the elements will trigger its respective
+      expressions.
+    </div>
+    <div class="text">
+      First we created a mechanism to mutate the scope variables. Then we added
+      the $class directive to insert appropriate styling to match the data.
+      $class watches the scope variables inside its assigned plain object for
+      change. It will insert the scope variable name into the html element
+      classname whenever the scope variable evaluates as true, and will remove
+      when it evaluates to false.
+    </div>
+    <div class="title">Nested Scopes</div>
+    <div class="text">
+      In the above example we created a single scope. We can also create nested
+      scope structures to enable components to talk to each other. Dagger
+      scoping rules behave in the exact same way as javascript scopes. We can
+      coordinate multiple components by utilizing the outer scope variables
+      inside the inner scopes.
+    </div>
+    <div class="text">Let's see a nested scope example:</div>
     <demo_container>
       <div class="flex-grid">
         <demo_html +loading="scene3.loadingHtml()"></demo_html>
         <demo_browser +loading="{html: scene3.loadingBrowser()}"></demo_browser>
       </div>
     </demo_container>
+    <div class="text">
+      There are 2 card components nested inside the outer container element. A
+      couple of things are different in this example and we will go through them
+      one by one.
+      <ul>
+        <li>
+          The outer container scope has a "cards" array with all the info of
+          each card inside.
+        </li>
+        <li>
+          The card element added a $each control directive which will iterate
+          over the cards array and render a card component for each element.
+          $each creates a new scope for each card and stores the iterated values
+          in $scope.item.
+        </li>
+        <li>
+          The "active" value in the outer scope represents the id of the card
+          that isn't in collapse mode, meaning only 1 card can be active at a
+          time.
+        </li>
+        <li>
+          You may notice that we changed complete from the previous example to
+          item.complete. This is because $class runs after $each.
+        </li>
+        <li>
+          the title element's +click directive directly mutate "active" variable
+          of the outer scope. Clicking on the title will match the active id
+          with the card id. The $class directive will see the active id change,
+          and update the collapse classname.
+        </li>
+      </ul>
+    </div>
+    <div class="flex-grid center">
+      <img style="width: 700px" src="/img/scope_diag.png" />
+    </div>
+    <div class="link-container">
+      <div class="link-grid">
+        <part_card +loading="{part_number: 2}"></part_card>
+      </div>
+    </div>
+    <div +loading="{number: produce4()}">
+      ${number}
+    </div>
   </template>
 </html>

@@ -82,6 +82,7 @@ export const loadingRoot = () => ({
   label: "root.html",
   demo: `
 <html>
+  <head>...</head>
   <script type="dagger/modules">
     {
       card_list: "./components/cardList.html",

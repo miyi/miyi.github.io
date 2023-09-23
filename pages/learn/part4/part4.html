@@ -1,3 +1,16 @@
-<div>
-  <div class="title">I am part 4!</div>
-</div>
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      bonus_content: "",
+      bonus_js: {uri: "./bonusScene.html", anonymous: false},
+      bonus_content: "../components/bonus/index.html",
+    }
+  </script>
+  <template id="view">
+    <div class="title">I am part 4!</div>
+    <div +loading="bonus_js.loading()">
+      <bonus_content></bonus_content>
+    </div>
+  </template>
+</html>

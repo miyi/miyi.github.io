@@ -24,6 +24,7 @@ export const loadingCardList = () => ({
   label: "cardList.html",
   demo: `
 <html>
+  <head>...</head>
   <script type="dagger/modules">
     {
       card: "./cardView.html",

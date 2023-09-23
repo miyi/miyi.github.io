@@ -1,0 +1,100 @@
+@import "./palette.scss";
+
+.tutorial-contact-card {
+  box-sizing: border-box;
+  height: auto;
+  width: 300px;
+  background-color: #f1f1f1;
+  box-shadow: 10px 5px 5px $shadow-grey;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  color: $base-blue;
+  .card-title {
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: inline-block;
+    .collapse-btn {
+      float: right;
+      width: 2rem;
+      height: 2rem;
+      text-align: center;
+    }
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    max-height: 300px;
+    transition: all 0.6s;
+    div {
+      margin-bottom: 8px;
+      width: 100%;
+    }
+    .details {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      line-height: 1.5rem;
+      font-size: 0.9rem;
+    }
+    .assignee {
+      justify-self: end;
+      font-size: 0.75rem;
+      height: auto;
+      text-align: end;
+    }
+    .complete-button {
+      margin-top: 8px;
+      border: 0;
+      border: 1px solid $base-blue;
+      background-color: $base-blue;
+      color: white;
+      width: 100%;
+    }
+  }
+  //repetition for the purpose of the scene 1
+  .details {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  .assignee {
+    justify-self: end;
+    font-size: 0.85rem;
+    height: auto;
+    text-align: end;
+  }
+}
+.complete {
+  background-color: $complete-green;
+  box-shadow: 10px 5px 5px $shadow-light;
+  color: white;
+  transition: all 0.6s;
+  .card-title {
+    .collapse-btn {
+      fill: white;
+    }
+    .delete-btn {
+      fill: white;
+    }
+  }
+  .content {
+    .complete-button {
+      border: 1px solid white;
+      background-color: $complete-green;
+      box-shadow: 6px 3px 3px $shadow-light;
+    }
+  }
+}
+.collapse {
+  transition: all 0.6s;
+  .card-title {
+    .collapse-btn {
+      transform: rotate(180deg);
+    }
+  }
+  .content {
+    max-height: 0;
+    overflow: hidden;
+  }
+}

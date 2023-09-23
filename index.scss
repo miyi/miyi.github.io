@@ -15,6 +15,10 @@ body {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 .brand-text {
   background-color: $primary-color;
   background-clip: text;
