@@ -1,8 +1,8 @@
 .code-container {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  font-size: 0.9rem;
 }
 .code-container .code-box {
   border-radius: 0 0 24px 24px;
@@ -10,10 +10,31 @@
   width: 100%;
   flex: 1;
   background-color: #0a151b;
-  color: #d5deeb;
+  color: rgb(221, 221, 221);
+  border: 2px solid #693b94;
 }
 .code-container .code-box * {
   flex-wrap: wrap;
+}
+
+.tab-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  flex-wrap: nowrap;
+  overflow: scroll;
+}
+.tab-container .tab {
+  font-size: 0.8rem;
+  font-weight: 600;
+  background-color: #693b94;
+  border-radius: 8px 8px 0 0;
+  color: rgb(221, 221, 221);
+  padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+  cursor: pointer;
+}
+.tab-container .inactive {
+  opacity: 0.7;
 }
 
 .demo-input {
@@ -24,7 +45,7 @@
   color: rgb(40, 40, 40);
   border-radius: 0.2rem;
   transition: all 150ms ease 0s;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   height: 1.25rem;
 }
 
@@ -37,10 +58,10 @@
 }
 
 .sandbox-label {
-  padding-left: 0.5rem;
-  font-size: 1rem;
+  padding: 0.5rem;
+  font-size: 0.8rem;
   font-weight: 600;
   background-color: #693b94;
   border-radius: 8px 8px 0 0;
-  color: #c1d0e4;
+  color: rgb(221, 221, 221);
 }/*# sourceMappingURL=code_container.css.map */

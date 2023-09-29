@@ -7,6 +7,7 @@
       js: './homepage.js',
       styles: './homepage.css',
       hlstyles: '/highlightjs/github-dark.min.css',
+      hljsGrammar: '/highlightjs/javascript.min.js',
       hljs: '/highlightjs/highlight.min.js',
       tutorial_demo: '/components/tutorial_demo/index.html'
     }
@@ -109,12 +110,40 @@
         </div>
       </div>
       <div class="home concepts">
-        <div class="home-container flex-col">
-          <div class="sub">declaring state</div>
+        <div class="sample-container">
+          <div class="sample-title">declaring and updating state</div>
           <tutorial_demo>
-            <demo_html
-              +loading="{label: '', demo: declareStateDemo()}"
-            ></demo_html>
+            <div class="demo-grid">
+              <demo_html
+                +loading="{label: '', demo: declareStateDemo()}"
+              ></demo_html>
+              <demo_html
+                +loading="{label: '', demo: updateStateDemo()}"
+              ></demo_html>
+            </div>
+          </tutorial_demo>
+          <div class="sample-title">html events</div>
+          <tutorial_demo>
+            <div class="demo-grid">
+              <demo_html +loading="{label: '', demo: clickDemo()}"></demo_html>
+              <demo_html
+                +loading="{label: '', demo: mouseupDemo()}"
+              ></demo_html>
+            </div>
+          </tutorial_demo>
+          <div class="sample-title">data synchronization</div>
+          <tutorial_demo>
+            <div class="demo-grid">
+              <demo_html +loading="{label: '', demo: valueDemo()}"></demo_html>
+              <demo_html +loading="{label: '', demo: watchDemo()}"></demo_html>
+            </div>
+          </tutorial_demo>
+          <div class="sample-title">abstractions</div>
+          <tutorial_demo>
+            <div class="demo-grid">
+              <demo_code +loading="viewModuleDemoLoading()"></demo_code>
+              <demo_code +loading="namespaceDemoLoading()"></demo_code>
+            </div>
           </tutorial_demo>
         </div>
       </div>

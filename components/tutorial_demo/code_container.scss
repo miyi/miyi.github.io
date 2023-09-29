@@ -1,18 +1,41 @@
+@import "/styles/global.scss";
+$tab-contrast: rgb(221, 221, 221);
+
 .code-container {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  font-size: 0.9rem;
   .code-box {
     border-radius: 0 0 24px 24px;
     padding: 16px 32px;
     width: 100%;
     flex: 1;
     background-color: #0a151b;
-    color: #d5deeb;
+    color: $tab-contrast;
+    border: 2px solid $primary-color;
     * {
       flex-wrap: wrap;
     }
+  }
+}
+.tab-container {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  flex-wrap: nowrap;
+  overflow: scroll;
+  .tab {
+    font-size: 0.8rem;
+    font-weight: 600;
+    background-color: $primary-color;
+    border-radius: 8px 8px 0 0;
+    color: $tab-contrast;
+    padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+    cursor: pointer;
+  }
+  .inactive {
+    opacity: 0.5;
   }
 }
 
@@ -20,11 +43,11 @@
   border: 0px;
   margin: 2px;
   padding: 0.15rem;
-  background: rgb(221, 221, 221);
+  background: $tab-contrast;
   color: rgb(40, 40, 40);
   border-radius: 0.2rem;
   transition: all 150ms ease 0s;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   height: 1.25rem;
 }
 
@@ -37,10 +60,10 @@
 }
 
 .sandbox-label {
-  padding-left: 0.5rem;
-  font-size: 1rem;
+  padding: 0.5rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  background-color: #693b94;
+  background-color: $primary-color;
   border-radius: 8px 8px 0 0;
-  color: #c1d0e4;
+  color: $tab-contrast;
 }

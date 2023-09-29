@@ -1,0 +1,45 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      style: "./code_container.css",
+      html_script: "./demo_html.js",
+      js_script: "./demo_js.js",
+      script: "#script"
+    }
+  </script>
+  #require {files: [file]} {file: {file_label: str, type: 'js'/'html', code:
+  str}}
+  <template id="view">
+    <div class="code-container" +loading="{active: 0}" $style="css?css:null">
+      <div class="tab-container">
+        <div
+          class="tab"
+          $each="files"
+          +click="active=index"
+          $class="{inactive: active!=index}"
+        >
+          ${item.label}
+        </div>
+      </div>
+      <div
+        class="code-box"
+        +loading="{file: files[active]}"
+        $watch="file=files[active]"
+      >
+        <pre><code class="html" $html="produceCode(file.type, file.code, produceDemoJs, produceDemoHtml, hljs, hljsGrammar)"></code></pre>
+      </div>
+    </div>
+  </template>
+  <script id="script" type="dagger/script">
+    export const produceCode = (type, code, produceDemoJs, produceDemoHtml, hljs, hljsGrammar) => {
+      if (type == "js") {
+        return produceDemoJs(hljs, hljsGrammar, code);
+      } else if (type == "html") {
+        return produceDemoHtml(hljs, code);
+      } else {
+        return null;
+      }
+    };
+  </script>
+</html>

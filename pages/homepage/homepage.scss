@@ -1,4 +1,4 @@
-@import "../../styles/global.scss";
+@import "/styles/global.scss";
 
 .outer-container {
   background-color: $bg-color-dark;
@@ -20,11 +20,6 @@
   width: 100%;
   padding-left: 2rem;
   padding-right: 2rem;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: col;
 }
 
 .center {
@@ -272,6 +267,13 @@
   margin-bottom: 1.5rem;
 }
 
+.demo-grid {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 2rem;
+}
+
 .main {
   font-size: 2.5rem;
   font-weight: 500;
@@ -402,4 +404,16 @@
   font-style: italic;
   color: $text-color-lite;
   justify-self: start;
+}
+
+.sample-container {
+  display: flex;
+  flex-direction: col;
+  gap: 1rem;
+}
+
+.sample-title {
+  font-size: 2.5rem;
+  color: $bg-color-lite;
+  font-weight: 700;
 }
