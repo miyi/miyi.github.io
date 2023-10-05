@@ -1,6 +1,5 @@
 .outer-container {
   background-color: #19182f;
-  font-family: Arial, Helvetica, sans-serif;
   padding: 0;
   margin: 0;
 }
@@ -20,14 +19,11 @@
   padding-right: 2rem;
 }
 
-.flex-col {
-  display: flex;
-  flex-direction: col;
-}
-
 .center {
   align-items: center;
   justify-content: center;
+  overflow-x: scroll;
+  scrollbar-width: 0;
 }
 
 .container {
@@ -406,4 +402,17 @@
   font-style: italic;
   color: #c1d1e4;
   justify-self: start;
+}
+
+.sample-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sample-title {
+  padding-top: 1rem;
+  font-size: 2rem;
+  color: #c1d1e4;
+  font-weight: 600;
 }/*# sourceMappingURL=homepage.css.map */

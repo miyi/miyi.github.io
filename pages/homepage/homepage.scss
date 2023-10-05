@@ -1,4 +1,4 @@
-@import "/styles/global.scss";
+@import "../../styles/global.scss";
 
 .outer-container {
   background-color: $bg-color-dark;
@@ -25,6 +25,8 @@
 .center {
   align-items: center;
   justify-content: center;
+  overflow-x: scroll;
+  scrollbar-width: 0;
 }
 
 .container {
@@ -408,12 +410,13 @@
 
 .sample-container {
   display: flex;
-  flex-direction: col;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .sample-title {
-  font-size: 2.5rem;
-  color: $bg-color-lite;
-  font-weight: 700;
+  padding-top: 1rem;
+  font-size: 2rem;
+  color: $text-color-lite;
+  font-weight: 600;
 }

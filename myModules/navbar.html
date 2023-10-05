@@ -1,0 +1,29 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      nav_bar: "/components/navbar/index.html"
+    }
+  </script>
+  <template id="view">
+    <nav_bar>
+      <left_group +loading="{name: 'ming'}"
+        ><div style="width: 10rem">
+          <a href="home"
+            ><img
+              src="/svg/logo.svg"
+              style="height: 2.5rem; margin: 0.25rem 0rem"
+          /></a></div
+      ></left_group>
+      <center_group>
+        <btn +loading="{label: 'Demos', link: 'demos'}"></btn>
+        <btn +loading="{label: 'Showcase', link: 'showcase'}"></btn>
+        <btn +loading="{label: 'tutorial', link: 'tutorial'}"></btn>
+        <btn +loading="{label: 'Documentation', link: 'docs'}"></btn>
+      </center_group>
+      <right_group>
+        <img src="/svg/github.svg" style="height: 2rem" />
+      </right_group>
+    </nav_bar>
+  </template>
+</html>

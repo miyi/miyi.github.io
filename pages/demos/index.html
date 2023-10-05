@@ -1,0 +1,35 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      navbar: "/myModules/navbar.html",
+      style: "./index.css",
+      sidebar: "/components/sidebar/index.html"
+    }
+  </script>
+  <template id="view">
+    <div class="page-container">
+      <navbar></navbar>
+      <div class="main">
+        <aside class="menu">
+          <sidebar>
+            <menu_group +loading="{label: 'group one', link: null, drop: true}">
+              <menu_item +loading="{label: 'item one', link: null}"></menu_item>
+              <menu_item +loading="{label: 'item two', link: null}"></menu_item>
+              <menu_item
+                +loading="{label: 'item three', link: null}"
+              ></menu_item>
+              <menu_item
+                +loading="{label: 'item four', link: null}"
+              ></menu_item>
+            </menu_group>
+            <menu_item +loading="{label: 'item four', link: null}"></menu_item>
+            <menu_item +loading="{label: 'item four', link: null}"></menu_item>
+            <menu_item +loading="{label: 'item four', link: null}"></menu_item>
+          </sidebar>
+        </aside>
+        <div class="content"></div>
+      </div>
+    </div>
+  </template>
+</html>

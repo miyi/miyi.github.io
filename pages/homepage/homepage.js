@@ -87,6 +87,7 @@ const viewModuleIndexCode = () => `
     hello: "./hello.html"
   }
 </script>
+
 <body>
   <hello +loading="{name: 'John'}"></hello>
 </body>
@@ -120,6 +121,7 @@ const todoList = () => `
     js: "./todoList.js"
   }
 </script>
+
 <template id="view">
   <div +loading="loadTodoTasks()">
     <todo_item $each="task"></todo_item>
@@ -134,9 +136,11 @@ const todoItem = () => `
     css: "#css"
   }
 </script>
+
 <template id="view">
   <li>\${index}: \${item}</li>
 </template>
+
 <style id="css" type="dagger/style">
   li {
     color: red;
@@ -153,7 +157,7 @@ export const loadtodoTasks = () => [
 `;
 
 export const namespaceDemoLoading = () => ({
-  // css: "height: 270px",
+  css: "height: 360px",
   files: [
     { label: "todoList.html", type: "html", code: todoList() },
     { label: "todoItem.html", type: "html", code: todoItem() },

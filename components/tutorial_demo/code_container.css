@@ -3,15 +3,16 @@
   display: flex;
   flex-direction: column;
   font-size: 0.9rem;
+  flex-flow: scroll;
 }
 .code-container .code-box {
-  border-radius: 0 0 24px 24px;
+  border-radius: 0 0 8px 8px;
   padding: 16px 32px;
   width: 100%;
   flex: 1;
   background-color: #0a151b;
   color: rgb(221, 221, 221);
-  border: 2px solid #693b94;
+  border: 2px solid #9965de;
 }
 .code-container .code-box * {
   flex-wrap: wrap;
@@ -21,20 +22,19 @@
   display: flex;
   flex-direction: row;
   gap: 3px;
-  flex-wrap: nowrap;
   overflow: scroll;
 }
 .tab-container .tab {
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
-  background-color: #693b94;
+  background-color: #9965de;
   border-radius: 8px 8px 0 0;
   color: rgb(221, 221, 221);
-  padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+  padding: 0.3rem 0.7rem;
   cursor: pointer;
 }
 .tab-container .inactive {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 .demo-input {
@@ -57,11 +57,15 @@
   min-width: 12rem;
 }
 
-.sandbox-label {
-  padding: 0.5rem;
-  font-size: 0.8rem;
+.label-container {
+  display: flex;
+  flex-direction: row;
+}
+.label-container span {
+  padding: 0.3rem 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  background-color: #693b94;
+  background-color: #9965de;
   border-radius: 8px 8px 0 0;
   color: rgb(221, 221, 221);
 }/*# sourceMappingURL=code_container.css.map */

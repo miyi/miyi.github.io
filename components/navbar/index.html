@@ -1,0 +1,68 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: {uri: "#bar-container"},
+      style: "./index.css",
+      left_group: {uri: "#left-group"},
+      center_group: "#center-group",
+      right_group: "#right-group",
+      down_expansion: "#top-expansion",
+      left_expansion: "#left-expansion",
+      right_expansion: "#right-expansion",
+      btn: "#nav-btn",
+    }
+  </script>
+  <template id="bar-container">
+    <div class="bar-container flex-center" $style="$scope.css">
+      <template @slot></template>
+    </div>
+  </template>
+  <template id="left-group">
+    <div class="left-group flex-center" $style="$scope.css">
+      <template @slot></template>
+    </div>
+  </template>
+  <template id="center-group">
+    <div class="center-group flex-center" $style="$scope.css">
+      <template @slot></template>
+    </div>
+  </template>
+  <template id="right-group">
+    <div class="right-group flex-center" $style="$scope.css">
+      <template @slot></template>
+    </div>
+  </template>
+  <template id="top-expansion">
+    <div
+      class="top-expansion"
+      +loading="{active: false}"
+      +click$outside="active"
+    >
+      <template @slot></template>
+    </div>
+  </template>
+  <template id="left-expansion">
+    <div
+      class="left-expansion"
+      +loading="{active: false}"
+      +click$outside="active"
+    >
+      <template @slot></template>
+    </div>
+  </template>
+  <template id="right-expansion">
+    <div
+      class="right-expansion"
+      +loading="{active: false}"
+      +click$outside="active"
+    >
+      <template @slot></template>
+    </div>
+  </template>
+  btn: {label: str, link: str}
+  <template id="nav-btn">
+    <a class="nav-btn" $href="link">
+      <div>${label}</div>
+    </a>
+  </template>
+</html>

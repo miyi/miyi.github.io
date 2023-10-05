@@ -1,0 +1,59 @@
+.bar-container {
+  width: 100%;
+  gap: 2rem;
+  padding: 0rem 2rem;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgb(183, 150, 188, 0.5);
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.left-group {
+  float: left;
+  align-items: flex-end;
+}
+
+.center-group {
+  flex-grow: 1;
+  gap: 2rem;
+}
+.right-group {
+  gap: 1rem;
+  float: right;
+}
+
+.top-expansion {
+  padding: inherit;
+  z-index: 10;
+}
+
+.left-expansion {
+  padding: inherit;
+  z-index: 10;
+}
+
+.right-expansion {
+  padding: inherit;
+  z-index: 10;
+}
+
+* {
+  text-decoration: none;
+}
+
+.nav-btn {
+  padding: 0.25rem 0.5rem;
+  color: #e18de8;
+  font-size: 1.2rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(183, 150, 188, 0.5);
+    backdrop-filter: invert(80%);
+  }
+}

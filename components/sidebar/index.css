@@ -1,0 +1,98 @@
+.menu-container {
+  width: 100%;
+  height: 100%;
+  border-right: 1px solid rgba(183, 150, 188, 0.5);
+  color: #c1c3c4;
+  fill: #c1c3c4;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.menu-container .menu-content {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  gap: 0.5rem;
+}
+
+.menu-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: inherit;
+  gap: 2px;
+}
+.menu-group .group-label {
+  color: inherit;
+  display: flex;
+  flex: row;
+  align-items: center;
+  font-weight: inherit;
+  font-size: inherit;
+  padding: 0.5rem 1rem;
+  border-radius: inherit;
+  cursor: pointer;
+}
+.menu-group .group-label svg {
+  transition: all 0.3s;
+  height: 1rem;
+  margin-right: 0.5rem;
+}
+.menu-group .group-label:hover {
+  background-color: rgba(183, 150, 188, 0.3);
+}
+.menu-group .group-label:hover svg {
+  transform: rotate(90deg);
+}
+.menu-group .item-container {
+  margin-left: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95em;
+  font-weight: lighter;
+  border-radius: inherit;
+}
+.menu-group .item-container > * {
+  padding-left: 1rem;
+  gap: 1rem;
+}
+.menu-group .item-container > *:before {
+  content: "";
+  background-color: rgba(183, 150, 188, 0.5);
+  display: block;
+  position: absolute;
+  z-index: 10;
+  height: 35px;
+  width: 1px;
+}
+.menu-group .item-container > * span {
+  margin-left: 1rem;
+}
+.menu-group .active svg {
+  transform: rotate(90deg);
+}
+
+.active {
+  background-color: rgba(183, 150, 188, 0.5);
+}
+
+.menu-item {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  border-radius: inherit;
+}
+.menu-item:hover {
+  background-color: rgba(183, 150, 188, 0.25);
+}
+
+a {
+  text-decoration: none;
+}/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,48 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      css: "./index.css",
+      menu_group: "#menu-group",
+      menu_item: "#menu-item",
+      arrow: "#arrow-svg"
+    }
+  </script>
+  <template id="view">
+    <div class="menu-container">
+      <div class="menu-content">
+        <template @slot></template>
+      </div>
+    </div>
+  </template>
+  {label: str, link: str, menu_item: {label: str, link: str}}
+  <template id="menu-group">
+    <div
+      class="menu-group"
+      +loading="{drop: $scope.drop? $scope.drop : false, active: false}"
+    >
+      <a
+        class="group-label"
+        $href="$scope.link?link:null"
+        +click="active=!active, console.log(active)"
+        $class="{active}"
+      >
+        <arrow></arrow>
+        <span>${label}</span>
+      </a>
+      <div class="item-container" $exist="active">
+        <template @slot></template>
+      </div>
+    </div>
+  </template>
+  <template id="menu-item">
+    <a class="menu-item" $href="link"><span>${label}</span></a>
+  </template>
+  <template id="arrow-svg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path
+        d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z"
+      />
+    </svg>
+  </template>
+</html>

@@ -6,10 +6,7 @@
       content_block: './components/content_block.html',
       js: './homepage.js',
       styles: './homepage.css',
-      hlstyles: '/highlightjs/github-dark.min.css',
-      hljsGrammar: '/highlightjs/javascript.min.js',
-      hljs: '/highlightjs/highlight.min.js',
-      tutorial_demo: '/components/tutorial_demo/index.html'
+      tutorial_demo: '/components/tutorial_demo/index.html',
     }
   </script>
   <template id="view">
@@ -18,6 +15,7 @@
         <div class="home-container nav-container">
           <div class="nav-logo"><img src="./svg/logo.svg" alt="dagger" /></div>
           <div class="nav-left-menu">
+            <a href="/demos"><div class="btn">Demos</div></a>
             <a href="/learn"><div class="btn">Learn</div></a>
             <div class="btn">Docs</div>
             <div class="btn">About us</div>
@@ -110,7 +108,7 @@
         </div>
       </div>
       <div class="home concepts">
-        <div class="sample-container">
+        <div class="home-container sample-container">
           <div class="sample-title">declaring and updating state</div>
           <tutorial_demo>
             <div class="demo-grid">
@@ -142,7 +140,7 @@
           <tutorial_demo>
             <div class="demo-grid">
               <demo_code +loading="viewModuleDemoLoading()"></demo_code>
-              <demo_code +loading="namespaceDemoLoading()"></demo_code>
+              <demo_code +loading#init="namespaceDemoLoading()"></demo_code>
             </div>
           </tutorial_demo>
         </div>

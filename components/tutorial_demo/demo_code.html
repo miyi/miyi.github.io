@@ -1,17 +1,18 @@
 <html>
   <script type="dagger/modules">
     {
-      view: "#view",
+      view: { uri: "#view", init: {css: "border: 1px solid white"}},
       style: "./code_container.css",
       html_script: "./demo_html.js",
       js_script: "./demo_js.js",
       script: "#script"
+
     }
   </script>
-  #require {files: [file]} {file: {file_label: str, type: 'js'/'html', code:
-  str}}
+  #require {css: str, files: [file]} {file: {file_label: str, type: 'js'/'html',
+  code: str}}
   <template id="view">
-    <div class="code-container" +loading="{active: 0}" $style="css?css:null">
+    <div class="code-container" +loading="{active: 0}" $style="$scope.css">
       <div class="tab-container">
         <div
           class="tab"

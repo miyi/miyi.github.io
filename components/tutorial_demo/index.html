@@ -3,12 +3,11 @@
     {
       view: "#view",
       demo_browser: "./demo_browser.html",
-      demo_html: "./demo_html.html",
+      demo_html: {uri: "./demo_html.html"},
       demo_js: "./demo_js.html",
       demo_code: './demo_code.html',
-      hljs: "/highlightjs/highlight.min.js",
-      hlstyles: "/highlightjs/github-dark.min.css",
-      hljs_js_syntax: "/highlightjs/javascript.min.js",
+      hljs: {uri: '/highlightjs/index.html', explicit: true, anonymous: true},
+      css: '/highlightjs/github-dark.min.css',
     }
   </script>
   <template id="view">

@@ -8,4 +8,6 @@ return {
   tutorial3: "/pages/learn/part3/part3.html",
   tutorial4: "/pages/learn/part4/part4.html",
   routing: "/pages/learn/routing/fundamentals.html",
+  demos: "/pages/demos/index.html",
+  demopage: "/pages/demos/hello.html"
 };

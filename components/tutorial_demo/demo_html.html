@@ -11,7 +11,7 @@
       class="code-container"
       +loading="{demoHtml: produceDemoHtml(hljs, demo)}"
     >
-      <span class="sandbox-label">${label?label:'html'}</span>
+      <div class="label-container"><span>${label?label:'html'}</span></div>
       <div class="code-box">
         <pre><code class="html" $html="demoHtml"></code></pre>
       </div>

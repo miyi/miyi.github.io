@@ -1957,8 +1957,8 @@ export default ((
                     Object.is(constructor, Object) ||
                     (!constructor && Object.is(typeof scope, "object"))
                   ) {
-                    const { root, plain } = loading.decorators;
-                    this.resolveScope(scope, plain, root);
+                    const { init, plain, root } = loading.decorators;
+                    this.resolveScope(scope, plain, root, init);
                   }
                 }
                 this.initialize();
@@ -2162,7 +2162,17 @@ export default ((
       resolvePromise(promise, callback) {
         promise instanceof Promise ? promise.then(callback) : callback(promise);
       }
-      resolveScope(scope, plain, root) {
+      resolveScope(scope, plain, root, init) {
+        if (init) {
+          const moduleProfile = this.profile.moduleProfile;
+          if (moduleProfile) {
+            const initScope = moduleProfile.config.init;
+            if (initScope) {
+              this.resolveScope(initScope, plain, root);
+              return this.resolveScope(scope, plain);
+            }
+          }
+        }
         plain || (scope = proxyResolver(scope));
         this.scope = Object.setPrototypeOf(
           scope,
@@ -2408,6 +2418,7 @@ export default ((
             this.classNames =
             this.html =
             this.slotScope =
+            this.moduleProfile =
               null);
         const type = node.nodeType;
         if (Object.is(type, Node.TEXT_NODE)) {
@@ -2745,15 +2756,15 @@ export default ((
       }
       resolveViewModule(moduleProfile) {
         const module = moduleProfile.module,
-          isViewModule = module instanceof NodeProfile,
-          view = isViewModule
-            ? module
-            : moduleProfile.fetchChild("view").module;
+          isViewModule = module instanceof NodeProfile;
+        isViewModule || (moduleProfile = moduleProfile.fetchChild("view"));
+        const view = isViewModule ? module : moduleProfile.module;
         asserter(
           `"${moduleProfile.path}" or "${moduleProfile.path}.view" is not a valid view module`,
           view instanceof NodeProfile
         );
         this.children = view.children;
+        this.moduleProfile = moduleProfile;
         this.defaultSlotScope = view.defaultSlotScope;
         if (Object.keys(this.defaultSlotScope).length) {
           const slotScope = {},
