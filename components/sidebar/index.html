@@ -1,7 +1,7 @@
 <html>
   <script type="dagger/modules">
     {
-      view: "#view",
+      view: {uri: "#view", init: {css: null}},
       css: "./index.css",
       menu_group: "#menu-group",
       menu_item: "#menu-item",
@@ -9,7 +9,7 @@
     }
   </script>
   <template id="view">
-    <div class="menu-container">
+    <div class="menu-container" $style="$scope.css">
       <div class="menu-content">
         <template @slot></template>
       </div>
@@ -19,7 +19,7 @@
   <template id="menu-group">
     <div
       class="menu-group"
-      +loading="{drop: $scope.drop? $scope.drop : false, active: false}"
+      +loading="{active: $scope.drop? $scope.drop : false}"
     >
       <a
         class="group-label"
@@ -28,7 +28,7 @@
         $class="{active}"
       >
         <arrow></arrow>
-        <span>${label}</span>
+        <div>${label}</div>
       </a>
       <div class="item-container" $exist="active">
         <template @slot></template>

@@ -1,18 +1,21 @@
 .code-container {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   font-size: 0.9rem;
   flex-flow: scroll;
+  flex-grow: 1;
 }
 .code-container .code-box {
   border-radius: 0 0 8px 8px;
-  padding: 16px 32px;
+  padding: 0.5rem 1.5rem;
   width: 100%;
   flex: 1;
   background-color: #0a151b;
   color: rgb(221, 221, 221);
   border: 2px solid #9965de;
+  overflow: scroll;
 }
 .code-container .code-box * {
   flex-wrap: wrap;

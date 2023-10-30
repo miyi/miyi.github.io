@@ -5,11 +5,11 @@
       style: "./code_container.css",
       html_script: "./demo_html.js",
       js_script: "./demo_js.js",
+      css_script: "./demo_css.js",
       script: "#script"
-
     }
   </script>
-  #require {css: str, files: [file]} {file: {file_label: str, type: 'js'/'html',
+  #require {css: str, files: [file]} {file: {label: str, type: 'js'/'html',
   code: str}}
   <template id="view">
     <div class="code-container" +loading="{active: 0}" $style="$scope.css">
@@ -28,18 +28,18 @@
         +loading="{file: files[active]}"
         $watch="file=files[active]"
       >
-        <pre><code class="html" $html="produceCode(file.type, file.code, produceDemoJs, produceDemoHtml, hljs, hljsGrammar)"></code></pre>
+        <pre><code class="html" $html="produceCode(file.type, file.code, produceDemoJs, produceDemoHtml, produceDemoCss, hljs, hljsGrammar, hlcssGrammar)"></code></pre>
       </div>
     </div>
   </template>
   <script id="script" type="dagger/script">
-    export const produceCode = (type, code, produceDemoJs, produceDemoHtml, hljs, hljsGrammar) => {
+    export const produceCode = (type, code, produceDemoJs, produceDemoHtml, produceDemoCss, hljs, hljsGrammar, hlcssGrammar) => {
       if (type == "js") {
         return produceDemoJs(hljs, hljsGrammar, code);
       } else if (type == "html") {
         return produceDemoHtml(hljs, code);
-      } else {
-        return null;
+      } else if (type == "css") {
+        return produceDemoCss(hljs, hlcssGrammar, code);
       }
     };
   </script>

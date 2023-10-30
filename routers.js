@@ -13,7 +13,6 @@ return {
         constants: { layer1: "home", title: "home" },
       },
       { path: "demos", modules: "demos", constants: { layer1: "demos", title: "demos" } },
-      // { path: "demopage", modules: "demopage", constants: },
       {
         path: "learn",
         modules: "learnlayout",

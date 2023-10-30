@@ -1,3 +1,5 @@
+@import "../../styles/global.scss";
+
 .page-container {
   display: flex;
   flex-direction: column;
@@ -15,6 +17,66 @@
     height: 100%;
   }
   .content {
+    width: 800;
+    flex-grow: 1;
+    padding: 2rem 6rem;
+    display: flex;
+    flex-direction: column;
+    color: $text-color-lite;
+
+    .section {
+      .section-title {
+        background-color: $bg-color-darker;
+        margin: 2rem 0;
+        font-size: 2.25rem;
+        font-weight: 600;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 4rem;
+      .sub-title {
+        font-size: 1.75rem;
+        padding: 1rem 0;
+        font-weight: 600;
+      }
+      .sub-section {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1rem;
+      }
+    }
+  }
+}
+
+.gap {
+  gap: 2rem;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: stretch;
+}
+
+.flex-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  align-self: stretch;
+  & > * {
+    width: 300;
     flex-grow: 1;
   }
+}
+
+.keyword {
+  color: $primary-color;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 0.75rem 0;
 }

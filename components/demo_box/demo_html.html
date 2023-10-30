@@ -1,9 +1,9 @@
 <html>
   <script type="dagger/modules">
     {
-      view: "#view",
+      view: {uri: "#view", init: {label: 'html'}},
       style: "./code_container.css",
-      script: "./html_container.js",
+      script: "./demo_html.js",
     }
   </script>
   <template id="view">
@@ -11,7 +11,9 @@
       class="code-container"
       +loading="{demoHtml: produceDemoHtml(hljs, demo)}"
     >
-      <span class="sandbox-label">${label?label:'html'}</span>
+      <div class="label-container">
+        <span>${$scope.label?label:'html'}</span>
+      </div>
       <div class="code-box">
         <pre><code class="html" $html="demoHtml"></code></pre>
       </div>

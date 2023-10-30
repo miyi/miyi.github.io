@@ -1,0 +1,26 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      demo_browser: './demo_browser.html',
+      demo_html: './demo_html.html',
+      demo_js: './demo_js.html',
+      demo_code: './demo_code.html',
+      hljs: {
+        base: '/highlightjs/',
+        type: "namespace",
+        content: {
+          hljs: './highlight.min.js',
+          js_syntax: './javascript.min.js',
+          css_syntax: './css.min.js',
+        },
+        explicit: true,
+        anonymous: true},
+      css: '/highlightjs/tokyo-dark.min.css',
+      custom_style: './index.css'
+    }
+  </script>
+  <template id="view">
+    <template @slot></template>
+  </template>
+</html>

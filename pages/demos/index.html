@@ -4,7 +4,10 @@
       view: "#view",
       navbar: "/myModules/navbar.html",
       style: "./index.css",
-      sidebar: "/components/sidebar/index.html"
+      sidebar: "/components/sidebar/index.html",
+      demo_sidebar: "#demo_sidebar",
+      demo_box: '/components/demo_box/index.html',
+      js: './index.js'
     }
   </script>
   <template id="view">
@@ -12,24 +15,377 @@
       <navbar></navbar>
       <div class="main">
         <aside class="menu">
-          <sidebar>
-            <menu_group +loading="{label: 'group one', link: null, drop: true}">
-              <menu_item +loading="{label: 'item one', link: null}"></menu_item>
-              <menu_item +loading="{label: 'item two', link: null}"></menu_item>
-              <menu_item
-                +loading="{label: 'item three', link: null}"
-              ></menu_item>
-              <menu_item
-                +loading="{label: 'item four', link: null}"
-              ></menu_item>
-            </menu_group>
-            <menu_item +loading="{label: 'item four', link: null}"></menu_item>
-            <menu_item +loading="{label: 'item four', link: null}"></menu_item>
-            <menu_item +loading="{label: 'item four', link: null}"></menu_item>
-          </sidebar>
+          <demo_sidebar></demo_sidebar>
         </aside>
-        <div class="content"></div>
+        <div class="content">
+          <div class="section">
+            <div class="section-title" id="declaring-state">
+              Declaring state
+            </div>
+            <demo_box>
+              <div class="flex-col gap">
+                <div class="flex-row gap">
+                  <div>
+                    <demo_html
+                      +loading="{label: 'example 1',demo: declareState1}"
+                    ></demo_html>
+                  </div>
+                  <div>
+                    <demo_html
+                      +loading="{label: 'example 2',demo: declareState2}"
+                    ></demo_html>
+                  </div>
+                </div>
+                <div class="flex-row gap">
+                  <div>
+                    <demo_html
+                      +loading="{label: 'example 3',demo: declareState3}"
+                    ></demo_html>
+                  </div>
+                  <div>
+                    <demo_html
+                      +loading="{label: 'example 4',demo: declareState4}"
+                    ></demo_html>
+                  </div>
+                </div>
+              </div>
+            </demo_box>
+          </div>
+
+          <div class="section">
+            <div class="section-title" id="updating-state">
+              Updating the state via events
+            </div>
+            <div class="sub-title" id="click">click directive</div>
+            <div class="flex-row gap">
+              <div class="flex-col">
+                <demo_box>
+                  <demo_html
+                    +loading="{label: '+click', demo: clickEvent1}"
+                  ></demo_html>
+                </demo_box>
+              </div>
+              <div class="flex-col"></div>
+            </div>
+            <div class="sub-title" id="mouse-events">
+              mouse event directives
+            </div>
+            <div class="flex-row gap">
+              <div class="flex-col">
+                <demo_box>
+                  <demo_html
+                    +loading="{label: '+mouseenter',demo: mouseenter}"
+                  ></demo_html>
+                </demo_box>
+              </div>
+              <div class="flex-col">
+                <demo_box>
+                  <demo_html
+                    +loading="{label: '+mouseup', demo: mouseup}"
+                  ></demo_html>
+                </demo_box>
+              </div>
+            </div>
+            <br />
+            <div class="keyword">
+              There is a event direct for all event types. Learn more...
+            </div>
+          </div>
+          <div class="section">
+            <div class="section-title" id="data-binding">Data binding</div>
+            <div class="sub-section">
+              <div class="sub-title" id="data-watch">data watch</div>
+              <demo_box>
+                <div class="flex-row gap">
+                  <div>
+                    <demo_html
+                      +loading="{label: '$watch',demo: dollarWatch1}"
+                    ></demo_html>
+                  </div>
+                  <div>
+                    <demo_html
+                      +loading="{label: '${ }',demo: dollarBrackets}"
+                    ></demo_html>
+                  </div>
+                </div>
+              </demo_box>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title" id="form-control">Form control</div>
+            <div class="flex-row gap">
+              <div class="flex-col">
+                <div class="sub-title" id="input">input</div>
+                <demo_box>
+                  <demo_html
+                    +loading="{label: '$value', demo: dollarValue}"
+                  ></demo_html>
+                </demo_box>
+              </div>
+              <div class="flex-col">
+                <div class="sub-title" id="select">select</div>
+                <demo_box>
+                  <demo_html
+                    +loading="{label: '$selected', demo: dollarSelected}"
+                  ></demo_html>
+                </demo_box>
+              </div>
+            </div>
+            <div class="flex-row gap">
+              <div class="flex-col">
+                <div class="sub-title" id="radio">radio</div>
+                <demo_box>
+                  <demo_html
+                    +loading="{label: '$checked', demo: dollarCheckedRadio}"
+                  ></demo_html>
+                </demo_box>
+              </div>
+              <div class="flex-col">
+                <div class="sub-title" id="checkbox">checkbox</div>
+                <demo_box>
+                  <demo_html
+                    +loading="{label: '$checked', demo: dollarCheckedCheckbox}"
+                  ></demo_html>
+                </demo_box>
+              </div>
+            </div>
+          </div>
+          <div class="section">
+            <div class="section-title" id="dom-control">DOM control</div>
+            <div class="sub-section">
+              <div class="sub-title" id="styling">styling</div>
+              <div class="flex-row gap">
+                <div class="flex-col">
+                  <demo_box>
+                    <demo_html
+                      +loading="{label: '$style',demo: dollarStyle}"
+                    ></demo_html>
+                  </demo_box>
+                </div>
+                <div class="flex-col">
+                  <demo_box>
+                    <demo_html
+                      +loading="{label: '$class', demo: dollarClass}"
+                    ></demo_html>
+                  </demo_box>
+                </div>
+              </div>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title" id="looping">looping</div>
+              <demo_box>
+                <div class="flex-row gap">
+                  <div>
+                    <demo_html
+                      +loading="{label: '$each',demo: dollarEach}"
+                    ></demo_html>
+                  </div>
+                </div>
+              </demo_box>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title" id="conditional-rendering">
+                conditional rendering
+              </div>
+              <demo_box>
+                <demo_html
+                  +loading="{label: '$exist',demo: dollarExist}"
+                ></demo_html>
+              </demo_box>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title" id="dom-referencing">DOM reference</div>
+              <demo_box>
+                <demo_html
+                  +loading="{label: '$node',demo: dollarNode}"
+                ></demo_html>
+              </demo_box>
+            </div>
+          </div>
+          <div class="section">
+            <div class="section-title" id="lifecycles">Lifecycle</div>
+            <div class="flex-row gap">
+              <div class="sub-section">
+                <div class="sub-title" id="before-mount">before mount</div>
+                <demo_box>
+                  <demo_html
+                    +loading="{label: '+loading', demo:plusLoading}"
+                  ></demo_html>
+                </demo_box>
+              </div>
+              <div class="sub-section">
+                <div class="sub-title" id="after-mount">after mount</div>
+                <demo_box>
+                  <demo_html
+                    +loading="{label: '+loaded', demo:plusLoaded}"
+                  ></demo_html>
+                </demo_box>
+              </div>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title" id="before-unmount">before unmount</div>
+              <demo_box>
+                <demo_html
+                  +loading="{label: '+unloading', demo:plusUnloading}"
+                ></demo_html>
+              </demo_box>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title" id="after-unmount">after unmount</div>
+              <demo_box>
+                <demo_html
+                  +loading="{label: '+unloaded', demo:plusUnloaded}"
+                ></demo_html>
+              </demo_box>
+            </div>
+          </div>
+          <div class="section">
+            <div class="section-title" id="composition">
+              Component composition
+            </div>
+            <div class="sub-section">
+              <div class="sub-title" id="minimum-component">
+                minimum component
+              </div>
+              <demo_box>
+                <div class="flex-row gap">
+                  <demo_html
+                    +loading="{label: 'index.html', demo: minimumComponent.index}"
+                  ></demo_html>
+                  <demo_html
+                    +loading="{label: 'hello.html', demo: minimumComponent.hello}"
+                  ></demo_html>
+                </div>
+              </demo_box>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title" id="script-module">script module</div>
+              <demo_box>
+                <div class="flex-row gap">
+                  <div>
+                    <demo_html
+                      +loading="{label: 'index.html', demo: scriptModule.index}"
+                    ></demo_html>
+                  </div>
+                  <div>
+                    <demo_js
+                      +loading="{label: 'myScript.js', demo: scriptModule.myScript}"
+                    ></demo_js>
+                  </div>
+                </div>
+              </demo_box>
+            </div>
+            <div class="sub-section">
+              <div class="sub-title" id="nested-module">nested module</div>
+              <demo_box>
+                <div class="flex-row gap">
+                  <div>
+                    <demo_html
+                      +loading="{label: 'index.html', demo: nestedModule.index}"
+                    ></demo_html>
+                  </div>
+                  <div>
+                    <demo_code
+                      +loading="{css: 'height: 450px', files: [
+                      {label: 'card.html', type: 'html', code: nestedModule.cardModule},
+                      {label: 'svg.html', type: 'html', code: nestedModule.svg},
+                      {label: 'script.js', type: 'js', code: nestedModule.script},
+                      {label: 'card.css', type: 'css', code: nestedModule.css},
+                    ]}"
+                    ></demo_code>
+                  </div>
+                </div>
+              </demo_box>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </template>
+  <template id="demo_sidebar">
+    <sidebar>
+      <menu_item
+        +loading="{label: 'Declaring state', link: '/demos#declaring-state'}"
+      ></menu_item>
+      <menu_group
+        +loading="{label: 'Updating state', link: '/demos#updating-state', drop: true}"
+      >
+        <menu_item
+          +loading="{label: 'click event', link: '/demos#click'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'mouse events', link: '/demos#mouse-events'}"
+        ></menu_item>
+      </menu_group>
+      <menu_group
+        +loading="{label: 'Data binding', link: '/demos#data-binding', drop: true}"
+      >
+        <menu_item
+          +loading="{label: 'data watch', link: '/demos#data-watch'}"
+        ></menu_item>
+      </menu_group>
+      <menu_group
+        +loading="{label: 'Form control', link: '/demos#form-control', drop: true}"
+      >
+        <menu_item
+          +loading="{label: 'input', link: '/demos#input'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'select', link: '/demos#select'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'radio', link: '/demos#radio'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'checkbox', link: '/demos#checkbox'}"
+        ></menu_item>
+      </menu_group>
+      <menu_group
+        +loading="{label: 'DOM control', link: '/demos#dom-control', drop: true}"
+      >
+        <menu_item
+          +loading="{label: 'styling', link: '/demos#styling'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'looping', link: '/demos#looping'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'conditional rendering', link: '/demos#conditional-rendering'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'DOM referencing', link: '/demos#dom-referencing'}"
+        ></menu_item>
+      </menu_group>
+      <menu_group
+        +loading="{label: 'Lifecycles', link: '/demos#lifecycles', drop: true}"
+      >
+        <menu_item
+          +loading="{label: 'before mount', link: '/demos#before-mount'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'after mount', link: '/demos#after-mount'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'before unmount', link: '/demos#before-unmount'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'after unmount', link: '/demos#after-unmount'}"
+        ></menu_item>
+      </menu_group>
+      <menu_group
+        +loading="{label: 'component composition', link: '/demos#composition', drop: true}"
+      >
+        <menu_item
+          +loading="{label: 'minimum component', link: '/demos#minimum-component'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'script module', link: '/demos#script-module'}"
+        ></menu_item>
+        <menu_item
+          +loading="{label: 'nested module', link: '/demos#nested-module'}"
+        ></menu_item>
+      </menu_group>
+    </sidebar>
   </template>
 </html>

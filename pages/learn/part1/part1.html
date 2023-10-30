@@ -7,7 +7,7 @@
       scene2: {uri:"./scene2.js", anonymous:false},
       scene3: {uri:"./scene3.js", anonymous:false},
       styles: "../components/taskCard.css",
-      demo_container: "/components/tutorial_demo/index.html",
+      demo_container: "/components/demo_box/index.html",
     }
   </script>
   <template id="view">
@@ -124,8 +124,6 @@
         <part_card +loading="{part_number: 2}"></part_card>
       </div>
     </div>
-    <div +loading="{number: produce4()}">
-      ${number}
-    </div>
+    <div +loading="{number: produce4()}">${number}</div>
   </template>
 </html>

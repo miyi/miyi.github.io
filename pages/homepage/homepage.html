@@ -6,7 +6,7 @@
       content_block: './components/content_block.html',
       js: './homepage.js',
       styles: './homepage.css',
-      tutorial_demo: '/components/tutorial_demo/index.html',
+      demo_box: '/components/demo_box/index.html',
     }
   </script>
   <template id="view">
@@ -110,7 +110,7 @@
       <div class="home concepts">
         <div class="home-container sample-container">
           <div class="sample-title">declaring and updating state</div>
-          <tutorial_demo>
+          <demo_box>
             <div class="demo-grid">
               <demo_html
                 +loading="{label: '', demo: declareStateDemo()}"
@@ -119,59 +119,36 @@
                 +loading="{label: '', demo: updateStateDemo()}"
               ></demo_html>
             </div>
-          </tutorial_demo>
+          </demo_box>
           <div class="sample-title">html events</div>
-          <tutorial_demo>
+          <demo_box>
             <div class="demo-grid">
               <demo_html +loading="{label: '', demo: clickDemo()}"></demo_html>
               <demo_html
                 +loading="{label: '', demo: mouseupDemo()}"
               ></demo_html>
             </div>
-          </tutorial_demo>
+          </demo_box>
           <div class="sample-title">data synchronization</div>
-          <tutorial_demo>
+          <demo_box>
             <div class="demo-grid">
               <demo_html +loading="{label: '', demo: valueDemo()}"></demo_html>
               <demo_html +loading="{label: '', demo: watchDemo()}"></demo_html>
             </div>
-          </tutorial_demo>
+          </demo_box>
           <div class="sample-title">abstractions</div>
-          <tutorial_demo>
+          <demo_box>
             <div class="demo-grid">
-              <demo_code +loading="viewModuleDemoLoading()"></demo_code>
-              <demo_code +loading#init="namespaceDemoLoading()"></demo_code>
+              <demo_code
+                +loading#init="viewModuleDemoLoading()"
+              ></demo_code>
+              <demo_code
+                +loading#init="namespaceDemoLoading()"
+              ></demo_code>
             </div>
-          </tutorial_demo>
+          </demo_box>
         </div>
       </div>
-      <!-- <div class="home">
-        <tutorial_demo>
-          <demo_html +loading="{label: '', demo: updateStateDemo}"></demo_html>
-          <demo_html +loading="{label: '', demo: computeStateDemo}"></demo_html>
-        </tutorial_demo>
-      </div> -->
-      <!-- <div class="home">
-        <div id="directive-content" class="home-container">
-          <content_block
-            +loading="load_directive_content($module)"
-          ></content_block>
-        </div>
-      </div>
-      <div class="home">
-        <div id="directive-content" class="home-container">
-          <content_block
-            +loading="load_databinding_content($module)"
-          ></content_block>
-        </div>
-      </div>
-      <div class="home">
-        <div id="directive-content" class="home-container">
-          <content_block
-            +loading="load_modules_content($module)"
-          ></content_block>
-        </div>
-      </div> -->
     </div>
   </template>
 </html>
