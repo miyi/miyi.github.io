@@ -1,0 +1,25 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      level1: "#level1",
+      level2: "#level2",
+      arrow: "/svg/arrow.svg",
+      style: "./index.css"
+    }
+  </script>
+  <template id="view">
+    <div class="container">
+      <div class="header">On this page</div>
+      <ul class="content">
+        <template @slot></template>
+      </ul>
+    </div>
+  </template>
+  <template id="level1">
+   <li class="level-1"><a $href="$router.path + '#' + hash">${label}</a></li>
+  </template>
+  <template id="level2">
+    <li class="level-2"><a $href="$router.path + '#' + hash">${label}</a></li>
+  </template>
+</html>

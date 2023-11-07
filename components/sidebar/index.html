@@ -3,9 +3,10 @@
     {
       view: {uri: "#view", init: {css: null}},
       css: "./index.css",
-      menu_group: "#menu-group",
-      menu_item: "#menu-item",
-      arrow: "#arrow-svg"
+      menu_group: {uri: "#menu-group", init: {css: null}},
+      menu_item: {uri: "#menu-item", init: {css: null}},
+      arrow: "#arrow-svg",
+      js: "#js"
     }
   </script>
   <template id="view">
@@ -15,28 +16,34 @@
       </div>
     </div>
   </template>
-  {label: str, link: str, menu_item: {label: str, link: str}}
+  menu_group: {label: str, link: str, unclickable: boolean, menu_item: {label:
+  str, link: str}}
   <template id="menu-group">
     <div
       class="menu-group"
-      +loading="{active: $scope.drop? $scope.drop : false}"
+      +loading="{unclickable: $scope.unclickable? true: false, expand: true}"
     >
       <a
         class="group-label"
-        $href="$scope.link?link:null"
-        +click="active=!active, console.log(active)"
-        $class="{active}"
+        $href="unclickable? null: $scope.link"
+        +click#prevent="menuClick($scope, $event, $node)"
+        $class#router="{unclickable, active: $router.path == $scope.link, expand}"
       >
         <arrow></arrow>
         <div>${label}</div>
       </a>
-      <div class="item-container" $exist="active">
+      <div class="item-container" $exist="expand">
         <template @slot></template>
       </div>
     </div>
   </template>
   <template id="menu-item">
-    <a class="menu-item" $href="link"><span>${label}</span></a>
+    <a
+      class="menu-item"
+      $href="link"
+      $class#router="{active: $router.path == $scope.link}"
+      ><span>${label}</span></a
+    >
   </template>
   <template id="arrow-svg">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -45,4 +52,16 @@
       />
     </svg>
   </template>
+  <script id="js" type="dagger/script">
+    export const menuClick = ($scope, $event, $node) => {
+      if ($scope.unclickable) {
+        $event.stopPropagation()
+      } else {
+        if (document.activeElement==$node) {
+          $scope.expand = !$scope.expand;
+        }
+        $event.stopPropagation()
+      }
+    };
+  </script>
 </html>

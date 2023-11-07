@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  color: lightblue;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  font-weight: 600;
+}
+
+ul {
+  gap: 1.5rem;
+}
+
+.level-1 {
+  font-weight: 500;
+}
+
+.level-2 {
+  margin-left: 1rem;
+  font-weight: 400;
+  list-style-image: url("/svg/arrow.svg");
+}

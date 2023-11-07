@@ -24,7 +24,6 @@
   display: flex;
   flex-direction: column;
   border-radius: inherit;
-  gap: 2px;
   .group-label {
     color: inherit;
     display: flex;
@@ -47,6 +46,10 @@
       }
     }
   }
+  .unclickable {
+    cursor: default;
+    pointer-events: none;
+  }
   .item-container {
     display: flex;
     flex-direction: column;
@@ -57,31 +60,40 @@
       padding-left: 1.5rem;
       gap: 1rem;
       span {
-        margin-left: 1rem;
+        border-left: 1px solid #414243;
       }
     }
   }
-  .active {
+  .expand {
     svg {
       transform: rotate(90deg);
+    }
+    &:hover {
+      svg {
+        transform: rotate(0deg);
+      }
     }
   }
 }
 
 .active {
-  background-color: rgb(183, 150, 188, 0.5);
+  filter: brightness(120%);
 }
 
 .menu-item {
-  padding: 0.5rem 1rem;
+  padding: 0 1rem;
   display: flex;
   align-items: center;
   color: inherit;
   font-size: inherit;
   font-weight: inherit;
   border-radius: inherit;
+  span {
+    padding: 0.5rem 0 0.5rem 1rem;
+  }
   &:hover {
     background-color: rgba(183, 150, 188, 0.25);
+    filter: brightness(120%);
   }
 }
 

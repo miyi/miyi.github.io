@@ -12,7 +12,11 @@ return {
         modules: "home",
         constants: { layer1: "home", title: "home" },
       },
-      { path: "demos", modules: "demos", constants: { layer1: "demos", title: "demos" } },
+      {
+        path: "demos",
+        modules: "demospage",
+        constants: { layer1: "demospage", title: "demos" },
+      },
       {
         path: "learn",
         modules: "learnlayout",
@@ -51,9 +55,14 @@ return {
         ],
       },
       {
-        path: "documentation",
-        modules: "constants",
-        constants: { layer1: "documentation" },
+        path: "docs",
+        modules: "docslayout",
+        constants: { layer1: "docslayout", title: 'docs' },
+        children: [
+          {path},
+          {},
+          {},
+        ]
       },
     ],
   },

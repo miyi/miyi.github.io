@@ -1,0 +1,33 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      content_view: "#content-view"
+      navbar: "/myModules/navbar.html",
+      menu_content: "./menuContent.js",
+      menu_gen: "/myModules/sidebar.html",
+      css: "./docslayout.css"
+    }
+  </script>
+  <template id="view">
+    <div class="page-container">
+      <navbar></navbar>
+      <div class="main">
+        <aside class="menu">
+          <menu_gen +loading="loadMenuContent()"></menu_gen>
+        </aside>
+        
+      </div>
+    </div>
+  </template>
+  <template id="content-view">
+    <div class="content-layout">
+      <div class="content">
+        
+      </div>
+      <div class="toc">
+
+      </div>
+    </div>
+  </template>
+</html>

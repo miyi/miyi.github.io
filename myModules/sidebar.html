@@ -1,0 +1,22 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      sidebar : "/components/sidebar/index.html",
+    }
+  </script>
+  menu_group: {unclickable: boolean}
+  <template id="view">
+    <sidebar>
+      <menu_group
+        $each="groups"
+        +loading="{...item, link: item.baselink? item.baselink:null}"
+      >
+        <menu_item
+          $each="children"
+          +loading="{...item, link: baselink+item.sublink}"
+        ></menu_item>
+      </menu_group>
+    </sidebar>
+  </template>
+</html>
