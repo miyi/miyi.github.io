@@ -36,7 +36,8 @@ export const declareState4 = `
 
   <span>Child scopes with the same variable name will overide parent</span> 
   
-  \${active} \${collapse}
+  <div>\${active} \${collapse}</div>
+  
   <div +loading="{active: !active}">
     \${active} \${collapse}
   </div>

@@ -2,24 +2,28 @@
   <script type="dagger/modules">
     {
       view: "#view",
-      level1: "#level1",
-      level2: "#level2",
-      arrow: "/svg/arrow.svg",
+      list_item: "#list-item",
+      arrow: {uri: "/svg/arrow.svg", type: 'view'},
       style: "./index.css"
     }
   </script>
   <template id="view">
     <div class="container">
       <div class="header">On this page</div>
-      <ul class="content">
+      <div class="table">
         <template @slot></template>
-      </ul>
+      </div>
     </div>
   </template>
-  <template id="level1">
-   <li class="level-1"><a $href="$router.path + '#' + hash">${label}</a></li>
-  </template>
-  <template id="level2">
-    <li class="level-2"><a $href="$router.path + '#' + hash">${label}</a></li>
+  level1: {hash: str, label: str}
+  <template id="list-item">
+    <a
+      id="list-item"
+      $href="$router.path + '#' + hash"
+      $class="{'ml-4': level==2}"
+    >
+      <arrow $exist="level==2" +loading="{classnames: ['toc-arrow']}"></arrow>
+      <span>${label}</span>
+    </a>
   </template>
 </html>

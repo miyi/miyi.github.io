@@ -6,13 +6,18 @@
       script: "./demo_html.js",
     }
   </script>
+  +loading="{label: str, demo: str, css, classnames, label_fulltab: boolean}"
   <template id="view">
     <div
       class="code-container"
       +loading="{demoHtml: produceDemoHtml(hljs, demo)}"
+      $style="$scope.css?css:null"
+      $scope="$scope.classnames?classnames:null"
     >
       <div class="label-container">
-        <span>${$scope.label?label:'html'}</span>
+        <span $class="$scope.label_fulltab? 'full-tab': null">
+          ${$scope.label?label:'html'}
+        </span>
       </div>
       <div class="code-box">
         <pre><code class="html" $html="demoHtml"></code></pre>

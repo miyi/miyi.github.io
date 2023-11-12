@@ -1,0 +1,62 @@
+.content-layout {
+  width: 100%;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+.content-layout .content {
+  width: 600;
+  flex-grow: 1;
+  padding: 2rem 6rem;
+  display: flex;
+  flex-direction: column;
+  color: #c1d1e4;
+  gap: 4rem;
+}
+.content-layout .content .banner .category {
+  color: #fc9c00;
+}
+.content-layout .content .banner .directive {
+  padding-bottom: 0.5rem;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #ddb826;
+}
+.content-layout .content .banner .description {
+  color: #c1d1e4;
+}
+.content-layout .content .section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.content-layout .content .section .section-title {
+  width: 100%;
+  border-radius: 0.5rem;
+  color: #9965de;
+  background-color: #150b23;
+  font-size: 2rem;
+  font-weight: 500;
+}
+.content-layout .content .section .section-title:hover {
+  background-color: #433760;
+}
+.content-layout .content .section .sub-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.content-layout .content .section .sub-section .sub-title {
+  border-radius: 0.5rem;
+  width: 100%;
+  color: #9965de;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.content-layout .content .section .sub-section .sub-title:hover {
+  background-color: #251e3f;
+}
+.content-layout .toc {
+  width: 14rem;
+}/*# sourceMappingURL=contentLayout.css.map */

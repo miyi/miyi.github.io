@@ -6,11 +6,12 @@
       controls: "#control-icons"
     }
   </script>
+  +loading="{demo/html: str}"
   <template id="view">
     <div class="browser-container">
       <div class="render-box">
         <controls></controls>
-        <div class="content" $html="html"></div>
+        <div class="demo-browser-content" $html="html"></div>
       </div>
     </div>
   </template>

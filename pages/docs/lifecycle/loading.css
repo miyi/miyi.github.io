@@ -1,0 +1,17 @@
+.rule-grid {
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 0.5rem;
+}
+.rule-grid > * {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  background-color: #433760;
+}
+.rule-grid .header {
+  font-weight: bolder;
+  font-size: larger;
+  color: #cf75e3;
+  background-color: #71609a;
+}/*# sourceMappingURL=loading.css.map */

@@ -8,13 +8,10 @@
   menu_group: {unclickable: boolean}
   <template id="view">
     <sidebar>
-      <menu_group
-        $each="groups"
-        +loading="{...item, link: item.baselink? item.baselink:null}"
-      >
+      <menu_group $each="groups" +loading="{...item, link: item.sublink}">
         <menu_item
           $each="children"
-          +loading="{...item, link: baselink+item.sublink}"
+          +loading="{...item, link: baselink + item.sublink}"
         ></menu_item>
       </menu_group>
     </sidebar>

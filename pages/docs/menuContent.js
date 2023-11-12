@@ -1,16 +1,16 @@
 export const loadMenuContent = () => ({
+  baselink: "/docs",
   groups: [
     {
       label: "getting started",
-      baselink: "start",
       unclickable: true,
-      baselink: "start",
+      sublink: "start",
       css: ["filter: brightness(110%)", "background-color:"],
       children: [{ label: "install", sublink: "/install" }],
     },
     {
       label: "core features",
-      baselink: "/core",
+      sublink: "core",
       children: [
         { label: "scopes", sublink: "/scopes" },
         { label: "directives", sublink: "/directives" },
@@ -20,7 +20,7 @@ export const loadMenuContent = () => ({
     },
     {
       label: "lifecycle directives",
-      baselink: "/lifecycle",
+      sublink: "lifecycle",
       children: [
         { label: "+loading", sublink: "/loading" },
         { label: "+loaded", sublink: "/loaded" },
@@ -30,7 +30,7 @@ export const loadMenuContent = () => ({
     },
     {
       label: "control directives",
-      baselink: "/control",
+      sublink: "control",
       children: [
         { label: "$checked", sublink: "/checked" },
         { label: "$each", sublink: "/each" },

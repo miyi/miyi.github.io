@@ -2,6 +2,7 @@ return {
   home: "/pages/homepage/homepage.html",
   learnlayout: "/pages/learn/layout.html",
   docslayout: "/pages/docs/docslayout.html",
+  loading: "/pages/docs/lifecycle/loading.html",
   tutorial_welcome: "/pages/learn/welcome/welcome.html",
   tutorial1: "/pages/learn/part1/part1.html",
   tutorial2: "/pages/learn/part2/part2.html",

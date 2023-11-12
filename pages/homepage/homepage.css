@@ -184,7 +184,7 @@
 .navbar .nav-container .nav-left-menu div {
   font-size: 1rem;
   font-weight: 600;
-  color: #e18de8;
+  color: #cf75e3;
   padding: 0.75rem;
 }
 .navbar .nav-container .nav-right-menu {
@@ -203,7 +203,7 @@
   height: 2rem;
   display: inline-flex;
   align-items: center;
-  color: #e18de8;
+  color: #cf75e3;
   padding: 0.25rem;
   gap: 0.25rem;
 }
@@ -260,7 +260,7 @@
 
 .sub {
   font-size: 1.25rem;
-  color: #e18de8;
+  color: #cf75e3;
   font-weight: 400;
   margin-bottom: 1.5rem;
 }
@@ -278,7 +278,7 @@
   color: #9965de;
 }
 .main .highlight {
-  color: #e18de8;
+  color: #cf75e3;
   font-weight: 600;
 }
 
@@ -335,7 +335,7 @@
   padding: 0.5rem;
   font-size: 0.75rem;
   font-weight: 800;
-  color: #e18de8;
+  color: #cf75e3;
 }
 
 .concept-grid {

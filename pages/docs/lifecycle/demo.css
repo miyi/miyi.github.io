@@ -1,0 +1,18 @@
+.basic-demo-card {
+  background-color: lightgray;
+  border-radius: 0.5rem;
+  box-shadow: 10px 10px 5px grey;
+  width: 12rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  color: purple;
+  padding: 1rem;
+}
+.basic-demo-card span {
+  font-size: 1.25rem;
+}
+.basic-demo-card li {
+  margin-left: 0.5rem;
+}/*# sourceMappingURL=demo.css.map */

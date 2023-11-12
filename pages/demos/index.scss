@@ -43,29 +43,6 @@
   }
 }
 
-.gap {
-  gap: 2rem;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  align-self: stretch;
-}
-
-.flex-row {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  align-self: stretch;
-  & > * {
-    width: 300;
-    flex-grow: 1;
-  }
-}
-
 .keyword {
   color: $primary-color;
   font-size: 1.5rem;

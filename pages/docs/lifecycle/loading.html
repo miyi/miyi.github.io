@@ -2,11 +2,147 @@
   <script type="dagger/modules">
     {
       view: "#view",
+      content_layout: "/myModules/docs/contentLayout.html",
+      js: "./loading.js",
+      demo_box: "/components/demo_box/index.html",
+      grid_styles: "/styles/grid_styles.css",
+      demo_styles: "./demo.css",
+      doc_styles: "./loading.css"
     }
   </script>
   <template id="view">
-    <div class="container">
-      
-    </div>
+    <content_layout
+      +loading#plain="{...headings, overflow: 'overflow: scroll'}"
+    >
+      <div class="banner">
+        <div class="category">lifecycle</div>
+        <div class="directive">+loading</div>
+        <div class="description">
+          Creates a scope with state data on the host element.
+        </div>
+      </div>
+      <div class="section">
+        <div id="basic" class="section-title">Basic usage</div>
+        <div>
+          The +loading directive initiates a new scope environment with the
+          assigned state values. These values are accessible anywhere inside the
+          host element and all its children via the $scope object. You can also
+          use the shorthand to access all the fields inside the scope by
+          directly calling the fieldname as a standalone variable. Note that the
+          $scope variable also inherits from all its parent scopes.
+        </div>
+        <div class="sub-section">
+          <div id="rules" class="sub-title">Rules:</div>
+          <div class="rule-grid">
+            <div class="header">accepted value</div>
+            <div class="header">example</div>
+            <div>plain javascript object</div>
+            <div>+loading="{id: 79, name: 'hat', in_stock: true}"</div>
+            <div>javascript statement that resolves into a plain object</div>
+            <div>+loading="fetchItem()"</div>
+          </div>
+        </div>
+        <div class="sub-section" +loading#plain="{label_fulltab: true}">
+          <div id="examples" class="sub-title">Examples:</div>
+          <demo_box +loading#plain="{...plainDemo}">
+            <div class="flex-row gap">
+              <demo_html
+                +loading="{label: '+loading with plain object', css: overflow}"
+              ></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box +loading#plain="{...statementDemo}">
+            <div class="flex-row gap">
+              <demo_html
+                +loading#plain="{label: '+loading with javascript statement', css: overflow}"
+              ></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+        <div class="sub-section" +loading="{label_fulltab: true}">
+          <div id="nested" class="sub-title">Nested scopes:</div>
+          <div>
+            $scope will inherit all state values from its parent scope, so you
+            can access any values declared from the root scope all the way down
+            the scope chain to the current scope. This also means that you can
+            control children scopes by manipulating parent scope values.
+          </div>
+          <demo_box +loading#plain="{...plainDemo}">
+            <div class="flex-row gap">
+              <demo_html
+                +loading#plain="{label: '+loading with plain object', css: overflow}"
+              ></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box +loading#plain="{...statementDemo}">
+            <div class="flex-row gap">
+              <demo_html
+                +loading#plain="{label: '+loading with javascript statement', css: overflow}"
+              ></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+      </div>
+      <div class="section">
+        <div id="decorators" class="section-title">Decorators</div>
+        <div class="sub-section">
+          <div class="rule-grid">
+            <div class="header">decorator name</div>
+            <div class="header">decorator function</div>
+            <div>+loading#root</div>
+            <div>
+              the scope initiated with #root inherits directly from the root
+              scope.
+            </div>
+            <div>+loading#plain</div>
+            <div>
+              When the state variables initiated in +loading are all
+              non-dynamic, meaning that the user do no expect these values to
+              change, #plain will help improve load speed.
+            </div>
+            <div>+loading#init</div>
+            <div>
+              #init is specifically designed to work with modules. Some modules
+              will have developer recommended state value presets assigned to
+              specific components. #init will initiate all preset values of that
+              component.
+            </div>
+          </div>
+        </div>
+        <div class="sub-section">
+          <div id="root" class="sub-title">#root</div>
+          <demo_box +loading#plain="{...plainDemo}">
+            <div class="flex-row gap">
+              <demo_html
+                +loading#plain="{label: '+loading with plain object', css: overflow}"
+              ></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div id="plain" class="sub-title">#plain</div>
+          <demo_box +loading#plain="{...plainDemo}">
+            <div class="flex-row gap">
+              <demo_html
+                +loading#plain="{label: '+loading with plain object', css: overflow}"
+              ></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div id="init" class="sub-title">#init</div>
+          <demo_box +loading#plain="{...plainDemo}">
+            <div class="flex-row gap">
+              <demo_html
+                +loading#plain="{label: '+loading with plain object', css: overflow}"
+              ></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+      </div>
+    </content_layout>
   </template>
 </html>

@@ -40,31 +40,8 @@
   padding-bottom: 1rem;
 }
 
-.gap {
-  gap: 2rem;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  align-self: stretch;
-}
-
-.flex-row {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  align-self: stretch;
-}
-.flex-row > * {
-  width: 300;
-  flex-grow: 1;
-}
-
 .keyword {
-  color: #e18de8;
+  color: #cf75e3;
   font-size: 1.5rem;
   font-weight: 500;
   padding: 0.75rem 0;

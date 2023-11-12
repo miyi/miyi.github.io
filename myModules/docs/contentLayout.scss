@@ -1,0 +1,67 @@
+@import "../../styles/global.scss";
+
+.content-layout {
+  width: 100%;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  .content {
+    width: 600;
+    flex-grow: 1;
+    padding: 2rem 6rem;
+    display: flex;
+    flex-direction: column;
+    color: $text-color-lite;
+    gap: 4rem;
+    .banner {
+      .category {
+        color: $contrast-color-dark;
+      }
+      .directive {
+        padding-bottom: 0.5rem;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: $contrast-color;
+      }
+      .description {
+        color: $text-color-lite;
+      }
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      .section-title {
+        width: 100%;
+        border-radius: 0.5rem;
+        color: $text-color;
+        background-color: $bg-color-darker;
+        font-size: 2rem;
+        font-weight: 500;
+        &:hover {
+          background-color: $bg-color-lite;
+        }
+      }
+      .sub-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        .sub-title {
+          border-radius: 0.5rem;
+          width: 100%;
+          color: $text-color;
+          font-size: 1.5rem;
+          font-weight: 300;
+          &:hover {
+            background-color: $bg-color;
+          }
+        }
+      }
+    }
+  }
+  .toc {
+    width: 14rem;
+  }
+}

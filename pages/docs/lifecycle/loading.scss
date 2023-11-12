@@ -1,0 +1,19 @@
+@import "../../../styles/global.scss";
+
+.rule-grid {
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 0.5rem;
+  & > * {
+    padding: 1rem;
+    border-radius: 0.25rem;
+    background-color: $bg-color-lite;
+  }
+  .header {
+    font-weight: bolder;
+    font-size: larger;
+    color: $primary-color;
+    background-color: $border-color-lite;
+  }
+}

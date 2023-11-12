@@ -5,67 +5,11 @@
   align-items: stretch;
 }
 .main .menu {
-  width: 16rem;
-  height: 100%;
-}
-.main .content {
-  width: 800;
-  flex-grow: 1;
-  padding: 2rem 6rem;
-  display: flex;
-  flex-direction: column;
-  color: #c1d1e4;
-}
-.main .content .section {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 4rem;
-}
-.main .content .section .section-title {
-  background-color: #150b23;
-  margin: 2rem 0;
-  font-size: 2.25rem;
-  font-weight: 600;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.main .content .section .sub-title {
-  font-size: 1.75rem;
-  padding: 1rem 0;
-  font-weight: 600;
-}
-.main .content .section .sub-section {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 1rem;
-}
-
-.gap {
-  gap: 2rem;
-}
-
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  align-self: stretch;
-}
-
-.flex-row {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  align-self: stretch;
-}
-.flex-row > * {
-  width: 300;
-  flex-grow: 1;
+  width: 20rem;
 }
 
 .keyword {
-  color: #e18de8;
+  color: #cf75e3;
   font-size: 1.5rem;
   font-weight: 500;
   padding: 0.75rem 0;
