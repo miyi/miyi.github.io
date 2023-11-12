@@ -2,13 +2,16 @@
   background-color: lightgray;
   border-radius: 0.5rem;
   box-shadow: 10px 10px 5px grey;
-  width: 12rem;
+  width: 14rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   justify-content: center;
   color: purple;
   padding: 1rem;
+}
+.basic-demo-card .narration {
+  color: rgb(61, 59, 59);
 }
 .basic-demo-card span {
   font-size: 1.25rem;

@@ -14,27 +14,31 @@
     <content_layout
       +loading#plain="{...headings, overflow: 'overflow: scroll'}"
     >
-      <div class="banner">
+      <div class="letter-st banner">
         <div class="category">lifecycle</div>
         <div class="directive">+loading</div>
         <div class="description">
           Creates a scope with state data on the host element.
         </div>
+        <div class="diagram">diagram</div>
       </div>
       <div class="section">
         <div id="basic" class="section-title">Basic usage</div>
-        <div>
-          The +loading directive initiates a new scope environment with the
-          assigned state values. These values are accessible anywhere inside the
-          host element and all its children via the $scope object. You can also
-          use the shorthand to access all the fields inside the scope by
-          directly calling the fieldname as a standalone variable. Note that the
-          $scope variable also inherits from all its parent scopes.
+        <div class="letter-st">
+          +loading initiates a new scope environment with the assigned state
+          values. These values are accessible anywhere inside the host element
+          and all its children via the $scope object. You can also use the
+          shorthand to access all the fields inside the scope by directly
+          calling the fieldname as a standalone variable.
         </div>
+        <tip>
+          Note that the $scope object inherits from all its parent scopes,
+          similar to javscript scoping rules.
+        </tip>
         <div class="sub-section">
           <div id="rules" class="sub-title">Rules:</div>
-          <div class="rule-grid">
-            <div class="header">accepted value</div>
+          <div class="letter-st rule-grid">
+            <div class="header">accepted values</div>
             <div class="header">example</div>
             <div>plain javascript object</div>
             <div>+loading="{id: 79, name: 'hat', in_stock: true}"</div>
@@ -63,24 +67,24 @@
         </div>
         <div class="sub-section" +loading="{label_fulltab: true}">
           <div id="nested" class="sub-title">Nested scopes:</div>
-          <div>
+          <div class="letter-st">
             $scope will inherit all state values from its parent scope, so you
             can access any values declared from the root scope all the way down
             the scope chain to the current scope. This also means that you can
             control children scopes by manipulating parent scope values.
           </div>
-          <demo_box +loading#plain="{...plainDemo}">
+          <demo_box +loading#plain="{...nestedDemos.demo1}">
             <div class="flex-row gap">
               <demo_html
-                +loading#plain="{label: '+loading with plain object', css: overflow}"
+                +loading#plain="{label: 'scope inheritance', css: overflow}"
               ></demo_html>
               <demo_browser></demo_browser>
             </div>
           </demo_box>
-          <demo_box +loading#plain="{...statementDemo}">
+          <demo_box +loading#plain="{...nestedDemos.demo2}">
             <div class="flex-row gap">
               <demo_html
-                +loading#plain="{label: '+loading with javascript statement', css: overflow}"
+                +loading#plain="{label: 'conflicting field names', css: overflow}"
               ></demo_html>
               <demo_browser></demo_browser>
             </div>
@@ -90,7 +94,7 @@
       <div class="section">
         <div id="decorators" class="section-title">Decorators</div>
         <div class="sub-section">
-          <div class="rule-grid">
+          <div class="letter-st rule-grid">
             <div class="header">decorator name</div>
             <div class="header">decorator function</div>
             <div>+loading#root</div>
@@ -118,7 +122,7 @@
           <demo_box +loading#plain="{...plainDemo}">
             <div class="flex-row gap">
               <demo_html
-                +loading#plain="{label: '+loading with plain object', css: overflow}"
+                +loading#plain="{label: '#root', css: overflow}"
               ></demo_html>
               <demo_browser></demo_browser>
             </div>
@@ -127,7 +131,7 @@
           <demo_box +loading#plain="{...plainDemo}">
             <div class="flex-row gap">
               <demo_html
-                +loading#plain="{label: '+loading with plain object', css: overflow}"
+                +loading#plain="{label: '#plain', css: overflow}"
               ></demo_html>
               <demo_browser></demo_browser>
             </div>
@@ -136,7 +140,7 @@
           <demo_box +loading#plain="{...plainDemo}">
             <div class="flex-row gap">
               <demo_html
-                +loading#plain="{label: '+loading with plain object', css: overflow}"
+                +loading#plain="{label: '#init', css: overflow}"
               ></demo_html>
               <demo_browser></demo_browser>
             </div>

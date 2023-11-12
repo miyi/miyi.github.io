@@ -19,7 +19,7 @@
   <template id="list-item">
     <a
       id="list-item"
-      $href="$router.path + '#' + hash"
+      $href="'/'+$router.path + '#' + hash"
       $class="{'ml-4': level==2}"
     >
       <arrow $exist="level==2" +loading="{classnames: ['toc-arrow']}"></arrow>

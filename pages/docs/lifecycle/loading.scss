@@ -6,6 +6,8 @@
   grid-template-columns: 1fr 2fr;
   grid-gap: 0.5rem;
   & > * {
+    font-size: 0.9rem;
+    font-weight: 200;
     padding: 1rem;
     border-radius: 0.25rem;
     background-color: $bg-color-lite;

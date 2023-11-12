@@ -5,6 +5,8 @@
   grid-gap: 0.5rem;
 }
 .rule-grid > * {
+  font-size: 0.9rem;
+  font-weight: 200;
   padding: 1rem;
   border-radius: 0.25rem;
   background-color: #433760;

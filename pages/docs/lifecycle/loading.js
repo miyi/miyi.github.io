@@ -48,3 +48,73 @@ export const statementDemo = {
 </ul>
   `,
 };
+
+export const nestedDemos = {
+  demo1: {
+    demo: `
+<div +loading="{active: true}">
+
+  <div>Declaring multiple scopes:</div>
+  <div>Child scopes will inherit from parent scopes.</div>
+
+  <div +loading="{collapse: false}">
+    active: \${active}, collapse: \${collapse}
+  </div>
+</div>`,
+    html: `
+<div class="basic-demo-card" +loading="{active: true}">
+
+  <div class="narration">Declaring multiple scopes:</div>
+  <div class="narration">Child scopes will inherit from parent scopes.</div>
+
+  <div +loading="{collapse: false}">
+    active: \${active}, collapse: \${collapse}
+  </div>
+</div>`,
+  },
+  demo2: {
+    demo: `
+<div +loading="{active: true, collapse: false}">
+
+  <div>
+    When child scope field and parents scope field 
+    names collide, the child field will overide the 
+    parent.
+  </div> 
+  
+  <div>
+    active: \${active}, collapse: \${collapse}
+  </div>
+  
+  <div +loading="{active: !active}">
+    active: \${active}, collapse: \${collapse}
+  </div>
+</div>
+    `,
+    html: `
+<div class="basic-demo-card" +loading="{active: true, collapse: false}">
+
+  <div class="narration">
+  When child scope field and parents scope field 
+  names collide, the child field will overide the 
+  parent.
+  </div> 
+  
+  <div>
+    active: \${active}, collapse: \${collapse}
+  </div>
+  
+  <div +loading="{active: !active}">
+    active: \${active}, collapse: \${collapse}
+  </div>
+</div>
+    
+    `,
+  },
+};
+
+export const hashRoot = {
+  demo: `
+  
+  `
+}

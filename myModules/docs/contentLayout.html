@@ -5,11 +5,13 @@
       toc: "/components/TOC/index.html",
       toc_gen: "#toc-gen",
       css: "./contentLayout.css",
+      bulb: {uri: '/svg/lightbulb.svg', type: 'view'},
+      tip: "#tip"
     }
   </script>
   loading = {table: [headings]}
   <template id="view">
-    <div class="content-layout">
+    <div class="content-layout" +loading="{_observer_entries: []}">
       <div class="content">
         <template @slot></template>
       </div>
@@ -21,7 +23,15 @@
   headings: {hash: str, label: str, level: 1/2}
   <template id="toc-gen">
     <toc>
-      <list_item $each="headings" +loading="{...item}"></list_item>
+      <list_item $each="headings" +loading="{...item}" +loaded=""></list_item>
     </toc>
+  </template>
+  <template id="tip">
+    <div class="tip-container">
+      <div class="bulb"><bulb></bulb></div>
+      <div class="message">
+        <template @slot></template>
+      </div>
+    </div>
   </template>
 </html>
