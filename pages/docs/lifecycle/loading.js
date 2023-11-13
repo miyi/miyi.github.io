@@ -115,6 +115,78 @@ export const nestedDemos = {
 
 export const hashRoot = {
   demo: `
-  
-  `
-}
+<div +loading="{user: {
+  name: 'Tim',
+  age: 19,
+  role: 'webdev'
+}}">
+  <div +loading="{isRegistered: user?true:false}">
+    <div>
+      Normally scopes inherit from its parents
+    </div>
+    <div>isRegistered: \${isRegistered}<span>
+  </div>
+  <br>
+  <div +loading#root="{isRegistered: user?true:false}">
+    <div>
+      #root will only inherit from the root scope
+    </div>
+    <div>isRegistered: \${isRegistered}<span>
+  </div>
+</div>
+  `,
+  html: `
+  <div class="basic-demo-card" +loading="{user: {
+    name: 'Tim',
+    age: 19,
+    role: 'webdev'
+  }}">
+    <div +loading="{isRegistered: user?true:false}">
+      <div class="narration">
+        Normally scopes inherit from its parents
+      </div>
+      <div>isRegistered: \${isRegistered}<span>
+    </div>
+    <br>
+    <div +loading#root#debug="{isRegistered: user?true:false}">
+      <div class="narration">
+        #root will only inherit from the root scope.
+      </div>
+      <div>isRegistered: \${isRegistered}</div>
+    </div>
+  </div>
+  `,
+};
+
+export const hashPlain = {
+  demo: `
+<div +loading#plain="{year: 1991}">
+  <div>
+    Some types of data are not meant
+    to be changed.
+  </div>
+  <div>I was born in \${year}</div>
+  <br>
+  <div>
+    Using #plain makes the current $scope immutable.
+    It also improves performance.
+  <div>
+  <button +click="year++">add another year</button>
+</div>
+  `,
+  html: `
+  <div class="basic-demo-card" +loading#plain="{year: 1991}">
+  <div class="narration">
+    Some types of data are not meant
+    to be changed.
+  </div>
+  <div>I was born in \${year}</div>
+  <div class="narration">
+    Using #plain makes the current $scope immutable.
+    It also improves performance.
+  <div>
+  <br>
+  <button +click="year++">increment year value</button>
+</div>
+  `,
+};
