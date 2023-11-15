@@ -6,7 +6,8 @@
       toc_gen: "#toc-gen",
       css: "./contentLayout.css",
       bulb: {uri: '/svg/lightbulb.svg', type: 'view'},
-      tip: "#tip"
+      tip: "#tip",
+      doc_table: '#doc-table'
     }
   </script>
   loading = {table: [headings]}
@@ -34,4 +35,45 @@
       </div>
     </div>
   </template>
+  <template id="doc-table">
+    <table
+      style="width: 100%"
+      $style="$scope.table_style"
+      $class="$scope.table_classnames"
+      class="letter-st"
+    >
+      <tr>
+        <th
+          $each="headers"
+          +loading="{...item}"
+          $style="$scope.style"
+          $class="$scope.classnames"
+        >
+          ${$scope.name? name: label}
+        </th>
+      </tr>
+      <tr
+        $each="rows"
+        +loading="{...item}"
+        $style="$scope.style"
+        $class="$scope.classnames"
+      >
+        <td $each="headers">${$scope[item.label]}</td>
+      </tr>
+    </table>
+  </template>
+  <!-- {
+    headers: [
+      {name: if multi-str, label: str, style: [], classnames: []},
+      {},
+      {}
+    ],
+    rows: [
+      {one: str, two: str, three: str, style: [], classnames: []},
+      {...},
+      {...},
+    ],
+    table_style: [],
+    table_classnames: [],
+  } -->
 </html>

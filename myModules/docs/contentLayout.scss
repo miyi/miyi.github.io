@@ -79,6 +79,24 @@
   .toc {
     width: 14rem;
   }
+  table {
+    color: $text-color-lite;
+    text-align: left;
+    th {
+      padding: 0.25rem 0;
+      border-bottom: 2px solid $border-color-lite;
+      filter: brightness(110%);
+      font-weight: bolder;
+      font-size: 1.1rem;
+    }
+
+    td {
+      padding: 0.25rem 0;
+      border-bottom: 1px solid $border-color;
+      font-weight: 200;
+      font-size: 0.9rem;
+    }
+  }
 }
 
 .letter-st {

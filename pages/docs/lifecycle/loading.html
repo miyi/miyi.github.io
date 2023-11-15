@@ -32,8 +32,8 @@
           calling the fieldname as a standalone variable.
         </div>
         <tip>
-          Note that the $scope object inherits from all its parent scopes,
-          similar to javscript scoping rules.
+          The $scope object will inherit from all its parent scopes, similar to
+          javscript scoping rules.
         </tip>
         <div class="sub-section">
           <div id="rules" class="sub-title">Rules:</div>
@@ -42,9 +42,10 @@
             <div class="header">example</div>
             <div>plain javascript object</div>
             <div>+loading="{id: 79, name: 'hat', in_stock: true}"</div>
-            <div>javascript statement that resolves into a plain object</div>
+            <div>function</div>
             <div>+loading="fetchItem()"</div>
           </div>
+          <doc_table +loading="rulesTable"></doc_table>
         </div>
         <div class="sub-section" +loading#plain="{label_fulltab: true}">
           <div id="examples" class="sub-title">Examples:</div>
@@ -105,15 +106,12 @@
             <div>+loading#plain</div>
             <div>
               When the state variables initiated in +loading are all
-              non-dynamic, meaning that the user do no expect these values to
-              change, #plain will help improve load speed.
+              non-dynamic, #plain will help improve load speed.
             </div>
             <div>+loading#init</div>
             <div>
-              #init is specifically designed to work with modules. Some modules
-              will have developer recommended state value presets assigned to
-              specific components. #init will initiate all preset values of that
-              component.
+              Specifically designed to work with modules, #init will initiate
+              all preset values of that component.
             </div>
           </div>
         </div>

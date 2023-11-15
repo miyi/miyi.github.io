@@ -4,18 +4,16 @@
   width: 100%;
   display: inline-grid;
   grid-template-columns: 1fr 2fr;
-  grid-gap: 0.5rem;
   & > * {
     font-size: 0.9rem;
     font-weight: 200;
-    padding: 1rem;
-    border-radius: 0.25rem;
-    background-color: $bg-color-lite;
+    padding: 0.25rem;
+    border-bottom: 1px solid $border-color-lite;
   }
   .header {
     font-weight: bolder;
-    font-size: larger;
-    color: $primary-color;
-    background-color: $border-color-lite;
+    font-size: 1rem;
+    filter: brightness(110%);
+    border-bottom: 2px solid $border-color-lite;
   }
 }

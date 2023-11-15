@@ -11,6 +11,23 @@ export const headings = {
   ],
 };
 
+export const rulesTable = {
+  headers: [
+    { label: "value", name: "accepted values", style: ["width: 30%"] },
+    { label: "example", name: "examples", style: ["width: 70%"] },
+  ],
+  rows: [
+    {
+      value: "plain javascript object",
+      example: `+loading="{id: 79, name: 'hat', in_stock: true}"`,
+    },
+    {
+      value: "function resolves to plain object",
+      example: '+loading="fetchItem()"',
+    },
+  ],
+};
+
 export const plainDemo = {
   demo: `
 <div +loading="{name: 'Jason'}">
@@ -148,7 +165,7 @@ export const hashRoot = {
       <div>isRegistered: \${isRegistered}<span>
     </div>
     <br>
-    <div +loading#root#debug="{isRegistered: user?true:false}">
+    <div +loading#root="{isRegistered: user?true:false}">
       <div class="narration">
         #root will only inherit from the root scope.
       </div>

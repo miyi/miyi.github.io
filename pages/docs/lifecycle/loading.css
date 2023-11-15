@@ -2,18 +2,16 @@
   width: 100%;
   display: inline-grid;
   grid-template-columns: 1fr 2fr;
-  grid-gap: 0.5rem;
 }
 .rule-grid > * {
   font-size: 0.9rem;
   font-weight: 200;
-  padding: 1rem;
-  border-radius: 0.25rem;
-  background-color: #433760;
+  padding: 0.25rem;
+  border-bottom: 1px solid #71609a;
 }
 .rule-grid .header {
   font-weight: bolder;
-  font-size: larger;
-  color: #cf75e3;
-  background-color: #71609a;
+  font-size: 1rem;
+  filter: brightness(110%);
+  border-bottom: 2px solid #71609a;
 }/*# sourceMappingURL=loading.css.map */
