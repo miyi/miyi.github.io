@@ -58,7 +58,17 @@
         $style="$scope.style"
         $class="$scope.classnames"
       >
-        <td $each="headers">${$scope[item.label]}</td>
+        <td $each="headers">
+          <span $exist="typeof $scope[item.label] === 'string'"
+            >${$scope[item.label]}</span
+          >
+          <div
+            $exist="$scope[item.label].constructor === Array"
+            style="display: flex; flex-direction: column"
+          >
+            <div $each="$scope[item.label]">${item}</div>
+          </div>
+        </td>
       </tr>
     </table>
   </template>
@@ -69,7 +79,7 @@
       {}
     ],
     rows: [
-      {one: str, two: str, three: str, style: [], classnames: []},
+      {one: str/[], two: str/[], three: str/[], style: [], classnames: []},
       {...},
       {...},
     ],

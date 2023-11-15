@@ -36,15 +36,6 @@
           javscript scoping rules.
         </tip>
         <div class="sub-section">
-          <div id="rules" class="sub-title">Rules:</div>
-          <div class="letter-st rule-grid">
-            <div class="header">accepted values</div>
-            <div class="header">example</div>
-            <div>plain javascript object</div>
-            <div>+loading="{id: 79, name: 'hat', in_stock: true}"</div>
-            <div>function</div>
-            <div>+loading="fetchItem()"</div>
-          </div>
           <doc_table +loading="rulesTable"></doc_table>
         </div>
         <div class="sub-section" +loading#plain="{label_fulltab: true}">
@@ -95,25 +86,7 @@
       <div class="section">
         <div id="decorators" class="section-title">Decorators</div>
         <div class="sub-section">
-          <div class="letter-st rule-grid">
-            <div class="header">Name</div>
-            <div class="header">Purpose</div>
-            <div>+loading#root</div>
-            <div>
-              the scope initiated with #root inherits directly from the root
-              scope.
-            </div>
-            <div>+loading#plain</div>
-            <div>
-              When the state variables initiated in +loading are all
-              non-dynamic, #plain will help improve load speed.
-            </div>
-            <div>+loading#init</div>
-            <div>
-              Specifically designed to work with modules, #init will initiate
-              all preset values of that component.
-            </div>
-          </div>
+          <doc_table +loading="decoratorsTable"></doc_table>
         </div>
         <div class="sub-section">
           <div id="root" class="sub-title">#root</div>
@@ -135,12 +108,12 @@
             </div>
           </demo_box>
           <div id="init" class="sub-title">#init</div>
-          <demo_box +loading#plain="{...plainDemo}">
+          <demo_box>
             <div class="flex-row gap">
-              <demo_html
-                +loading#plain="{label: '#init', css: overflow}"
-              ></demo_html>
-              <demo_browser></demo_browser>
+              <demo_code
+                +loading="{files: [usingHashInit, settingHashInit]}"
+              ></demo_code>
+              <demo_browser +loading="{...hashInitBrowser}"></demo_browser>
             </div>
           </demo_box>
         </div>

@@ -82,6 +82,7 @@
   table {
     color: $text-color-lite;
     text-align: left;
+
     th {
       padding: 0.25rem 0;
       border-bottom: 2px solid $border-color-lite;
@@ -91,6 +92,7 @@
     }
 
     td {
+      vertical-align: baseline;
       padding: 0.25rem 0;
       border-bottom: 1px solid $border-color;
       font-weight: 200;

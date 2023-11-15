@@ -13,6 +13,9 @@
 .basic-demo-card .narration {
   color: rgb(61, 59, 59);
 }
+.basic-demo-card .narration span {
+  color: purple;
+}
 .basic-demo-card span {
   font-size: 1.25rem;
 }

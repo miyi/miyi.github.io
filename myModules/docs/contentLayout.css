@@ -86,6 +86,7 @@
   font-size: 1.1rem;
 }
 .content-layout table td {
+  vertical-align: baseline;
   padding: 0.25rem 0;
   border-bottom: 1px solid #5a4e76;
   font-weight: 200;

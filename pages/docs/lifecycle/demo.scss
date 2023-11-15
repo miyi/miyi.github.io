@@ -10,7 +10,10 @@
   color: purple;
   padding: 1rem;
   .narration {
-    color: rgb(61, 59, 59)
+    color: rgb(61, 59, 59);
+    span {
+      color: purple;
+    }
   }
   span {
     font-size: 1.25rem;
