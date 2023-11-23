@@ -1,0 +1,85 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      content_layout: "/myModules/docs/contentLayout.html",
+      js: "./loaded.js",
+      leaderline: "/components/leaderline/leader-line.min.js",
+      demo_box: "/components/demo_box/index.html",
+      grid_styles: "/styles/grid_styles.css",
+      demo_styles: "./demo.css"
+    }
+  </script>
+  <template id="view">
+    <content_layout
+      +loading="{...headings, overflow: 'overflow: scroll', label_fulltab: true}"
+    >
+      <div class="letter banner">
+        <div class="category">lifecycle</div>
+        <div class="directive">+loaded</div>
+        <div class="description">
+          immediately triggers after the element has been attached to the DOM
+          tree.
+        </div>
+        <div class="diagram">diagram</div>
+      </div>
+      <div class="section">
+        <div id="basic" class="section-title">Basic usage</div>
+        <div class="letter">
+          +loaded triggers once immediately after the element has been created.
+          This means, if the +loading directive is present in the same element
+          then +loaded will have access to the state variables defined in
+          +loading. +loaded can also take advantage of the $node element
+          selector since the directive is triggered after the element has been
+          created.
+        </div>
+        <div class="sub-section letter">
+          <div id="rules" class="sub-title">Rules</div>
+          <doc_table +loading="rulesTable"></doc_table>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Examples</div>
+        <div class="sub-section">
+          <div id="scope" class="sub-title">Scope operation</div>
+          <div class="letter">
+            +loaded can manipulate the current scope. We can't operate on
+            current scope values directly in +loading because the value hasn't
+            been created yet.
+          </div>
+          <demo_box +loading="{...currentScopeDemo}">
+            <div class="flex-row gap">
+              <demo_html
+                +loading="{label: 'scope operation', css: overflow}"
+              ></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div id="dom" class="sub-title">DOM selecton</div>
+          <div class="letter">
+            +loaded triggers after DOM element creation, meaning we can now
+            select the element via $node. This is useful
+          </div>
+          <demo_box +loading="{...domSelectionDemo}">
+            <div class="flex-row gap">
+              <demo_html></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div class="letter">
+            This behavior is particularly useful when using 3rd party libraries
+            that need to manipulate the DOM.
+          </div>
+          <demo_box>
+            <div class="flex-row gap">
+              <demo_code
+                +loading="{files: [leaderlineHtml,leaderlineJs], css: 'height: 280px;'}"
+              ></demo_code>
+              <demo_browser +loading="{...leaderlineBrowser}"></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+      </div>
+    </content_layout>
+  </template>
+</html>

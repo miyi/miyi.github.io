@@ -64,6 +64,16 @@ return {
             modules: "loading",
             constants: { content: "loading", title: "+loading" },
           },
+          {
+            path: "loaded",
+            modules: "loaded",
+            constants: { content: "loaded", title: "+loaded" },
+          },
+          {
+            path: "unloading",
+            modules: "unloading",
+            constants: { content: "unloading", title: "+unloading" },
+          },
         ],
       },
     ],

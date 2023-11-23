@@ -3,7 +3,6 @@
     {
       view: "#view",
       concept_card: './components/concept_card.html',
-      content_block: './components/content_block.html',
       js: './homepage.js',
       styles: './homepage.css',
       demo_box: '/components/demo_box/index.html',
@@ -139,12 +138,8 @@
           <div class="sample-title">abstractions</div>
           <demo_box>
             <div class="demo-grid">
-              <demo_code
-                +loading#init="viewModuleDemoLoading()"
-              ></demo_code>
-              <demo_code
-                +loading#init="namespaceDemoLoading()"
-              ></demo_code>
+              <demo_code +loading#init="viewModuleDemoLoading()"></demo_code>
+              <demo_code +loading#init="namespaceDemoLoading()"></demo_code>
             </div>
           </demo_box>
         </div>

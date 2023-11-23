@@ -1,0 +1,76 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      content_layout: "/myModules/docs/contentLayout.html",
+      js: "./unloading.js",
+      demo_box: "/components/demo_box/index.html",
+      grid_styles: "/styles/grid_styles.css",
+      demo_styles: "./demo.css"
+    }
+  </script>
+  <template id="view">
+    <content_layout +loading="{...headings, overflow: 'overflow: scroll'}">
+      <div class="letter banner">
+        <div class="category">lifecycle</div>
+        <div class="directive">+unloading</div>
+        <div class="description">
+          Triggers immediately before the element is removed from the DOM tree.
+        </div>
+        <div class="diagram">diagram</div>
+      </div>
+      <div class="section">
+        <div id="basic" class="section-title">Basic usage</div>
+        <div class="letter">
+          +unloading triggers once immidiately before the host element is
+          removed from the DOM.
+        </div>
+        <div class="sub-section">
+          <div class="sub-title">rules</div>
+          <doc_table +loading="{...rulesTable}"></doc_table>
+        </div>
+      </div>
+      <div class="section" +loading#plain="{label_fulltab: true}">
+        <div id="examples" class="section-title">Examples</div>
+        <div class="letter">
+          Creation and destrustion of DOM elements can be controlled directly
+          from dagger directives.
+        </div>
+        <div class="sub-section">
+          <div id="exist" class="sub-title">$exist</div>
+          <div class="letter">
+            The $exist controls the creation and destruction of an element.
+          </div>
+          <demo_box +loading="{...dollarExistDemo}">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <tip>
+            <div>
+              In dagger's order of operations, $exist triggers before all the
+              lifecycle directives.
+            </div>
+          </tip>
+        </div>
+        <div class="sub-section">
+          <div id="each" class="sub-title">$each</div>
+          <div class="letter">
+            +unloading can be triggered by the $each directive. $each creates an
+            element for every item in an array. It also watches the array for
+            changes so that the browser always matches the array data. When
+            we pop an item from the array, dagger will remove the element that is no
+            longer part of the array.
+          </div>
+          <demo_box +loading="{...dollarEachDemo}">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+      </div>
+    </content_layout>
+  </template>
+</html>

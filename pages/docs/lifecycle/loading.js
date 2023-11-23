@@ -70,18 +70,24 @@ export const plainDemo = {
 
 export const statementDemo = {
   demo: `
-<ul +loading="fetchItem()">
+<ul +loading="resolveAfter2Seconds()">
   <li>\${id}<li>
   <li>\${name}</li>
   <li>\${stocked}</li>
 <ul>
 
 <script>
-  export const fetchItem = () => ({
-    id: 79,
-    name: "coffee grinder",
-    stocked: true
-  })
+  function resolveAfter2Seconds() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          id: 79,
+          name: 'coffee grinder',
+          stocked: true
+        });
+      }, 2000);
+    });
+  }
 </script>
   `,
   html: `

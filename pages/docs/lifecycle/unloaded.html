@@ -1,0 +1,37 @@
+<htm>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      content_layout: "/myModules/docs/contentLayout.html",
+      js: "./unloading.js",
+      demo_box: "/components/demo_box/index.html",
+      grid_styles: "/styles/grid_styles.css",
+      demo_styles: "./demo.css"
+    }
+  </script>
+  <template id="view">
+    <comtent_layout +loading="{...headings, }">
+      <div class="letter banner">
+        <div class="category">lifecycle</div>
+        <div class="directive">+unloaded</div>
+        <div class="description">
+          Triggers immediately after the element is removed from the DOM tree.
+        </div>
+        <div class="diagram">diagram</div>
+      </div>
+      <section>
+        <div id="basic" class="section-title">Basic usage</div>
+        <div class="letter">
+          The +unloaded directive triggers after +unloading. At this stage of
+          the lifecycle, we can no longer select the host element via $node, nor
+          can we use the $scope variable because the scope environment is
+          already lost.
+        </div>
+        <div class="sub-section">
+          <div id="rules" class="sub-title">Rules</div>
+          <doc_table +loading=""></doc_table>
+        </div>
+      </section>
+    </comtent_layout>
+  </template>
+</htm>
