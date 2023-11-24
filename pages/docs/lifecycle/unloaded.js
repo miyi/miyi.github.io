@@ -3,6 +3,9 @@ export const headings = {
     { level: 1, hash: "basic", label: "Basic usage" },
     { level: 2, hash: "rules", label: "Rules" },
     { level: 1, hash: "examples", label: "examples" },
+    { level: 2, hash: "exist", label: "$each" },
+    { level: 2, hash: "dom", label: "dom selection" },
+    { level: 2, hash: "each", label: "$each" },
   ],
 };
 
@@ -89,5 +92,45 @@ export const domSelectionDemo = {
     toggle exist value
   </button>
 </div>
+  `,
+};
+
+export const eachDemo = {
+  demo: `
+<div +loading="{
+  fruits: [
+    'apple',
+    'orange',
+    'peach',
+  ]
+}">
+  <div $each="array"
+    +unloaded="alert('removing '+item)"
+  >
+    \${item}
+  </div>
+  <button +click="fruits?fruits.pop():null">
+    pop it
+  </button>
+<div>
+  `,
+  html: `
+<div class="basic-demo-card" +loading="{
+  fruits: [
+    'apple',
+    'orange',
+    'peach',
+  ]
+}">
+  <div class="purple center" $each="fruits"
+    +unloaded="alert(item + ' is removed.')"
+  >
+    \${item}
+  </div>
+  <button class="center" +click="fruits?fruits.pop():null">
+    pop it
+  </button>
+<div>
+  
   `,
 };

@@ -46,12 +46,21 @@
               <demo_browser></demo_browser>
             </div>
           </demo_box>
-          <div class="letter">
+          <div id="dom" class="letter">
             Unlike +unloading, +unloaded triggers after the element is already
             removed, So if we perform dom selection in +unloaded we will get
             null.
           </div>
           <demo_box +loading="{...domSelectionDemo}">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+        <div class="sub-section">
+          <div id="each" class="sub-title">$each</div>
+          <demo_box +loading="{...eachDemo}">
             <div class="flex-row gap">
               <demo_html +loading="{css: overflow}"></demo_html>
               <demo_browser></demo_browser>
