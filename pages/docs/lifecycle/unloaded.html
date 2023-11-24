@@ -1,16 +1,16 @@
-<htm>
+<html>
   <script type="dagger/modules">
     {
       view: "#view",
       content_layout: "/myModules/docs/contentLayout.html",
-      js: "./unloading.js",
+      js: "./unloaded.js",
       demo_box: "/components/demo_box/index.html",
       grid_styles: "/styles/grid_styles.css",
       demo_styles: "./demo.css"
     }
   </script>
   <template id="view">
-    <comtent_layout +loading="{...headings, }">
+    <content_layout +loading="{...headings, overflow: 'overflow: scroll'}">
       <div class="letter banner">
         <div class="category">lifecycle</div>
         <div class="directive">+unloaded</div>
@@ -19,19 +19,46 @@
         </div>
         <div class="diagram">diagram</div>
       </div>
-      <section>
+      <div class="section">
         <div id="basic" class="section-title">Basic usage</div>
         <div class="letter">
           The +unloaded directive triggers after +unloading. At this stage of
           the lifecycle, we can no longer select the host element via $node, nor
           can we use the $scope variable because the scope environment is
-          already lost.
+          already destroyed.
         </div>
         <div class="sub-section">
           <div id="rules" class="sub-title">Rules</div>
-          <doc_table +loading=""></doc_table>
+          <doc_table +loading="rulesTable"></doc_table>
         </div>
-      </section>
-    </comtent_layout>
+      </div>
+      <div class="section" +loading="{label_fulltab: true}">
+        <div class="section-title">Examples</div>
+        <div class="sub-section">
+          <div id="exist" class="sub-title">$exist</div>
+          <div class="letter">
+            $exist controls the existance of an element in the dom. +unloaded
+            triggers after $exist removes the element from the DOM tree.
+          </div>
+          <demo_box +loading="{...existDemo}">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div class="letter">
+            Unlike +unloading, +unloaded triggers after the element is already
+            removed, So if we perform dom selection in +unloaded we will get
+            null.
+          </div>
+          <demo_box +loading="{...domSelectionDemo}">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+      </div>
+    </content_layout>
   </template>
-</htm>
+</html>

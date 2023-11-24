@@ -74,6 +74,11 @@ return {
             modules: "unloading",
             constants: { content: "unloading", title: "+unloading" },
           },
+          {
+            path: "unloaded",
+            modules: "unloaded",
+            constants: { content: "unloaded", title: "+unloaded" },
+          }
         ],
       },
     ],

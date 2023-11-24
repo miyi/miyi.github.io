@@ -2,7 +2,7 @@ const lifecycle_doc_uris ={
   loading: "/pages/docs/lifecycle/loading.html",
   loaded: "/pages/docs/lifecycle/loaded.html",
   unloading: "/pages/docs/lifecycle/unloading.html",
-  unloaded: "/pages/docs/lifecycle/unloading.html",
+  unloaded: "/pages/docs/lifecycle/unloaded.html",
 }
 
 const quick_demo_page = {
