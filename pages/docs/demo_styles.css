@@ -1,0 +1,61 @@
+.basic-demo-card {
+  background-color: lightgray;
+  border-radius: 0.5rem;
+  box-shadow: 10px 10px 5px grey;
+  width: 14rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  color: purple;
+  padding: 1rem;
+}
+.basic-demo-card .narration {
+  color: rgb(61, 59, 59);
+}
+.basic-demo-card .narration span {
+  color: purple;
+}
+.basic-demo-card span {
+  font-size: 1.25rem;
+}
+.basic-demo-card li {
+  margin-left: 0.5rem;
+}
+.basic-demo-card button {
+  width: 100%;
+}
+
+.el-container {
+  display: flex;
+  color: lightgray;
+}
+.el-container > * {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.el-container .start {
+  background-color: purple;
+}
+.el-container .end {
+  background-color: blue;
+}
+
+.center {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.purple {
+  padding: 1rem;
+  background-color: purple;
+  color: lightgray;
+  font-weight: 400;
+  border-radius: 0.5rem;
+}/*# sourceMappingURL=demo_styles.css.map */

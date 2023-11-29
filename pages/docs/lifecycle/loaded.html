@@ -7,7 +7,7 @@
       leaderline: "/components/leaderline/leader-line.min.js",
       demo_box: "/components/demo_box/index.html",
       grid_styles: "/styles/grid_styles.css",
-      demo_styles: "./demo.css"
+      demo_styles: "../demo_styles.css"
     }
   </script>
   <template id="view">
@@ -63,12 +63,12 @@
           <demo_box +loading="{...domSelectionDemo}">
             <div class="flex-row gap">
               <demo_html></demo_html>
-              <demo_browser></demo_browser>
+              <demo_browser></demo_browser> 
             </div>
           </demo_box>
           <div class="letter">
             This behavior is particularly useful when using 3rd party libraries
-            that need to manipulate the DOM.
+            that need to manipulate the DOM. 
           </div>
           <demo_box>
             <div class="flex-row gap">

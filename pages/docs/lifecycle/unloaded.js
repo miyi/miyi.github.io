@@ -1,8 +1,8 @@
 export const headings = {
   headings: [
     { level: 1, hash: "basic", label: "Basic usage" },
-    { level: 2, hash: "rules", label: "Rules" },
-    { level: 1, hash: "examples", label: "examples" },
+    { level: 2, hash: "rules", label: "rules" },
+    { level: 1, hash: "examples", label: "Examples" },
     { level: 2, hash: "exist", label: "$each" },
     { level: 2, hash: "dom", label: "dom selection" },
     { level: 2, hash: "each", label: "$each" },

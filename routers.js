@@ -78,7 +78,12 @@ return {
             path: "unloaded",
             modules: "unloaded",
             constants: { content: "unloaded", title: "+unloaded" },
-          }
+          },
+          {
+            path: "checked",
+            modules: "checked",
+            constants: { content: "checked", title: "$checked" },
+          },
         ],
       },
     ],

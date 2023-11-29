@@ -1,8 +1,12 @@
-const lifecycle_doc_uris ={
+const doc_lifecycle_uris ={
   loading: "/pages/docs/lifecycle/loading.html",
   loaded: "/pages/docs/lifecycle/loaded.html",
   unloading: "/pages/docs/lifecycle/unloading.html",
   unloaded: "/pages/docs/lifecycle/unloaded.html",
+}
+
+const doc_control_uris = {
+  checked: '/pages/docs/control/checked.html'
 }
 
 const quick_demo_page = {
@@ -26,7 +30,8 @@ const tutorials = {
 return {
   home: "/pages/homepage/homepage.html",
   ...page_layouts,
-  ...lifecycle_doc_uris,
+  ...doc_lifecycle_uris,
+  ...doc_control_uris,
   ...tutorials,
   ...quick_demo_page,
 };
