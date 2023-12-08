@@ -15,14 +15,14 @@ export const rulesTable = {
   ],
   rows: [
     {
-      value: "javascript statement",
+      value: "single expression",
       example: [
         `+loaded="alert('I am created.')"`,
         `+loaded="myFunction($scope)"`,
       ],
     },
     {
-      value: "multiple statements",
+      value: "multiple expressions",
       example: [
         `+loaded="alert('first message'),alert('second message')"`,
         `+loaded="myFunction1($scope),myfunction2($node)"`,

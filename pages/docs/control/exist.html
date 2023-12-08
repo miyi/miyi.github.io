@@ -14,29 +14,62 @@
   <template id="view">
     <content_layout
       +loading#plain="{
-      headings: composeHeadings('checked', control_data),
+      headings: composeHeadings('exist', control_data),
       overflow: 'overflow: scroll'
     }"
     >
       <div class="letter banner">
         <div class="category">control directives</div>
         <div class="directive">$exist</div>
-        <div class="description">
-          binds input values as boolean data to the state
-        </div>
+        <div class="description">controls the existence of the element</div>
         <div class="diagram">diagram</div>
       </div>
       <div class="section">
         <div id="basic" class="section-title">Basic Usage</div>
         <div class="letter">
-          The $checked directive works specifically with radio and checkbox input
-          elements. It toggles the assigned scope variable as true when the checkbox or radio element is checked.
+          The $exist directive controls whether the DOM renders the host
+          element. Dagger renders the element when it's assigned statement
+          evaluates as true, and removes the element when false. Like all
+          control directives, $exist watch over changes in the target scope
+          variable to update the DOM.
         </div>
+        <tip
+          >$exist triggers before all other elements. This means that $exist
+          cannot read the $scope created by the same element since +loading has
+          yet to be triggered.</tip
+        >
         <div class="sub-section">
-          <div class="sub-title">
-            rules
+          <div class="sub-title">rules</div>
+          <doc_table +loading="rulesTable"></doc_table>
+        </div>
+        <div class="sub-section" +loading="{label_fulltab: true}">
+          <div class="sub-title">Examples</div>
+          <div class="letter">
+            This example illustrates the most basic example of how the browser
+            renders elements when $exist is true, and when $exist is false.
           </div>
-          <doc_table +loading=""></doc_table>
+          <demo_box +loading="{...basicExample_static}">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div class="letter">
+            $exist will also accept a scope variable, and will watch the
+            variable for change. In this example we created a boolean scope
+            variable named visible, assigned visible to $exist, and created a
+            button to toggle the value of visible so that we can control the
+            visibility of the text box.
+          </div>
+          <demo_box +loading="{...basicExample_scope}">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box>
+            <demo_browser +loading="basicExample_function_browser"></demo_browser>
+          </demo_box>
         </div>
       </div>
     </content_layout>

@@ -84,6 +84,11 @@ return {
             modules: "checked",
             constants: { content: "checked", title: "$checked" },
           },
+          {
+            path: "exist",
+            modules: "exist",
+            constants: { content: "exist", title: "$exist" },
+          },
         ],
       },
     ],

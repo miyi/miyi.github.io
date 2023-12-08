@@ -6,7 +6,8 @@ const doc_lifecycle_uris ={
 }
 
 const doc_control_uris = {
-  checked: '/pages/docs/control/checked.html'
+  checked: '/pages/docs/control/checked.html',
+  exist: '/pages/docs/control/exist.html',
 }
 
 const quick_demo_page = {

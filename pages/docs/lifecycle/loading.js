@@ -22,7 +22,7 @@ export const rulesTable = {
       example: `+loading="{id: 79, name: 'hat', in_stock: true}"`,
     },
     {
-      value: "function resolves to plain object",
+      value: "expression that resolves to a plain object",
       example: [
         '+loading="fetchItem()"',
         'export const fetchItems = () => ({id: 15, name: "frame clamp" })',

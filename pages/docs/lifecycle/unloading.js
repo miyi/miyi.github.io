@@ -15,14 +15,14 @@ export const rulesTable = {
   ],
   rows: [
     {
-      value: "javascript statement",
+      value: "single expression",
       example: [
         `+unloading="alert('Soon to be removed')"`,
         `+unloading="myFunction($scope)"`,
       ],
     },
     {
-      value: "multiple javascript statements",
+      value: "multiple expressions",
       example: [
         `+unloading="alert('Bye!'),console.log('Bye!')"`,
         `+unloading="myFunction1($scope),myfunction2($node)"`,

@@ -16,14 +16,14 @@ export const rulesTable = {
   ],
   rows: [
     {
-      value: "javascript statement",
+      value: "single expression",
       example: [
         `+unloaded="alert('already removed')"`,
         `+unloaded="myFunction()"`,
       ],
     },
     {
-      value: "multiple javascript statements",
+      value: "multiple expressions",
       example: [
         `+unloaded="alert('Bye!'),console.log('Bye!')"`,
         `+unloaded="myFunction1(),myfunction2()"`,
