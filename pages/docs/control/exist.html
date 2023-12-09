@@ -34,9 +34,9 @@
           variable to update the DOM.
         </div>
         <tip
-          >$exist triggers before all other elements. This means that $exist
-          cannot read the $scope created by the same element since +loading has
-          yet to be triggered.</tip
+          >$exist triggers before the lifecycle directives, but after $each.
+          This means that $exist cannot read the $scope created inside the same
+          element, since +loading has yet to be triggered.</tip
         >
         <div class="sub-section">
           <div class="sub-title">rules</div>
@@ -68,7 +68,14 @@
             </div>
           </demo_box>
           <demo_box>
-            <demo_browser +loading="basicExample_function_browser"></demo_browser>
+            <div class="flex-row gap">
+              <demo_code
+                +loading="{files: [basicExample_expression_html, basicExample_expression_js]}"
+              ></demo_code>
+              <demo_browser
+                +loading="basicExample_expression_browser"
+              ></demo_browser>
+            </div>
           </demo_box>
         </div>
       </div>
