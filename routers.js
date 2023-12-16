@@ -89,6 +89,11 @@ return {
             modules: "exist",
             constants: { content: "exist", title: "$exist" },
           },
+          {
+            path: "each",
+            modules: "each",
+            constants: { content: "each", title: "$each" }
+          }
         ],
       },
     ],

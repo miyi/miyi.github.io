@@ -59,3 +59,38 @@
   font-weight: 400;
   border-radius: 0.5rem;
 }
+
+.demo-menu-item {
+  display: flex;
+  width: 100%;
+  color: black;
+  .price {
+    flex-grow: 1;
+    text-align: right;
+    display: flex;
+    font-size: 1rem;
+    &:before {
+      content: "";
+      border-bottom: 2px dotted #aaa;
+      flex: 1;
+      margin: 0 10px;
+    }
+  }
+  &.veg {
+    color: darkgreen;
+  }
+}
+
+.todo {
+  display: flex;
+  width: 100%;
+  border: 1px solid purple;
+  border-radius: 8px;
+  margin: 0.25rem 0;
+  padding: 0.25rem;
+  &.completed {
+    border-color: green;
+    color: green;
+    text-decoration: line-through;
+  }
+}

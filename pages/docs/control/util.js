@@ -15,3 +15,11 @@ export const composeHeadings = (directive, control_data) => {
 
   return headings;
 };
+
+export const composeRulesTable = (rows) => ({
+  headers: [
+    { label: "value", name: "accepted values", style: ["width: 33%"] },
+    { label: "example", style: ["width: 67%"] },
+  ],
+  rows: rows,
+});

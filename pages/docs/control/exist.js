@@ -117,7 +117,7 @@ export const basicExample_expression_html = {
 
 export const basicExample_expression_js = {
   type: "js",
-  label: "js",
+  label: "checkSize.js",
   code: `
 export const checkSize = (item, filter) => {
   if (filter) {
@@ -125,8 +125,8 @@ export const checkSize = (item, filter) => {
   }
   return true;
 };
-  `
-}
+  `,
+};
 
 export const basicExample_expression_browser = {
   html: `

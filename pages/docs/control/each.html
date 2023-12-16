@@ -14,30 +14,146 @@
   <template id="view">
     <content_layout
       +loading#plain="{
-      headings: composeHeadings('checked', control_data),
-      overflow: 'overflow: scroll'
-    }"
+        headings: composeHeadings('each', control_data),
+        overflow: 'overflow: scroll'  
+      }"
     >
       <div class="letter banner">
         <div class="category">control directives</div>
         <div class="directive">$each</div>
         <div class="description">
-          binds input values as boolean data to the state
+          loops over an array to create mutiple components
         </div>
         <div class="diagram">diagram</div>
       </div>
       <div class="section">
         <div id="basic" class="section-title">Basic Usage</div>
         <div class="letter">
-          The $checked directive works specifically with radio and checkbox input
-          elements. It toggles the assigned scope variable as true when the checkbox or radio element is checked.
+          The $each directive will create multiples of the original component,
+          which includes the host element and everything inside it's html tags.
+          Components created by the $each directive will receive with 3 special
+          scope variables:
         </div>
+        <div>
+          <ul>
+            <li>item - the array object is stored under the item key</li>
+            <li>index - the index of the object of the array</li>
+            <li>key - key is the index in string format</li>
+          </ul>
+        </div>
+        <div class="letter">
+          You can take advantage of these special scope variables to create
+          dynamic content. $each will also watch the array scope variable to
+          update browser.
+        </div>
+        <div></div>
+        <tip>
+          $each is the first directive to trigger out of all the directives,
+          before $exist and before all the lifecycle directives. Therefore $each
+          does not have access to the the scope variables inside the +loading
+          directive on the same element. However, +loading will have access to
+          all the $each special scope varialbes.
+        </tip>
         <div class="sub-section">
-          <div class="sub-title">
-            rules
-          </div>
-          <doc_table +loading=""></doc_table>
+          <div id="rules" class="sub-title">rules</div>
+          <doc_table +loading="composeRulesTable(rulesTableRows)"></doc_table>
         </div>
+        <div class="sub-section" +loading="{label_fulltab: true}">
+          <div id="examples" class="sub-title">Examples</div>
+          <div class="letter">
+            This example illustrates how use the special scope variables created
+            by $each.
+          </div>
+          <demo_box +loading="basicExample">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div class="letter">
+            Both elements inside the array and the component can be more
+            complex.
+          </div>
+          <demo_box +loading="basicExample_menu">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div class="letter">
+            $each is designed with scope variables in mind, although it isn't
+            required. $each will automatically re-trigger when there is change
+            in the assigned scope variable. In this example, pressing enter
+          </div>
+          <demo_box>
+            <div class="flex-row gap">
+              <demo_code
+                +loading="{files: [basicExample_todo_html, basicExample_todo_js ], css: overflow}"
+              ></demo_code>
+              <demo_browser +loading="basicExample_todo_browser"></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+      </div>
+      <div class="section">
+        <div id="unique" class="section-title">Unique Decorators</div>
+        <div class="letter">
+          Unique decorators for $each are designed for renaming the the $each
+          created scope variables in case that the variable names conflict with
+          application needs.
+        </div>
+        <div class="sub-section" +loading="{label_fulltab: true}">
+          <div id="item" class="sub-title">#item</div>
+          <div class="letter">
+            used for renaming the $each created item scope variable. To use, add
+            comma : and string of the new variable name after #item. Example
+            $each#item:el, insteading to using item to access the array content
+            we can now use el.
+          </div>
+          <demo_box +loading="uniqueDecorator_item">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div id="item" class="sub-title">#index</div>
+          <div class="letter">
+            used for renaming the $each created index scope variable. To use,
+            add comma : and string of the new variable name after #index.
+            Example $each#index:dex, insteading to using index to access the
+            array index number we can now use dex.
+          </div>
+          <demo_box +loading="uniqueDecorator_index">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div id="item" class="sub-title">#key</div>
+          <div class="letter">
+            used for renaming the $each created index scope variable. To use,
+            add comma : and string of the new variable name after #key. Example
+            $each#key:num, insteading to using key to access the array index
+            string we can now use num.
+          </div>
+          <demo_box +loading="uniqueDecorator_key">
+            <div class="flex-row gap">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+      </div>
+      <div class="section">
+        <div id="common" class="section-title">Common Decorators</div>
+        <div id="input" class="sub-title">#input</div>
+        <div class="letter">#input has not affect on the $exist directive.</div>
+        <div id="lazy" class="sub-title">#lazy</div>
+        <div>#name</div>
+        <div>#once</div>
+        <div>#oneway</div>
+        <div>#remove</div>
+        <div>#router</div>
       </div>
     </content_layout>
   </template>

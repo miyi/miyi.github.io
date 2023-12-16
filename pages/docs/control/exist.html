@@ -39,11 +39,11 @@
           element, since +loading has yet to be triggered.</tip
         >
         <div class="sub-section">
-          <div class="sub-title">rules</div>
+          <div  id="rules" class="sub-title">rules</div>
           <doc_table +loading="rulesTable"></doc_table>
         </div>
         <div class="sub-section" +loading="{label_fulltab: true}">
-          <div class="sub-title">Examples</div>
+          <div id="examples" class="sub-title">Examples</div>
           <div class="letter">
             This example illustrates the most basic example of how the browser
             renders elements when $exist is true, and when $exist is false.
@@ -67,6 +67,11 @@
               <demo_browser></demo_browser>
             </div>
           </demo_box>
+          <div class="letter">
+            $exist will evaluate a javascript expression for a boolean result.
+            You can use scope variables in the parameters of your expression,
+            and $exist will watch each variable to update the browser on change.
+          </div>
           <demo_box>
             <div class="flex-row gap">
               <demo_code
@@ -78,6 +83,21 @@
             </div>
           </demo_box>
         </div>
+      </div>
+      <div class="section">
+        <div id="unique" class="section-title">Unique Decorators</div>
+        <tip>There are no unique decorators for this directive.</tip>
+      </div>
+      <div class="section">
+        <div id="common" class="section-title">Common Decorators</div>
+        <div id="input" class="sub-title">#input</div>
+        <div class="letter">#input has not affect on the $exist directive.</div>
+        <div id="lazy" class="sub-title">#lazy</div>
+        <div>#name</div>
+        <div>#once</div>
+        <div>#oneway</div>
+        <div>#remove</div>
+        <div>#router</div>
       </div>
     </content_layout>
   </template>
