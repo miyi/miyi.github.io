@@ -9,6 +9,7 @@ const doc_control_uris = {
   checked: '/pages/docs/control/checked.html',
   exist: '/pages/docs/control/exist.html',
   each: '/pages/docs/control/each.html',
+  focus: '/pages/docs/control/focus.html',
 }
 
 const quick_demo_page = {

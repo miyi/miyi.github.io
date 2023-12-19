@@ -93,6 +93,11 @@ return {
             path: "each",
             modules: "each",
             constants: { content: "each", title: "$each" }
+          },
+          {
+            path: "focus",
+            modules: "focus",
+            constants: { content: "focus", title: "$focus" }
           }
         ],
       },

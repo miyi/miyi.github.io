@@ -1,3 +1,4 @@
+
 export const rulesTableRows = [
   {
     value: "array scope variable",

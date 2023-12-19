@@ -88,9 +88,10 @@ export const basicRadioDemo = {
 
 export const basicSelectDemo = {
   demo: `
-<div +loading="{status: [true, false]}">
+<div +loading="{status: [false, false]}">
   <div>Using $checked with select.</div>
   <select>
+    <option selected disabled hidden>Choose</option>
     <option $checked="status[0]" value="1">option1</option>
     <option $checked="status[1]" value="2">option2</option>
   </select>
@@ -105,7 +106,7 @@ export const basicSelectDemo = {
     <option $checked="status[0]">option1</option>
     <option $checked="status[1]">option2</option>
   </select>
-  <div>status: <span $text="status"></span></div>
+  <div>status: <span>\${JSON.stringify(status)}</span></div>
 </div>
   `,
 };

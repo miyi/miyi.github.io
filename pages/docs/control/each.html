@@ -81,9 +81,9 @@
             </div>
           </demo_box>
           <div class="letter">
-            $each is designed with scope variables in mind, although it isn't
-            required. $each will automatically re-trigger when there is change
-            in the assigned scope variable. In this example, pressing enter
+            $each is designed with scope variables in mind. In this example,
+            pressing enter pushes a task to the todos array, which triggers the
+            $each to create an addtional component.
           </div>
           <demo_box>
             <div class="flex-row gap">
@@ -116,7 +116,7 @@
               <demo_browser></demo_browser>
             </div>
           </demo_box>
-          <div id="item" class="sub-title">#index</div>
+          <div id="index" class="sub-title">#index</div>
           <div class="letter">
             used for renaming the $each created index scope variable. To use,
             add comma : and string of the new variable name after #index.
@@ -129,7 +129,7 @@
               <demo_browser></demo_browser>
             </div>
           </demo_box>
-          <div id="item" class="sub-title">#key</div>
+          <div id="key" class="sub-title">#key</div>
           <div class="letter">
             used for renaming the $each created index scope variable. To use,
             add comma : and string of the new variable name after #key. Example

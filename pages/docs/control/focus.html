@@ -1,0 +1,62 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      content_layout: "/myModules/docs/contentLayout.html",
+      js: "./focus.js",
+      demo_box: "/components/demo_box/index.html",
+      grid_styles: "/styles/grid_styles.css",
+      demo_styles: "../demo_styles.css",
+      rulebank: '/rulebank/directives.js',
+      util: './util.js'
+    }
+  </script>
+  <template id="view">
+    <content_layout
+      +loading#plain="{
+        headings: composeHeadings('focus', control_data),
+        overflow: 'overflow: scroll'
+      }"
+    >
+      <div class="letter banner">
+        <div class="category">control directives</div>
+        <div class="directive">$focus</div>
+        <div class="description">
+          controls the focus status of focusable elements
+        </div>
+        <div class="diagram">diagram</div>
+      </div>
+      <div class="section">
+        <div id="basic" class="section-title">Basic Usage</div>
+        <div class="letter">
+          Together with a scope variable, the $focus directive can dynamically
+          focus on certain elements. $focus evaluates the boolean outcome of its
+          assigned scope variable or expression to determine if the element is
+          in focus.
+        </div>
+
+        <tip>
+          Only focasable elements are compatible with $focus. These are all the
+          focusable elements: &lt;input&gt;, &lt;button&gt;, &lt;select&gt;,
+          &lt;textarea&gt;, &lt;a&gt;, &lt;area&gt;.
+        </tip>
+        <doc_table +loading="composeRulesTable(rulesTableRows)"></doc_table>
+        <div class="sub-section" +loading="{label_fulltab: true}">
+          <div id="example" class="sub-title">examples</div>
+          <demo_box +loading="basicExample">
+            <div class="flex-row gap">
+              <demo_html></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+      </div>
+      <div class="section">
+        <div id="unique" class="section-title">Unique Decorators</div>
+      </div>
+      <div class="section">
+        <div id="common" class="section-title">Common Decorators</div>
+      </div>
+    </content_layout>
+  </template>
+</html>
