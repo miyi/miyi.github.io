@@ -550,7 +550,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
       if (isOption || (Object.is(tagName, 'INPUT') && (isCheckbox || Object.is(type, 'radio')))) {
           let nodes = null;
           if (isOption) {
-              if (Object.is(data, node.selected)) { return; }
+            //   if (Object.is(data, node.selected)) { return; }
               node.selected = data;
               const select = parentNode;
               if (select) {

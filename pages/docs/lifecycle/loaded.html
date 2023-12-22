@@ -26,12 +26,7 @@
       <div class="section">
         <div id="basic" class="section-title">Basic usage</div>
         <div class="letter">
-          +loaded triggers once immediately after the element has been created.
-          This means, if the +loading directive is present in the same element
-          then +loaded will have access to the state variables defined in
-          +loading. +loaded can also take advantage of the $node element
-          selector since the directive is triggered after the element has been
-          created.
+          +loaded triggers immediately after the element has been created.
         </div>
         <div class="sub-section letter">
           <div id="rules" class="sub-title">Rules</div>
@@ -43,9 +38,8 @@
         <div class="sub-section">
           <div id="scope" class="sub-title">Scope operation</div>
           <div class="letter">
-            +loaded can manipulate the current scope. We can't operate on
-            current scope values directly in +loading because the value hasn't
-            been created yet.
+            +loaded can manipulate the scope created by +loading on the same
+            element.
           </div>
           <demo_box +loading="{...currentScopeDemo}">
             <div class="flex-row gap">
@@ -55,20 +49,11 @@
               <demo_browser></demo_browser>
             </div>
           </demo_box>
-          <div id="dom" class="sub-title">DOM selecton</div>
+          <div id="dom" class="sub-title">DOM selection</div>
           <div class="letter">
             +loaded triggers after DOM element creation, meaning we can now
-            select the element via $node. This is useful
-          </div>
-          <demo_box +loading="{...domSelectionDemo}">
-            <div class="flex-row gap">
-              <demo_html></demo_html>
-              <demo_browser></demo_browser> 
-            </div>
-          </demo_box>
-          <div class="letter">
-            This behavior is particularly useful when using 3rd party libraries
-            that need to manipulate the DOM. 
+            select the element via $node. This behavior is particularly useful
+            when using 3rd party libraries that require element selection.
           </div>
           <demo_box>
             <div class="flex-row gap">

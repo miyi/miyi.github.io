@@ -82,29 +82,6 @@ export const leaderlineHtml = {
   `,
 };
 
-export const domSelectionDemo = {
-  demo: `
-<div +loading="{e: null}">
-  <div +loaded="e=$node">
-    Change me!
-  </div>
-  <button +click="e.innerHTML='Changed!'">
-    Change text
-  </button>
-<div>
-  `,
-  html: `
-<div class="basic-demo-card" +loading="{e: null}">
-  <div class="start" +loaded="e=$node">
-    Change me!
-  </div>
-  <button +click="e.innerHTML='Changed!'">
-    Change text
-  </button>
-</div>
-  `,
-};
-
 export const leaderlineJs = {
   type: "js",
   label: "createLine.js",

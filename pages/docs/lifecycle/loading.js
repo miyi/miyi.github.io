@@ -28,6 +28,13 @@ export const rulesTable = {
         'export const fetchItems = () => ({id: 15, name: "frame clamp" })',
       ],
     },
+    {
+      value: "promise expression",
+      example: [
+        '+loading="fetchItem()"',
+        "export const fetchItems = () => fetch(...)",
+      ],
+    },
   ],
 };
 
@@ -104,7 +111,6 @@ export const nestedDemos = {
     demo: `
 <div +loading="{active: true}">
 
-  <div>Declaring multiple scopes:</div>
   <div>Child scopes will inherit from parent scopes.</div>
 
   <div +loading="{collapse: false}">
@@ -114,7 +120,6 @@ export const nestedDemos = {
     html: `
 <div class="basic-demo-card" +loading="{active: true}">
 
-  <div class="narration">Declaring multiple scopes:</div>
   <div class="narration">Child scopes will inherit from parent scopes.</div>
 
   <div +loading="{collapse: false}">
@@ -172,7 +177,7 @@ export const hashRoot = {
 }}">
   <div +loading="{isRegistered: user?true:false}">
     <div>
-      Normally scopes inherit from its parents
+      Normally a scope inherits from its parent.
     </div>
     <div>isRegistered: \${isRegistered}<span>
   </div>
@@ -193,7 +198,7 @@ export const hashRoot = {
   }}">
     <div +loading="{isRegistered: user?true:false}">
       <div class="narration">
-        Normally scopes inherit from its parents
+      Normally a scope inherits from its parent.
       </div>
       <div>isRegistered: \${isRegistered}<span>
     </div>
@@ -251,7 +256,7 @@ export const usingHashInit = {
   }
 </script>
 <body>
-  <name_tag +loading#init={}></name_tag>
+  <name_tag +loading#init="{}"></name_tag>
 </body>
   `,
 };

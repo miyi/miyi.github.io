@@ -10,6 +10,7 @@ const doc_control_uris = {
   exist: '/pages/docs/control/exist.html',
   each: '/pages/docs/control/each.html',
   focus: '/pages/docs/control/focus.html',
+  value: '/pages/docs/control/value.html'
 }
 
 const quick_demo_page = {

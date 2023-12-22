@@ -98,6 +98,11 @@ return {
             path: "focus",
             modules: "focus",
             constants: { content: "focus", title: "$focus" }
+          },
+          {
+            path: "value",
+            modules: "value",
+            constants: { content: "value", title: "$value" }
           }
         ],
       },

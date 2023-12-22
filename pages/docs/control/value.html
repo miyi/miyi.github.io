@@ -14,29 +14,59 @@
   <template id="view">
     <content_layout
       +loading#plain="{
-      headings: composeHeadings('checked', control_data),
+      headings: composeHeadings('value', control_data),
       overflow: 'overflow: scroll'
     }"
     >
       <div class="letter banner">
         <div class="category">control directives</div>
         <div class="directive">$value</div>
-        <div class="description">
-          binds input values as boolean data to the state
-        </div>
+        <div class="description">binds the input value to the scope.</div>
         <div class="diagram">diagram</div>
       </div>
       <div class="section">
         <div id="basic" class="section-title">Basic Usage</div>
         <div class="letter">
-          The $checked directive works specifically with radio and checkbox input
-          elements. It toggles the assigned scope variable as true when the checkbox or radio element is checked.
+          The $value directive is designed to synchronize the value of an input
+          element with a scope variable. The synchronization can either occur on
+          submission (by pressing enter), or you can use the #input directive to
+          synchronize on value change.
         </div>
+        <div class="letter">$value works with multiple input types:</div>
         <div class="sub-section">
-          <div class="sub-title">
-            rules
+          <div class="sub-title">rules</div>
+          <doc_table +loading="composeRulesTable(rulesTableRows)"></doc_table>
+        </div>
+        <div class="sub-section" +loading="{label_fulltab: true}">
+          <div class="sub-title">example</div>
+          <div class="letter">
+            In the first example we demo the default behavior where the assigned
+            scope variable only updates on enter. You can also use the #input
+            decorator to update the scope variable on change.
           </div>
-          <doc_table +loading=""></doc_table>
+          <demo_box>
+            <div class="flex-row gap" +loading="basicExample">
+              <demo_html></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div class="letter">
+            $value is a two way binding. This means that the value of the input
+            element will also change when the $value scope variable changes.
+          </div>
+          <demo_box>
+            <div class="flex-row gap" +loading="basicExample_2way">
+              <demo_html></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div class="letter">$value works with multiple input types.</div>
+          <demo_box>
+            <div class="flex-row gap" +loading="basicExample_multi">
+              <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
         </div>
       </div>
     </content_layout>

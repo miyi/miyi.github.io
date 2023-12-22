@@ -24,15 +24,15 @@
       <div class="section">
         <div id="basic" class="section-title">Basic usage</div>
         <div class="letter">
-          +loading is the only directive that can initiate new scope
-          environments. These values are accessible anywhere inside the host
-          element and all its children via the $scope object. You can also use
-          the shorthand to access all the fields inside the scope by directly
-          calling the fieldname as a standalone variable.
+          +loading can create new scope environments. These values are
+          accessible anywhere inside the host element and all its children via
+          the $scope object. You can also use the shorthand to access all the
+          fields inside the scope by directly calling the fieldname as a
+          standalone variable.
         </div>
         <tip>
-          The $scope object will inherit from all its parent scopes, similar to
-          javscript scoping rules.
+          +loading is the only directive where users can declare custom scope
+          variables.
         </tip>
         <div class="sub-section letter">
           <doc_table +loading="rulesTable"></doc_table>
@@ -59,10 +59,8 @@
         <div class="sub-section" +loading="{label_fulltab: true}">
           <div id="nested" class="sub-title">Nested scopes:</div>
           <div class="letter">
-            $scope will inherit all state values from its parent scope, so you
-            can access any values declared from the root scope all the way down
-            the scope chain to the current scope. This also means that you can
-            control children scopes by manipulating parent scope values.
+            $scope will inherit all state values from its parent scope. The
+            child scopes can freely read and update parent scope values.
           </div>
           <demo_box +loading#plain="{...nestedDemos.demo1}">
             <div class="flex-row gap">
