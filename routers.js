@@ -100,6 +100,11 @@ return {
             constants: { content: "focus", title: "$focus" }
           },
           {
+            path: "selected",
+            modules: "selected",
+            constants: { content: "selected", title: "$selected" }
+          },
+          {
             path: "value",
             modules: "value",
             constants: { content: "value", title: "$value" }

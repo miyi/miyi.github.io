@@ -1,3 +1,26 @@
+export const typeTable = {
+  headers: [
+    { label: "type", name: "type", style: ["width: 33%"] },
+    { label: "description", style: ["width: 67%"] },
+  ],
+  rows: [
+    { type: "color", description: "HEX color code" },
+    { type: "date", description: "date string" },
+    { type: "datetime-local", description: "YYYY-MM-DDThh:mm string " },
+    { type: "email", description: "string" },
+    { type: "month", description: "YYYY-MM string" },
+    { type: "number", description: "number" },
+    { type: "password", description: "string" },
+    { type: "range", description: "number" },
+    { type: "search", description: "string" },
+    { type: "tel", description: "string" },
+    { type: "text (default)", description: "string" },
+    { type: "time", description: "string" },
+    { type: "url", description: "string" },
+    { type: "week", description: "YYYY-Www string" },
+  ],
+};
+
 export const rulesTableRows = [
   { value: "scope variable", example: ['$value="myScopeVariable"'] },
   { value: "transformed scope", example: ['$value="myString.trim()"'] },
@@ -91,5 +114,28 @@ export const basicExample_multi = {
     <div>my_number: \${my_number}</div>
     <input type="range" min="-10" max="10" $value="my_number">
   </div>
+  `,
+};
+
+export const inputExample = {
+  demo: `
+<div +loading="{text: ''}">
+  <div>text: \${text}</div>
+  <div>
+    Type something into the input element. 
+    The scope variable now updates on change.
+  </div>
+  <input $value#input="text">
+</div> 
+  `,
+  html: `
+<div class="basic-demo-card" +loading="{text: ''}">
+  <div>text: \${text}</div>
+  <div class="narration">
+  Type something into the input element. 
+  The scope variable now updates on change.
+  </div>
+  <input $value#input="text">
+</div> 
   `,
 };

@@ -9,6 +9,7 @@
   justify-content: center;
   color: purple;
   padding: 1rem;
+  overflow: hidden;
 }
 .basic-demo-card .narration {
   color: rgb(61, 59, 59);

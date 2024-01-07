@@ -29,13 +29,14 @@
         <div class="letter">
           The $value directive is designed to synchronize the value of an input
           element with a scope variable. The synchronization can either occur on
-          submission (by pressing enter), or you can use the #input directive to
-          synchronize on value change.
+          submission (by pressing enter), or you can use the #input decorator to
+          synchronize on change.
         </div>
-        <div class="letter">$value works with multiple input types:</div>
         <div class="sub-section">
           <div class="sub-title">rules</div>
           <doc_table +loading="composeRulesTable(rulesTableRows)"></doc_table>
+          <div class="letter">$value works with multiple input types:</div>
+          <doc_table +loading="typeTable"></doc_table>
         </div>
         <div class="sub-section" +loading="{label_fulltab: true}">
           <div class="sub-title">example</div>
@@ -52,7 +53,7 @@
           </demo_box>
           <div class="letter">
             $value is a two way binding. This means that the value of the input
-            element will also change when the $value scope variable changes.
+            element will also change when the assigned scope variable changes.
           </div>
           <demo_box>
             <div class="flex-row gap" +loading="basicExample_2way">
@@ -64,6 +65,32 @@
           <demo_box>
             <div class="flex-row gap" +loading="basicExample_multi">
               <demo_html +loading="{css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+      </div>
+      <div id="unique" class="section">
+        <div class="section-title">Unique Decorators</div>
+        <div class="sub-section">
+          <div id="trim" class="sub-title">#trim</div>
+          <div class="letter">Performs the String.trim() when the input value syncs with the scope.</div>
+          <div id="number" class="sub-title">#number</div>
+          <div class="letter">Converts the string value of the input into a number value.</div>
+        </div>
+      </div>
+      <div id="common" class="section">
+        <div class="section-title">Common Decorators</div>
+        <div class="sub-section">
+          <div class="sub-title">#input</div>
+          <div class="letter">
+            $value, by default, syncs the input value with it's assigned scope
+            variable when the user presses enter. Adding the #input decorator
+            changes that behavior to sync on value change.
+          </div>
+          <demo_box>
+            <div class="flex-row gap" +loading="inputExample">
+              <demo_html></demo_html>
               <demo_browser></demo_browser>
             </div>
           </demo_box>

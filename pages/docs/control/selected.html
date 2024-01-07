@@ -1,0 +1,73 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      content_layout: "/myModules/docs/contentLayout.html",
+      js: "./selected.js",
+      demo_box: "/components/demo_box/index.html",
+      grid_styles: "/styles/grid_styles.css",
+      demo_styles: "../demo_styles.css",
+      rulebank: '/rulebank/directives.js',
+      util: './util.js'
+    }
+  </script>
+  <template id="view">
+    <content_layout
+      +loading#plain="{
+        headings: composeHeadings('focus', control_data),
+        overflow: 'overflow: scroll'
+      }"
+    >
+      <div class="letter banner">
+        <div class="category">control directives</div>
+        <div class="directive">$selected</div>
+        <div class="description">
+          binds select, checkbox, or radio element value the the scope as string
+          data
+        </div>
+        <div class="diagram">diagram</div>
+      </div>
+      <div class="section">
+        <div class="section-title">Basic Usage</div>
+        <div class="letter">
+          The $selected directive works specifically with radio, checkbox, and
+          select elements. $selected will assign the designated scope variable
+          the string value of the input element. $selected will also watch it's
+          host element for value change.
+        </div>
+        <div class="sub-section">
+          <div id="rules" class="sub-title">rules</div>
+          <doc_table +loading="composeRulesTable(rulesTableRows)"></doc_table>
+          <div class="letter">$selected works with different input types</div>
+          <doc_table +loading="inputTable"></doc_table>
+        </div>
+        <div class="sub-section" +loading="{label_fulltab: true}">
+          <div id="examples" class="sub-title">examples</div>
+          <div class="letter"></div>
+          <demo_box +loading="{...selectExample}">
+            <div class="flex-row gap">
+              <demo_html
+                +loading="{label: 'select', css: overflow}"
+              ></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box +loading="{...radioExample}">
+            <div class="flex-row gap">
+              <demo_html +loading="{label: 'radio',css: overflow}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box +loading="{...checkboxExample}">
+            <div class="flex-row gap">
+              <demo_html
+                +loading="{label: 'checkbox',css: overflow}"
+              ></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+      </div>
+    </content_layout>
+  </template>
+</html>

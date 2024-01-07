@@ -37,6 +37,7 @@ export const loadMenuContent = () => ({
         { label: "$each", sublink: "/each" },
         { label: "$focus", sublink: "/focus" },
         { label: "$html", sublink: "/html" },
+        { label: "$selected", sublink: "/selected" },
         { label: "$value", sublink: "/value" },
       ],
     },

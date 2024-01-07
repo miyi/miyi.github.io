@@ -22,7 +22,7 @@
         <div class="category">control directives</div>
         <div class="directive">$checked</div>
         <div class="description">
-          binds input values as boolean data to the state
+          binds checkbox, radio, or select values to the scope as boolean data 
         </div>
         <div class="diagram">diagram</div>
       </div>
@@ -46,12 +46,14 @@
             the same in all three element types.
           </div>
           <tip>
-            $checked is very similar to $select which may be more
-            practical for your purpose.
+            $checked is very similar to $select which may be more practical for
+            your purpose.
           </tip>
           <demo_box>
             <div class="flex-row gap" +loading="basicCheckBoxDemo">
-              <demo_html +loading="{label: 'checkbox',css: overflow}"></demo_html>
+              <demo_html
+                +loading="{label: 'checkbox',css: overflow}"
+              ></demo_html>
               <demo_browser></demo_browser>
             </div>
           </demo_box>
@@ -63,7 +65,9 @@
           </demo_box>
           <demo_box>
             <div class="flex-row gap" +loading="basicSelectDemo">
-              <demo_html +loading="{label: 'select', css: overflow}"></demo_html>
+              <demo_html
+                +loading="{label: 'select', css: overflow}"
+              ></demo_html>
               <demo_browser></demo_browser>
             </div>
           </demo_box>

@@ -16,19 +16,15 @@
       <div class="letter banner">
         <div class="category">lifecycle</div>
         <div class="directive">+loading</div>
-        <div class="description">
-          Creates a scope with state data on the host element.
-        </div>
+        <div class="description">Creates a scope environment</div>
         <div class="diagram">diagram</div>
       </div>
       <div class="section">
         <div id="basic" class="section-title">Basic usage</div>
         <div class="letter">
-          +loading can create new scope environments. These values are
-          accessible anywhere inside the host element and all its children via
-          the $scope object. You can also use the shorthand to access all the
-          fields inside the scope by directly calling the fieldname as a
-          standalone variable.
+          The +loading triggers only once immediately before the element is
+          created. It's primary purpose is to create a new scope environment
+          for the host element.
         </div>
         <tip>
           +loading is the only directive where users can declare custom scope
