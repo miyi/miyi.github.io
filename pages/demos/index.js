@@ -391,7 +391,6 @@ export const plusLoading = `
 
   <div>name: \${name}</div>
   <div>age: \${age}</div>
-  <div>role: \${role}</div>
 
 </div>
 `;

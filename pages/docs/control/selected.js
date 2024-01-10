@@ -48,9 +48,9 @@ export const selectExample = {
   html: `
 <div class="basic-demo-card" +loading="{fruit: null}">
   <div>fruit: \${fruit}</div>
-  <select $selected="$scope">
-    <option selected disabled hidden>Choose</option>
-    <option value="apple">apple</option>
+  <select $selected="fruit">
+    <option selected>Choose</option>
+    <option>apple</option>
     <option value="mango">mango</option>
     <option value="tomato">tomato</option>
   </select>

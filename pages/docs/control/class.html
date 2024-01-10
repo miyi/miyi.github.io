@@ -1,0 +1,45 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      content_layout: "/myModules/docs/contentLayout.html",
+      js: "./class.js",
+      demo_box: "/components/demo_box/index.html",
+      grid_styles: "/styles/grid_styles.css",
+      demo_styles: "../demo_styles.css",
+      rulebank: '/rulebank/directives.js',
+      util: './util.js'
+    }
+  </script>
+  <template id="view">
+    <content_layout
+      +loading#plain="{
+        headings: composeHeadings('class', control_data),
+        overflow: 'overflow: scroll'
+      }"
+    >
+      <div class="letter banner">
+        <div class="category">control directives</div>
+        <div class="directive">$class</div>
+        <div class="description">dynamically adds and removes classnames</div>
+        <div class="diagram">diagram</div>
+      </div>
+      <div class="section">
+        <div id="basic" class="section-title">Basic Usage</div>
+        <div class="letter">
+          HTML natively provides it's own static class attribute to match
+          elements with the stylesheet. $class fulfills the same purpose but
+          with the added functionality of dynamically adding and removing
+          classnames based on the state data.
+        </div>
+        <div class="sub-section">
+          <div class="sub-title">rules</div>
+          <div class="letter">
+            
+          </div>
+          <doc_table +loading=""></doc_table>
+        </div>
+      </div>
+    </content_layout>
+  </template>
+</html>
