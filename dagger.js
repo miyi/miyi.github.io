@@ -531,7 +531,7 @@ export default (({ asserter, logger, groupStarter, groupEnder, warner } = ((mess
   selected: node => {
       const { name, type, tagName } = node, isSelect = Object.is(tagName, 'SELECT');
       asserter([`Please specify valid "name" attribute on input node "%o" to support "$selected" directive`, node], isSelect || name);
-      const data = [...(isSelect ? node.selectedOptions : querySelector(document.body, `input[type="${ type }"][name="${ name }"]:checked`, true))].map(node => valueResolver(node)), multiple = isSelect ? node.multiple : Object.is(type, 'checkbox');
+      const data = [...(isSelect ? node.selectedOptions : querySelector(document.body, `input[type="${ type }"][name="${ name }"]:checked`, true, true))].map(node => valueResolver(node)), multiple = isSelect ? node.multiple : Object.is(type, 'checkbox');
 
       return multiple ? data : data[0];
   },
