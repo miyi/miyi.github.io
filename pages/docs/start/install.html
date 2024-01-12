@@ -1,0 +1,33 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      content_layout: "/myModules/docs/contentLayout.html",
+      js: "./install.js",
+      demo_box: "/components/demo_box/index.html",
+      grid_styles: "/styles/grid_styles.css",
+      demo_styles: "../demo_styles.css",
+      rulebank: '/rulebank/directives.js',
+      util: './util.js'
+    }
+  </script>
+  <template id="view">
+    <content_layout
+      +loading#plain="{
+        headings: composeHeadings('class', control_data),
+        overflow: 'overflow: scroll'
+      }"
+    >
+      <div class="letter banner">
+        <div class="category">control directives</div>
+        <div class="directive">installing dagger</div>
+        <div class="description">dynamically adds and removes classnames</div>
+        <div class="diagram">diagram</div>
+      </div>
+      <div class="section">
+        <div id="basic" class="section-title">Basic Usage</div>
+        <div class="letter"></div>
+      </div>
+    </content_layout>
+  </template>
+</html>

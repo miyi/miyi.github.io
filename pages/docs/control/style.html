@@ -3,7 +3,7 @@
     {
       view: "#view",
       content_layout: "/myModules/docs/contentLayout.html",
-      js: "./class.js",
+      js: "./style.js",
       demo_box: "/components/demo_box/index.html",
       grid_styles: "/styles/grid_styles.css",
       demo_styles: "../demo_styles.css",
@@ -20,13 +20,41 @@
     >
       <div class="letter banner">
         <div class="category">control directives</div>
-        <div class="directive">$class</div>
-        <div class="description">dynamically adds and removes classnames</div>
+        <div class="directive">$style</div>
+        <div class="description">
+          inject in-line style rules directly into the element
+        </div>
         <div class="diagram">diagram</div>
       </div>
       <div class="section">
         <div id="basic" class="section-title">Basic Usage</div>
-        <div class="letter"></div>
+        <div class="letter">
+          The $style expression can either resolve into a string or an array.
+          The resolved content will be injected into the element as inline style
+          in run time. $style will watch scope variables for update.
+        </div>
+        <doc_table +loading="rulesTable"></doc_table>
+        <div class="sub-section">
+          <div id="examples" class="sub-title">examples</div>
+          <demo_box +loading="stringExample">
+            <div class="flex-row gap">
+              <demo_html +loading="{label: 'style string'}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box +loading="arrayExample">
+            <div class="flex-row gap">
+              <demo_html +loading="{label: 'style array'}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box +loading="objectExample">
+            <div class="flex-row gap">
+              <demo_html +loading="{label: 'style object'}"></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
       </div>
     </content_layout>
   </template>
