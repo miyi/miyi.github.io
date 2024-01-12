@@ -33,11 +33,13 @@ export const loadMenuContent = () => ({
       sublink: "control",
       children: [
         { label: "$checked", sublink: "/checked" },
+        { label: "$class", sublink: "/class" },
         { label: "$exist", sublink: "/exist" },
         { label: "$each", sublink: "/each" },
         { label: "$focus", sublink: "/focus" },
         { label: "$html", sublink: "/html" },
         { label: "$selected", sublink: "/selected" },
+        { label: "$style", sublink: "/style" },
         { label: "$value", sublink: "/value" },
       ],
     },

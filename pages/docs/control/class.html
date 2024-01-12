@@ -28,16 +28,46 @@
         <div id="basic" class="section-title">Basic Usage</div>
         <div class="letter">
           HTML natively provides it's own static class attribute to match
-          elements with the stylesheet. $class fulfills the same purpose but
-          with the added functionality of dynamically adding and removing
-          classnames based on the state data.
+          elements with the stylesheet. $class serves the same purpose but with
+          the extended functionality of dynamically adding and removing
+          classnames based on state data. $class also watches for scope variable
+          change.
         </div>
         <div class="sub-section">
-          <div class="sub-title">rules</div>
+          <div id="rules" class="sub-title">rules</div>
           <div class="letter">
-            
+            $class is designed with scope variables in mind. Depending on the
+            content of the assigned scope variable, $class will inject
+            classnames into the element during runtime.
           </div>
-          <doc_table +loading=""></doc_table>
+          <doc_table +loading="rulesTable"></doc_table>
+        </div>
+        <div class="sub-section">
+          <div id="examples" class="sub-title">examples</div>
+          <demo_box +loading="{...stringDemo, css: overflow}">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box +loading="{...arrayDemo, css: overflow}">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box +loading="{...scopeDemo, css: overflow}">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box +loading="{...expressionDemo, css: overflow}">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
         </div>
       </div>
     </content_layout>

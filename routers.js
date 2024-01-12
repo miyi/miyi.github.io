@@ -85,6 +85,11 @@ return {
             constants: { content: "checked", title: "$checked" },
           },
           {
+            path: "class",
+            modules: "d_class",
+            constants: { content: "d_class", title: "$class" },
+          },
+          {
             path: "exist",
             modules: "exist",
             constants: { content: "exist", title: "$exist" },
@@ -92,23 +97,33 @@ return {
           {
             path: "each",
             modules: "each",
-            constants: { content: "each", title: "$each" }
+            constants: { content: "each", title: "$each" },
           },
           {
             path: "focus",
             modules: "focus",
-            constants: { content: "focus", title: "$focus" }
+            constants: { content: "focus", title: "$focus" },
+          },
+          {
+            path: "html",
+            modules: "d_html",
+            constants: { content: "d_html", title: "$html" },
           },
           {
             path: "selected",
             modules: "selected",
-            constants: { content: "selected", title: "$selected" }
+            constants: { content: "selected", title: "$selected" },
+          },
+          {
+            path: "style",
+            modules: "d_style",
+            constants: { content: "d_style", title: "$style" },
           },
           {
             path: "value",
             modules: "value",
-            constants: { content: "value", title: "$value" }
-          }
+            constants: { content: "value", title: "$value" },
+          },
         ],
       },
     ],
