@@ -134,3 +134,7 @@ export const eachDemo = {
   
   `,
 };
+
+export const myfunc = (p1, p2) => {
+
+}

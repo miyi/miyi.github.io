@@ -2,12 +2,14 @@
   <script type="dagger/modules">
     {
       view: "#view",
-      nav_bar: "/components/navbar/index.html"
+      nav_bar: "/components/navbar/index.html",
+      hello: "#hello"
     }
   </script>
   <template id="view">
     <nav_bar>
-      <left_group><div style="width: 12rem">
+      <left_group
+        ><div style="width: 12rem">
           <a href="home"
             ><img
               src="/svg/logo.svg"
@@ -19,6 +21,7 @@
         <btn +loading="{label: 'Showcase', link: 'showcase'}"></btn>
         <btn +loading="{label: 'tutorial', link: 'tutorial'}"></btn>
         <btn +loading="{label: 'Documentation', link: 'docs'}"></btn>
+        <hello></hello>
       </center_group>
       <right_group>
         <img src="/svg/github.svg" style="height: 2rem" />
