@@ -1,5 +1,21 @@
 import confetti from "https://cdn.skypack.dev/canvas-confetti@1";
 
+export const rulesTableRows = [
+  { value: "module name as string literal", example: [`$html="'my_module'"`] },
+  {
+    value: "scope variable that stores the module name as string",
+    example: ['$html="myScopeVariable"'],
+  },
+  {
+    value: "expression that resolves into a module name string",
+    example: [`$html="user?'module1':'module2'"`],
+  },
+  {
+    value: "function that resolves into a module name string",
+    example: [`$html="renderAuthModule(user)"`],
+  },
+];
+
 const helloDemoIndex = `
 <script type="dagger/modules">
   {
@@ -118,7 +134,7 @@ export const popConfetti = ($event) => {
   confetti({
     origin: {
       x: $event.x / window.innerWidth,
-      y: $event.y / (window.innerHeight * 2),
+      y: $event.y / (window.innerHeight * 3),
     },
   });
 };
@@ -166,9 +182,9 @@ const scopeDemoBrowser = `
 <div class="basic-demo-card" +loading="{user: false}">
   <label>
   <div class="narration">
-  You can control which module to render
-  based on the output of your expression.
-</div>
+    You can control which module to render
+    based on the output of your expression.
+  </div>
   <input 
     type="checkbox" 
     $checked="user"

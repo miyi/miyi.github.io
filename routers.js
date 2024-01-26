@@ -124,6 +124,11 @@ return {
             modules: "value",
             constants: { content: "value", title: "$value" },
           },
+          {
+            path: "watch",
+            modules: "watch",
+            constants: { content: "watch", title: "$watch" },
+          },
         ],
       },
     ],

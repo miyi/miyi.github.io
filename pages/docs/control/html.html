@@ -38,7 +38,7 @@
           scope variable parameters inside it's expression for change. You can
           leverage $html to perform routing.
         </div>
-        <doc_table></doc_table>
+        <doc_table +loading="composeRulesTable(rulesTableRows)""></doc_table>
         <div id="examples" class="sub-section" +loading="{css: overflow}">
           <div id="examples" class="sub-title">examples</div>
           <demo_box +loading="helloDemo">

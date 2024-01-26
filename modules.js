@@ -15,6 +15,7 @@ const doc_control_uris = {
   selected: "/pages/docs/control/selected.html",
   d_style: "/pages/docs/control/style.html",
   value: "/pages/docs/control/value.html",
+  watch: "/pages/docs/control/watch.html"
 };
 
 const quick_demo_page = {

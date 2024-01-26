@@ -41,6 +41,7 @@ export const loadMenuContent = () => ({
         { label: "$selected", sublink: "/selected" },
         { label: "$style", sublink: "/style" },
         { label: "$value", sublink: "/value" },
+        { label: "$watch", sublink: "/watch" },
       ],
     },
     {

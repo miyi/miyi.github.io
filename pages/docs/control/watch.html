@@ -1,0 +1,34 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      content_layout: "/myModules/docs/contentLayout.html",
+      js: "./focus.js",
+      demo_box: "/components/demo_box/index.html",
+      grid_styles: "/styles/grid_styles.css",
+      demo_styles: "../demo_styles.css",
+      rulebank: '/rulebank/directives.js',
+      util: './util.js'
+    }
+  </script>
+  <template id="view">
+    <content_layout
+      +loading#plain="{
+        headings: composeHeadings('watch', control_data),
+        overflow: 'overflow: scroll'
+      }"
+    >
+      <div class="letter banner">
+        <div class="category">control directives</div>
+        <div class="directive">$watch</div>
+        <div class="description">
+          update scope variables when dependent scope variables change
+        </div>
+        <div class="diagram">diagram</div>
+      </div>
+      <div class="section">
+        <div class="section-title">Basic Usage</div>
+      </div>
+    </content_layout>
+  </template>
+</html>
