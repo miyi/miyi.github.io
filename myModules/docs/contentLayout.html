@@ -7,16 +7,22 @@
       css: "./contentLayout.css",
       bulb: {uri: '/svg/lightbulb.svg', type: 'view'},
       tip: "#tip",
-      doc_table: '#doc-table'
+      doc_table: '#doc-table',
+      js: './contentLayout.js'
     }
   </script>
   loading = {table: [headings]}
   <template id="view">
-    <div class="content-layout" +loading="{_observer_entries: []}">
+    <div
+      class="content-layout"
+      +loading="{width: 0}"
+      +loaded="width=window.innerWidth"
+      +resize#target:window="width=window.innerWidth"
+    >
       <div class="content">
         <template @slot></template>
       </div>
-      <div class="toc">
+      <div class="toc" $exist="width>=1360">
         <toc_gen></toc_gen>
       </div>
     </div>
@@ -24,7 +30,7 @@
   headings: {hash: str, label: str, level: 1/2}
   <template id="toc-gen">
     <toc>
-      <list_item $each="headings" +loading="{...item}" +loaded=""></list_item>
+      <list_item $each="headings" +loading="{...item}"></list_item>
     </toc>
   </template>
   <template id="tip">

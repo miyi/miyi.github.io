@@ -2,8 +2,11 @@
   <script type="dagger/modules">
     {
       view: "#view",
+      fun_btn: "#fun_btn",
+      login: "#log_in",
+      logout: "#log_out",
       content_layout: "/myModules/docs/contentLayout.html",
-      js: "./class.js",
+      js: "./html.js",
       demo_box: "/components/demo_box/index.html",
       grid_styles: "/styles/grid_styles.css",
       demo_styles: "../demo_styles.css",
@@ -21,13 +24,59 @@
       <div class="letter banner">
         <div class="category">control directives</div>
         <div class="directive">$html</div>
-        <div class="description">consumes a string and renders the module with the matching name</div>
+        <div class="description">
+          dynamically renders modules inside the host element
+        </div>
         <div class="diagram">diagram</div>
       </div>
       <div class="section">
         <div id="basic" class="section-title">Basic Usage</div>
-        <div class="letter">$html </div>
+        <div class="letter">
+          $html accepts a string, matches that string with a module name, then
+          renders that module inside the host element. $html provides a method
+          to flexibly render modules depending on app data. $html will watch
+          scope variable parameters inside it's expression for change. You can
+          leverage $html to perform routing.
+        </div>
+        <doc_table></doc_table>
+        <div id="examples" class="sub-section" +loading="{css: overflow}">
+          <div id="examples" class="sub-title">examples</div>
+          <demo_box +loading="helloDemo">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box +loading="confettiDemo">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <demo_box +loading="scopeDemo">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
       </div>
     </content_layout>
+  </template>
+  <template id="fun_btn">
+    <button class="fun" +click="popConfetti($event)">party 🎉 time</button>
+  </template>
+  <template id="log_in">
+    <div>
+      <label>username: <input /></label>
+      <label>password: <input /></label>
+      <button +click="user=true">sign in</button>
+    </div>
+  </template>
+  <template id="log_out">
+    <div>
+      <label>you are signed in</label>
+      <button +click="user=false">sign out</button>
+    </div>
   </template>
 </html>

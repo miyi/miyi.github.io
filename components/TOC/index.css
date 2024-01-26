@@ -34,4 +34,13 @@
   margin-right: 1rem;
   fill: #c1d1e4;
   height: 0.75rem;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }/*# sourceMappingURL=index.css.map */

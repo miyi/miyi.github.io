@@ -77,7 +77,8 @@
     }
   }
   .toc {
-    width: 14rem;
+    max-width: 14rem;
+    width: 15%;
   }
   table {
     color: $text-color-lite;

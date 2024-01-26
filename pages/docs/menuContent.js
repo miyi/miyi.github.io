@@ -43,5 +43,14 @@ export const loadMenuContent = () => ({
         { label: "$value", sublink: "/value" },
       ],
     },
+    {
+      label: "special objects",
+      sublink: "objects",
+      children: [
+        { label: "$scope", sublink: "/scope" },
+        { label: "$node", sublink: "/node" },
+        { label: "$event", sublink: "/event" },
+      ],
+    },
   ],
 });

@@ -39,3 +39,12 @@
   fill: $text-color-lite;
   height: 0.75rem;
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

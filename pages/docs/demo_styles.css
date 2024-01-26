@@ -107,4 +107,17 @@
 
 .classy {
   font-family: "Georgia serif", cursive;
+}
+
+.fun {
+  background-color: #404663;
+  position: relative;
+  color: #fff;
+  border: 0;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+
+.fun:active {
+  transform: scale(1.01);
 }/*# sourceMappingURL=demo_styles.css.map */

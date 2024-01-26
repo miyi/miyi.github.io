@@ -72,7 +72,8 @@
   background-color: #251e3f;
 }
 .content-layout .toc {
-  width: 14rem;
+  max-width: 14rem;
+  width: 15%;
 }
 .content-layout table {
   color: #c1d1e4;
