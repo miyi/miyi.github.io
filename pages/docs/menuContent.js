@@ -45,13 +45,23 @@ export const loadMenuContent = () => ({
       ],
     },
     {
-      label: "special objects",
+      label: "dagger objects",
       sublink: "objects",
       children: [
-        { label: "$scope", sublink: "/scope" },
-        { label: "$node", sublink: "/node" },
-        { label: "$event", sublink: "/event" },
+        { label: "$scope", sublink: "/$scope" },
+        { label: "$node", sublink: "/$node" },
+        { label: "$event", sublink: "/$event" },
       ],
     },
+    {
+      label: "dagger modules",
+      sublink: "modules",
+      children: [
+        {label: "view module", sublink: "/view_module"},
+        {label: "script module", sublink: "/script_module"},
+        {label: "style module", sublink: "/style_module"},
+        {label: "namespace module", sublink: "/namespace"}
+      ]
+    }
   ],
 });

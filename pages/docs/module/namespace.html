@@ -1,0 +1,31 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      content_layout: "/myModules/docs/contentLayout.html",
+      demo_box: "/components/demo_box/index.html",
+      grid_styles: "/styles/grid_styles.css",
+      demo_styles: "../demo_styles.css",
+      rulebank: '/rulebank/directives.js',
+      util: './util.js'
+    }
+  </script>
+  <template id="view">
+    <content_layout
+      +loading#plain="{
+        headings: composeHeadings('focus', control_data),
+        overflow: 'overflow: scroll'
+      }"
+    >
+      <div class="letter banner">
+        <div class="category">dagger modules</div>
+        <div class="directive">namespace</div>
+        <div class="description">
+          A collection of view, script, and style modules whose resources are
+          shared inside the same space.
+        </div>
+        <div class="diagram">diagram</div>
+      </div>
+    </content_layout>
+  </template>
+</html>

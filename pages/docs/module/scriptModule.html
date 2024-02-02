@@ -1,0 +1,30 @@
+<html>
+  <script type="dagger/modules">
+    {
+      view: "#view",
+      content_layout: "/myModules/docs/contentLayout.html",
+      demo_box: "/components/demo_box/index.html",
+      grid_styles: "/styles/grid_styles.css",
+      demo_styles: "../demo_styles.css",
+      rulebank: '/rulebank/directives.js',
+      util: './util.js'
+    }
+  </script>
+  <template id="view">
+    <content_layout
+      +loading#plain="{
+        headings: composeHeadings('focus', control_data),
+        overflow: 'overflow: scroll'
+      }"
+    >
+      <div class="letter banner">
+        <div class="category">dagger modules</div>
+        <div class="directive">script module</div>
+        <div class="description">
+          module that imports a javascript resource written in ESM standard
+        </div>
+        <div class="diagram">diagram</div>
+      </div>
+    </content_layout>
+  </template>
+</html>

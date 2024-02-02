@@ -3,14 +3,21 @@
     {
       view: "#view",
       content_layout: "/myModules/docs/contentLayout.html",
-      js: "./focus.js",
+      js: "./watch.js",
       demo_box: "/components/demo_box/index.html",
       grid_styles: "/styles/grid_styles.css",
       demo_styles: "../demo_styles.css",
       rulebank: '/rulebank/directives.js',
-      util: './util.js'
+      util: './util.js',
+      type_box: "#typebox"
     }
   </script>
+  <template id="typebox">
+    <div +loading="{input: null, text: null}" $watch="isTyping(input, $scope)">
+      <input $value#input="input" />
+      <div $text="text"></div>
+    </div>
+  </template>
   <template id="view">
     <content_layout
       +loading#plain="{
@@ -22,12 +29,56 @@
         <div class="category">control directives</div>
         <div class="directive">$watch</div>
         <div class="description">
-          update scope variables when dependent scope variables change
+          triggers when scope variables inside the expression change
         </div>
         <div class="diagram">diagram</div>
       </div>
       <div class="section">
         <div class="section-title">Basic Usage</div>
+        <div class="letter">
+          $watch makes an initial trigger when the html element first renders.
+          Following the initial trigger, $watch re-triggers whenver scope
+          variable parameters inside its directive expression change.
+        </div>
+        <div class="letter">
+          Unlike other control directives that are linked to the UI, $watch is
+          explicitly designed to excute javascript statments. $watch is often
+          used to sync scope variables that are dependent on other scope
+          variables.
+        </div>
+        <tip>
+          $watch only watches for scope variable change. It is unable to watch
+          global variables like window.
+        </tip>
+        <doc_table +loading="composeRulesTable(rulesTableRows)"></doc_table>
+        <div class="sub-section" +loading="{css: overflow}">
+          <div id="examples" class="sub-title">examples</div>
+          <div class="letter">
+            The demo below sums the total number of pets by watching the cats
+            and dogs scope variables.
+          </div>
+          <demo_box +loading="example_scopesync">
+            <div class="flex-row gap">
+              <demo_html></demo_html>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div class="letter">
+            The demo below watches input scope variable for change, and insert a
+            message into text to indicate that the user is typing.
+          </div>
+          <demo_box +loading="example_func">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <tip
+            >$scope cannot be watched by any control directives. Even though it
+            represents many scope variables, is not itself a scope variable.
+            It's an object that gives access to scope variables.</tip
+          >
+        </div>
       </div>
     </content_layout>
   </template>

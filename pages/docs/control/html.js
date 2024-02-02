@@ -1,18 +1,17 @@
 import confetti from "https://cdn.skypack.dev/canvas-confetti@1";
 
 export const rulesTableRows = [
-  { value: "module name as string literal", example: [`$html="'my_module'"`] },
   {
-    value: "scope variable that stores the module name as string",
-    example: ['$html="myScopeVariable"'],
+    value: "string",
+    example: [
+      `$html="'my_module'"`,
+      '$html="myScopeVariable"',
+      `$html="returnModuleName(user)"`,
+    ],
   },
   {
-    value: "expression that resolves into a module name string",
-    example: [`$html="user?'module1':'module2'"`],
-  },
-  {
-    value: "function that resolves into a module name string",
-    example: [`$html="renderAuthModule(user)"`],
+    value: "router constant",
+    example: ['$html="$router.constants.myConstant"'],
   },
 ];
 

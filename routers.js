@@ -129,6 +129,26 @@ return {
             modules: "watch",
             constants: { content: "watch", title: "$watch" },
           },
+          {
+            path: "view_module",
+            modules: "view_module",
+            constants: { content: "view_module", title: "view module" },
+          },
+          {
+            path: "script_module",
+            modules: "script_module",
+            constants: { content: "script_module", title: "script module" },
+          },
+          {
+            path: "style_module",
+            modules: "style_module",
+            constants: { content: "style_module", title: "style module" },
+          },
+          {
+            path: "namespace",
+            modules: "namespace",
+            constants: { content: "namespace", title: "namespace" },
+          },
         ],
       },
     ],

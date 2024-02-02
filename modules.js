@@ -18,6 +18,17 @@ const doc_control_uris = {
   watch: "/pages/docs/control/watch.html"
 };
 
+const dagger_objects = {
+
+}
+
+const dagger_modules = {
+  view_module: "/pages/docs/module/viewModule.html",
+  script_module: "/pages/docs/module/scriptModule.html",
+  style_module: "/pages/docs/module/styleModule.html",
+  namespace: "/pages/docs/module/namespace.html",
+}
+
 const quick_demo_page = {
   demospage: "/pages/demos/index.html",
 };
@@ -43,4 +54,5 @@ return {
   ...doc_control_uris,
   ...tutorials,
   ...quick_demo_page,
+  ...dagger_modules,
 };
