@@ -7,13 +7,13 @@
       grid_styles: "/styles/grid_styles.css",
       demo_styles: "../demo_styles.css",
       rulebank: '/rulebank/directives.js',
-      util: './util.js'
+      js: "./script.js"
     }
   </script>
   <template id="view">
     <content_layout
       +loading#plain="{
-        headings: composeHeadings('focus', control_data),
+        headings: headings,
         overflow: 'overflow: scroll'
       }"
     >
@@ -24,6 +24,43 @@
           module that imports a javascript resource written in ESM standard
         </div>
         <div class="diagram">diagram</div>
+      </div>
+      <div class="section">
+        <div id="basic" class="section-title">Basic Usage</div>
+        <div class="letter">
+          The script module is used for importing modularized javascript
+          resources dagger's namespace system. The script module only accepts
+          javascript in ESM format, so whether you are importing your own
+          scripts or using external libraries, make sure the resources have
+          named exports.
+        </div>
+      </div>
+      <div class="section">
+        <div id="setting" class="section-title">
+          Settings
+        </div>
+        <doc_table +loading="settings_table"></doc_table>
+        <div class="sub-section">
+          <div class="sub-title">importing module resources with uri.</div>
+          <div class="letter">
+            The following three demos show how to create a script module module
+            via three different types of module resources, script tag, external
+            file, and url link.
+          </div>
+          <demo_box>
+            <div class="flex-row gap">
+              <demo_html +loading="{demo: tag_import_demo, label: 'tag import'}"></demo_html>
+              <demo_code +loading="byFile"></demo_code>
+            </div>
+            <div class="flex-row gap">
+              <demo_html +loading="{demo: link_import_demo, label: 'link import'}"></demo_html>
+            </div>
+          </demo_box>
+      </div>
+      <div class="section">
+        <div id="example" class="section-title">
+          Examples
+        </div>
       </div>
     </content_layout>
   </template>

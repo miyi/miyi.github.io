@@ -9,7 +9,8 @@
       script: "#script"
     }
   </script>
-  #require {css: str, files: [file]}, file: {label: str, type: 'js'/'html'/'css',code: str}
+  #require {css: str, files: [file]}, file: {label: str, type:
+  'js'/'html'/'css',code: str}
   <template id="view">
     <div
       class="code-container"
@@ -23,7 +24,7 @@
           +click="active=index"
           $class="{inactive: active!=index}"
         >
-          ${item.label}
+          ${$scope.item.label}
         </div>
       </div>
       <div

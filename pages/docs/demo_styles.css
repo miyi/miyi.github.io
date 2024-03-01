@@ -9,6 +9,7 @@
   justify-content: center;
   color: purple;
   padding: 1rem;
+  margin: 2px;
   overflow: hidden;
 }
 .basic-demo-card .narration {

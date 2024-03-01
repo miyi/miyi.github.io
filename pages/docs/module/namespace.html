@@ -6,14 +6,12 @@
       demo_box: "/components/demo_box/index.html",
       grid_styles: "/styles/grid_styles.css",
       demo_styles: "../demo_styles.css",
-      rulebank: '/rulebank/directives.js',
-      util: './util.js'
     }
   </script>
   <template id="view">
     <content_layout
       +loading#plain="{
-        headings: composeHeadings('focus', control_data),
+        headings: null,
         overflow: 'overflow: scroll'
       }"
     >

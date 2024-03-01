@@ -6,24 +6,168 @@
       demo_box: "/components/demo_box/index.html",
       grid_styles: "/styles/grid_styles.css",
       demo_styles: "../demo_styles.css",
-      rulebank: '/rulebank/directives.js',
+      js: "./view.js"
     }
   </script>
   <template id="view">
     <content_layout
       +loading#plain="{
-        headings: null,
+        headings: headings,
         overflow: 'overflow: scroll'
       }"
     >
       <div class="letter banner">
         <div class="category">dagger modules</div>
-        <div class="directive">namespace</div>
-        <div class="description">
-          a module that imports either a html resource either via template or
-          via html file
-        </div>
+        <div class="directive">View Module</div>
+        <div class="description">a html resource</div>
         <div class="diagram">diagram</div>
+      </div>
+      <div class="section">
+        <div id="basic" class="section-title">Basic Usage</div>
+        <div class="letter">
+          Think of the view module a html code snippet. You can call a view
+          module by using it's module name like an html element tag. Calling a
+          view module is functionally the same as copying the resource content
+          and then pasting it into the html file.
+        </div>
+        <tip>
+          View modules cannot be used together with event directives because it
+          isn't an actual html element. It does accept all lifecycle directives,
+          and the following control directives: $each, $exist, $watch.
+        </tip>
+      </div>
+      <div class="section">
+        <div id="setting" class="section-title">Module Settings</div>
+        <div class="sub-section">
+          <doc_table +loading="settings_table"></doc_table>
+        </div>
+        <div class="sub-section">
+          <div class="sub-title">importing module resources with uri.</div>
+          <div class="letter">
+            The following three demos show how to create a view module module
+            via three different types of module resources, template, external
+            file, and url link.
+          </div>
+          <demo_box>
+            <div class="flex-row gap">
+              <demo_html
+                +loading="{demo: byTemplate,label: 'by template'}"
+              ></demo_html>
+              <demo_code +loading="byFile"></demo_code>
+            </div>
+            <div class="flex-row gap">
+              <demo_html +loading="{demo: byLink,label: 'by link'}"></demo_html>
+            </div>
+          </demo_box>
+        </div>
+      </div>
+      <div class="section">
+        <div id="create" class="section-title">Examples</div>
+        <div class="sub-section">
+          <div id="use" class="sub-title">using View Modules</div>
+          <div class="letter">
+            To call a view module, simply use the module name like an html tag.
+            The view module in this example requires the existence of the "name"
+            scope variable. So be sure to include that when calling the module.
+            Please note that not all directives work with view module tags.
+          </div>
+          <demo_box +loading="usingViewModule_directictly">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div class="letter">
+            The more common useage of view modules is from another namespace.
+            Calling the view module from a namespace is as if the view module is
+            a field of the namespace object. If you don't write anything
+            following the namespace, dagger will render the view module named
+            "view" inside the namespace, if it exists.
+          </div>
+          <demo_box +loading="usingViewModule_withNamespace">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+        <div class="sub-section">
+          <div id="directive" class="sub-title">
+            using directives with view modules
+          </div>
+          <div class="letter">
+            Since view modules are not html elements, they cannot be used
+            together with event directives. However, lifecycle directives,
+            $each, $exist, and $watch still works.
+          </div>
+          <demo_box +loading="viewModule_withDirectives">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <tip>
+            If a view module requires specific scope variables to work, it's not
+            necessary to always attach a +loading on the view module instance so
+            long as the variables are accessible on the scope tree.
+          </tip>
+        </div>
+        <div class="sub-section">
+          <div id="init" class="sub-title">
+            Initializing preset scope values in view module
+          </div>
+          <div>
+            In cases where the module requires many scope variables, you can
+            define some preset scope variables in the module settings. When
+            calling the module, the module instance can choose to use the preset
+            values by adding the +loading#init decorator.
+          </div>
+          <demo_box>
+            <div class="flex-row gap">
+              <demo_html
+                +loading="{demo: init_example_namecard, label: 'namecard.html'}"
+              ></demo_html>
+              <demo_html
+                +loading="{demo: init_example_index_single, label: 'index.html'}"
+              ></demo_html>
+            </div>
+          </demo_box>
+          <tip
+            >You can ignore the preset values by simply not using the #init
+            decorator.</tip
+          >
+          <div class="letter">
+            When using preset values, you can override specific presets and add
+            new values by defining scope variables in the +loading directive.
+            Using preset values will override scope values in it's parent scope.
+          </div>
+          <demo_box>
+            <div class="flex-row gap">
+              <demo_html
+                +loading="{demo: init_example_index_many, label: 'index.html'}"
+              ></demo_html>
+              <demo_browser
+                +loading="{html: init_example_browser_many}"
+              ></demo_browser>
+            </div>
+          </demo_box>
+        </div>
+        <div class="sub-section">
+          <div id="slot" class="sub-title">Inserting content via @slot</div>
+          <div class="letter">
+            By default, the view module does not recognize any content written
+            inside the view module instance tags. However, sometimes we need to
+            design more flexible components that allow custom organization of
+            it's internals, for example a layout component. We can achieve this
+            with the @slot meta directive written inside the module resource.
+          </div>
+          <demo_box +loading="slot_example_demo">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+        </div>
       </div>
     </content_layout>
   </template>
