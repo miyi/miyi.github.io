@@ -234,7 +234,7 @@ export const viewModule_withDirectives = {
 
 const slot_example_index = `
 <html>
-  <script>
+  <script type="dagger/modules">
     {
       hello: "./hello.html",
       goodbye: "./goodbye.html"

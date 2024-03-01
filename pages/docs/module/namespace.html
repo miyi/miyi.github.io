@@ -6,12 +6,13 @@
       demo_box: "/components/demo_box/index.html",
       grid_styles: "/styles/grid_styles.css",
       demo_styles: "../demo_styles.css",
+      js: './namespace.js'
     }
   </script>
   <template id="view">
     <content_layout
       +loading#plain="{
-        headings: null,
+        headings: headings,
         overflow: 'overflow: scroll'
       }"
     >
@@ -20,14 +21,23 @@
         <div class="directive">namespace</div>
         <div class="description">
           A collection of view, script, and style modules whose resources are
-          shared inside the same space.
+          freely shared inside the same space.
         </div>
         <div class="diagram">diagram</div>
       </div>
       <div class="section">
         <div class="section-title">Basic Usage</div>
         <div class="letter">
-          In dagger.js, everything is a namespace. The namespace concept in dagger is a scoped module management system. 
+          When you create a namespace with dagger/modules, think of it like
+          importing resources for use inside the file. The resources
+          can be any dagger modules, including another namespace. Similarly the
+          namespace can be called by another namespace.
+        </div>
+        <div class="sub-section">
+          <div class="sub-title">creating a namespace</div>
+        </div>
+        <div class="sub-section">
+          <div class="sub-title">calling a namespace</div>
         </div>
       </div>
     </content_layout>
