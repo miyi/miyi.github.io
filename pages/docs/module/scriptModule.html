@@ -29,19 +29,20 @@
         <div id="basic" class="section-title">Basic Usage</div>
         <div class="letter">
           The script module is used for importing modularized javascript
-          resources dagger's namespace system. The script module only accepts
-          javascript in ESM format, so whether you are importing your own
-          scripts or using external libraries, make sure the resources have
+          resources dagger's namespace system. Once imported, the script module
+          can be freely use inside that namespace. The script module only
+          accepts javascript in ESM format, so whether you are importing your
+          own scripts or using external libraries, make sure the resources have
           named exports.
         </div>
       </div>
       <div class="section">
-        <div id="setting" class="section-title">
-          Settings
-        </div>
+        <div id="setting" class="section-title">Settings</div>
         <doc_table +loading="settings_table"></doc_table>
         <div class="sub-section">
-          <div class="sub-title">importing module resources with uri.</div>
+          <div id="uri" class="sub-title">
+            importing module resources with uri.
+          </div>
           <div class="letter">
             The following three demos show how to create a script module module
             via three different types of module resources, script tag, external
@@ -49,17 +50,56 @@
           </div>
           <demo_box>
             <div class="flex-row gap">
-              <demo_html +loading="{demo: tag_import_demo, label: 'tag import'}"></demo_html>
+              <demo_html
+                +loading="{demo: tag_import_demo, label: 'by tag'}"
+              ></demo_html>
               <demo_code +loading="byFile"></demo_code>
             </div>
             <div class="flex-row gap">
-              <demo_html +loading="{demo: link_import_demo, label: 'link import'}"></demo_html>
+              <demo_html
+                +loading="{demo: link_import_demo, label: 'by link'}"
+              ></demo_html>
             </div>
           </demo_box>
+        </div>
       </div>
       <div class="section">
-        <div id="example" class="section-title">
-          Examples
+        <div id="example" class="section-title">Examples</div>
+        <div class="sub-section">
+          <div id="use" class="sub-title">calling module functions</div>
+          <div class="letter">
+            Since the script module is set to anonymous by default, you can call
+            exported functions directly by the function name anywhere inside the
+            namespace where the script module is imported.
+          </div>
+          <demo_box +loading="usage_basic_demo">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div id="namespace" class="letter">
+            In namespaces with multiple view modules, exported module functions
+            are available to used in all of them.
+          </div>
+          <demo_box +loading="usage_namespace_demo">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
+          <div id="anonymouse" class="letter">
+            The above example uses the default anonymous: true setting. However,
+            when there are multiple script modules with the same function name,
+            it's useful to turn anonymouse to false. Once turned off, you must
+            include the module name when making function calls.
+          </div>
+          <demo_box +loading="usage_anonymouse_demo">
+            <div class="flex-row gap">
+              <demo_code></demo_code>
+              <demo_browser></demo_browser>
+            </div>
+          </demo_box>
         </div>
       </div>
     </content_layout>
